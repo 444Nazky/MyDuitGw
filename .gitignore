@@ -9,3 +9,4 @@ web-build/
 .env.local
 .env.*.local
 dashboard/dist/
+tools/receipt-hash/target/

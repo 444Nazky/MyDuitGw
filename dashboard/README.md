@@ -33,6 +33,10 @@ Row level security normally shows a user only their own profile. To let an accou
 update public.profiles set is_admin = true where email = 'you@mail.com';
 ```
 
+## Sample data
+
+After signing up once, open `supabase/demo-data.sql`, replace `you@mail.com` with your account email, and run it in Supabase SQL Editor. The dashboard then looks like the figcraft screenshots.
+
 ## Schema
 
 `supabase/migrations/20261123000000_init.sql` creates `profiles`, `transactions`, `debts`, the private `receipts` storage bucket, RLS policies, and realtime publication. Amounts are stored in USD base units; the UI converts for IDR display at 16,300.

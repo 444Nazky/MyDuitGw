@@ -1,0 +1,13 @@
+* text=auto
+
+SKILLS/** linguist-vendored
+android/** linguist-vendored
+UI/** linguist-vendored
+tools/receipt-hash/target/** linguist-vendored
+dashboard/dist/** linguist-vendored
+
+*.js linguist-detectable=false
+*.json linguist-detectable=false
+*.css linguist-detectable=false
+*.html linguist-detectable=false
+*.sql linguist-detectable=false
