@@ -5,3 +5,7 @@ web-build/
 *.log
 .DS_Store
 *.apk
+.env
+.env.local
+.env.*.local
+dashboard/dist/

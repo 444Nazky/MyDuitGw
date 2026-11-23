@@ -12,14 +12,31 @@ interface DebtDetailModalProps {
 }
 
 export function DebtDetailModal({ debt, onClose }: DebtDetailModalProps) {
-  const { toggleDebtStatus, deleteDebt, currency } = useFinance();
+  const { toggleDebtStatus, deleteDebt, currency, receiptUrl } = useFinance();
   const [snapshot, setSnapshot] = useState<Debt | null>(debt);
+  const [imageUri, setImageUri] = useState<string | null>(null);
 
   useEffect(() => {
     if (debt) setSnapshot(debt);
   }, [debt]);
 
   const current = debt ?? snapshot;
+  const receiptPath = current?.receiptUri ?? null;
+
+  useEffect(() => {
+    let active = true;
+    if (!receiptPath) {
+      setImageUri(null);
+      return;
+    }
+    void receiptUrl(receiptPath).then((uri) => {
+      if (active) setImageUri(uri);
+    });
+    return () => {
+      active = false;
+    };
+  }, [receiptPath, receiptUrl]);
+
   const visible = debt !== null;
   const paid = current?.status === 'paid';
 
@@ -129,9 +146,9 @@ export function DebtDetailModal({ debt, onClose }: DebtDetailModalProps) {
           <Text className="mb-2 mt-6 text-[12px] uppercase tracking-wide text-faint">
             Transfer receipt
           </Text>
-          {current.receiptUri ? (
+          {imageUri ? (
             <Image
-              source={{ uri: current.receiptUri }}
+              source={{ uri: imageUri }}
               style={{ width: '100%', height: 210, borderRadius: 16 }}
               resizeMode="cover"
             />

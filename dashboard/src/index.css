@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-obsidian font-sans text-ink antialiased;
+  }
+
+  ::selection {
+    background: rgba(124, 92, 255, 0.35);
+  }
+
+  input,
+  textarea,
+  select {
+    @apply outline-none;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-[24px] border border-white/[0.06] bg-card;
+  }
+
+  .pill {
+    @apply rounded-full border border-white/[0.08] px-4 py-2 text-sm font-medium text-muted transition-colors hover:text-ink;
+  }
+
+  .pill-active {
+    @apply bg-white text-black hover:text-black;
+  }
+
+  .field {
+    @apply h-12 w-full rounded-2xl border border-white/[0.08] bg-[#101012] px-4 text-[15px] text-ink placeholder:text-faint;
+  }
+}

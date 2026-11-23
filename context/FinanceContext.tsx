@@ -6,8 +6,9 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { isCurrentMonth } from '@/lib/format';
+import type { Session, User } from '@supabase/supabase-js';
+import { supabase } from '@/lib/supabase';
+import { isCurrentMonth, USD_TO_IDR } from '@/lib/format';
 import type {
   CurrencyCode,
   Debt,
@@ -30,6 +31,9 @@ interface FinanceContextValue {
   profile: Profile;
   currency: CurrencyCode;
   hydrated: boolean;
+  session: Session | null;
+  user: User | null;
+  authLoading: boolean;
   totalBalance: number;
   monthlyIncome: number;
   monthlyExpense: number;
@@ -38,20 +42,55 @@ interface FinanceContextValue {
   totalLentOut: number;
   activeDebtCount: number;
   settledDebtCount: number;
-  addTransaction: (draft: TransactionDraft) => void;
-  updateTransaction: (id: string, draft: TransactionDraft) => void;
-  deleteTransaction: (id: string) => void;
-  addDebt: (draft: DebtDraft) => void;
-  toggleDebtStatus: (id: string) => void;
-  deleteDebt: (id: string) => void;
-  setCurrency: (currency: CurrencyCode) => void;
-  updateProfile: (patch: Partial<Profile>) => void;
-  resetData: () => void;
+  addTransaction: (draft: TransactionDraft) => Promise<void>;
+  updateTransaction: (id: string, draft: TransactionDraft) => Promise<void>;
+  deleteTransaction: (id: string) => Promise<void>;
+  addDebt: (draft: DebtDraft) => Promise<void>;
+  toggleDebtStatus: (id: string) => Promise<void>;
+  deleteDebt: (id: string) => Promise<void>;
+  setCurrency: (currency: CurrencyCode) => Promise<void>;
+  updateProfile: (patch: Partial<Profile>) => Promise<void>;
+  resetData: () => Promise<void>;
+  signIn: (email: string, password: string) => Promise<string | null>;
+  signUp: (email: string, password: string, name?: string) => Promise<string | null>;
+  signOut: () => Promise<void>;
+  receiptUrl: (path: string | null) => Promise<string | null>;
+  uploadReceipt: (uri: string, debtId: string) => Promise<string | null>;
+}
+
+interface TransactionRow {
+  id: string;
+  user_id: string;
+  type: 'income' | 'expense';
+  amount: number | string;
+  category: TransactionCategory;
+  note: string | null;
+  date: string;
+}
+
+interface DebtRow {
+  id: string;
+  user_id: string;
+  borrower_name: string;
+  borrower_email: string | null;
+  amount: number | string;
+  loan_date: string;
+  reason: string;
+  receipt_path: string | null;
+  status: 'unpaid' | 'paid';
+}
+
+interface ProfileRow {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  username: string;
+  avatar_url: string | null;
+  currency: CurrencyCode;
 }
 
 const FinanceContext = createContext<FinanceContextValue | undefined>(undefined);
-
-const STORAGE_KEY = 'myduitgw.state.v1';
 
 export const EMPTY_PROFILE: Profile = {
   name: '',
@@ -60,17 +99,37 @@ export const EMPTY_PROFILE: Profile = {
   username: '',
 };
 
-let sequence = 0;
-function createId(prefix: string): string {
-  sequence += 1;
-  return `${prefix}_${Date.now().toString(36)}_${sequence}`;
+function toTransaction(row: TransactionRow): Transaction {
+  return {
+    id: row.id,
+    type: row.type,
+    amount: Number(row.amount),
+    category: row.category,
+    note: row.note ?? undefined,
+    date: row.date,
+  };
 }
 
-interface StoredState {
-  transactions?: Transaction[];
-  debts?: Debt[];
-  profile?: Profile;
-  currency?: CurrencyCode;
+function toDebt(row: DebtRow): Debt {
+  return {
+    id: row.id,
+    borrowerName: row.borrower_name,
+    amount: Number(row.amount),
+    loanDate: row.loan_date,
+    reason: row.reason,
+    receiptUri: row.receipt_path ?? undefined,
+    status: row.status,
+  };
+}
+
+function toProfile(row: ProfileRow): Profile {
+  return {
+    name: row.name,
+    email: row.email,
+    phone: row.phone,
+    username: row.username,
+    avatarUri: row.avatar_url ?? undefined,
+  };
 }
 
 export function FinanceProvider({ children }: { children: React.ReactNode }) {
@@ -79,87 +138,273 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
   const [profile, setProfile] = useState<Profile>(EMPTY_PROFILE);
   const [currency, setCurrencyState] = useState<CurrencyCode>('USD');
   const [hydrated, setHydrated] = useState(false);
+  const [session, setSession] = useState<Session | null>(null);
+  const [authLoading, setAuthLoading] = useState(true);
 
   useEffect(() => {
     let active = true;
-
-    AsyncStorage.getItem(STORAGE_KEY)
-      .then((raw) => {
-        if (!active || !raw) return;
-        const stored = JSON.parse(raw) as StoredState;
-        if (Array.isArray(stored.transactions)) setTransactions(stored.transactions);
-        if (Array.isArray(stored.debts)) setDebts(stored.debts);
-        if (stored.profile) setProfile({ ...EMPTY_PROFILE, ...stored.profile });
-        if (stored.currency === 'USD' || stored.currency === 'IDR') {
-          setCurrencyState(stored.currency);
-        }
-      })
-      .catch(() => undefined)
-      .finally(() => {
-        if (active) setHydrated(true);
-      });
-
+    supabase.auth.getSession().then(({ data }) => {
+      if (!active) return;
+      setSession(data.session);
+      setAuthLoading(false);
+    });
+    const { data } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+      setSession(nextSession);
+    });
     return () => {
       active = false;
+      data.subscription.unsubscribe();
     };
   }, []);
 
+  const loadData = useCallback(async (userId: string) => {
+    const [transactionResult, debtResult, profileResult] = await Promise.all([
+      supabase
+        .from('transactions')
+        .select('*')
+        .eq('user_id', userId)
+        .order('date', { ascending: false }),
+      supabase
+        .from('debts')
+        .select('*')
+        .eq('user_id', userId)
+        .order('loan_date', { ascending: false }),
+      supabase.from('profiles').select('*').eq('id', userId).maybeSingle(),
+    ]);
+
+    if (transactionResult.data) setTransactions(transactionResult.data.map(toTransaction));
+    if (debtResult.data) setDebts(debtResult.data.map(toDebt));
+
+    if (profileResult.data) {
+      const row = profileResult.data as ProfileRow;
+      setProfile(toProfile(row));
+      setCurrencyState(row.currency === 'IDR' ? 'IDR' : 'USD');
+    } else {
+      const { data: created } = await supabase
+        .from('profiles')
+        .insert({
+          id: userId,
+          name: '',
+          email: '',
+          phone: '',
+          username: '',
+          currency: 'USD',
+        })
+        .select()
+        .maybeSingle();
+      if (created) setProfile(toProfile(created as ProfileRow));
+    }
+    setHydrated(true);
+  }, []);
+
+  const userId = session?.user.id;
+
   useEffect(() => {
-    if (!hydrated) return;
-    AsyncStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify({ transactions, debts, profile, currency }),
-    ).catch(() => undefined);
-  }, [hydrated, transactions, debts, profile, currency]);
+    if (!userId) {
+      setTransactions([]);
+      setDebts([]);
+      setProfile(EMPTY_PROFILE);
+      setHydrated(true);
+      return;
+    }
 
-  const addTransaction = useCallback((draft: TransactionDraft) => {
-    const transaction: Transaction = { ...draft, id: createId('txn') };
-    setTransactions((current) => [transaction, ...current]);
+    setHydrated(false);
+    void loadData(userId);
+
+    const channel = supabase
+      .channel('myduitgw-mobile')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'transactions' }, () => {
+        void loadData(userId);
+      })
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'debts' }, () => {
+        void loadData(userId);
+      })
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'profiles' }, () => {
+        void loadData(userId);
+      })
+      .subscribe();
+
+    return () => {
+      void supabase.removeChannel(channel);
+    };
+  }, [userId, loadData]);
+
+  const addTransaction = useCallback(
+    async (draft: TransactionDraft) => {
+      if (!userId) return;
+      const { data, error } = await supabase
+        .from('transactions')
+        .insert({
+          user_id: userId,
+          type: draft.type,
+          amount: draft.amount,
+          category: draft.category,
+          note: draft.note ?? null,
+          date: draft.date,
+        })
+        .select()
+        .single();
+      if (error || !data) return;
+      setTransactions((current) => [toTransaction(data as TransactionRow), ...current]);
+    },
+    [userId],
+  );
+
+  const updateTransaction = useCallback(
+    async (id: string, draft: TransactionDraft) => {
+      const { data, error } = await supabase
+        .from('transactions')
+        .update({
+          type: draft.type,
+          amount: draft.amount,
+          category: draft.category,
+          note: draft.note ?? null,
+          date: draft.date,
+        })
+        .eq('id', id)
+        .select()
+        .single();
+      if (error || !data) return;
+      setTransactions((current) =>
+        current.map((transaction) =>
+          transaction.id === id ? toTransaction(data as TransactionRow) : transaction,
+        ),
+      );
+    },
+    [],
+  );
+
+  const deleteTransaction = useCallback(async (id: string) => {
+    const { error } = await supabase.from('transactions').delete().eq('id', id);
+    if (!error) setTransactions((current) => current.filter((transaction) => transaction.id !== id));
   }, []);
 
-  const updateTransaction = useCallback((id: string, draft: TransactionDraft) => {
-    setTransactions((current) =>
-      current.map((transaction) =>
-        transaction.id === id ? { ...draft, id } : transaction,
-      ),
+  const uploadReceipt = useCallback(
+    async (uri: string, debtId: string) => {
+      if (!userId) return null;
+      try {
+        const response = await fetch(uri);
+        const blob = await response.blob();
+        const path = `${userId}/${debtId}.jpg`;
+        const { error } = await supabase.storage
+          .from('receipts')
+          .upload(path, blob, { contentType: 'image/jpeg', upsert: true });
+        return error ? null : path;
+      } catch {
+        return null;
+      }
+    },
+    [userId],
+  );
+
+  const addDebt = useCallback(
+    async (draft: DebtDraft) => {
+      if (!userId) return;
+      const debtId = `debt_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
+      let receiptPath: string | null = draft.receiptUri ?? null;
+      if (draft.receiptUri && !draft.receiptUri.startsWith('http')) {
+        const uploaded = await uploadReceipt(draft.receiptUri, debtId);
+        receiptPath = uploaded;
+      }
+      const { data, error } = await supabase
+        .from('debts')
+        .insert({
+          id: debtId,
+          user_id: userId,
+          borrower_name: draft.borrowerName,
+          amount: draft.amount,
+          loan_date: draft.loanDate,
+          reason: draft.reason,
+          receipt_path: receiptPath,
+        })
+        .select()
+        .single();
+      if (error || !data) return;
+      setDebts((current) => [toDebt(data as DebtRow), ...current]);
+    },
+    [userId, uploadReceipt],
+  );
+
+  const toggleDebtStatus = useCallback(async (id: string) => {
+    const current = debts.find((debt) => debt.id === id);
+    if (!current) return;
+    const status = current.status === 'paid' ? 'unpaid' : 'paid';
+    const { error } = await supabase.from('debts').update({ status }).eq('id', id);
+    if (error) return;
+    setDebts((items) =>
+      items.map((debt) => (debt.id === id ? { ...debt, status } : debt)),
     );
+  }, [debts]);
+
+  const deleteDebt = useCallback(async (id: string) => {
+    const { error } = await supabase.from('debts').delete().eq('id', id);
+    if (!error) setDebts((current) => current.filter((debt) => debt.id !== id));
   }, []);
 
-  const deleteTransaction = useCallback((id: string) => {
-    setTransactions((current) => current.filter((transaction) => transaction.id !== id));
-  }, []);
+  const setCurrency = useCallback(
+    async (next: CurrencyCode) => {
+      if (!userId) return;
+      setCurrencyState(next);
+      await supabase.from('profiles').update({ currency: next }).eq('id', userId);
+    },
+    [userId],
+  );
 
-  const addDebt = useCallback((draft: DebtDraft) => {
-    const debt: Debt = { ...draft, id: createId('debt'), status: 'unpaid' };
-    setDebts((current) => [debt, ...current]);
-  }, []);
+  const updateProfile = useCallback(
+    async (patch: Partial<Profile>) => {
+      if (!userId) return;
+      const row: Record<string, string | null> = {};
+      if (patch.name !== undefined) row.name = patch.name;
+      if (patch.email !== undefined) row.email = patch.email;
+      if (patch.phone !== undefined) row.phone = patch.phone;
+      if (patch.username !== undefined) row.username = patch.username;
+      if (patch.avatarUri !== undefined) row.avatar_url = patch.avatarUri;
+      setProfile((current) => ({ ...current, ...patch }));
+      if (Object.keys(row).length > 0) {
+        await supabase.from('profiles').update(row).eq('id', userId);
+      }
+    },
+    [userId],
+  );
 
-  const toggleDebtStatus = useCallback((id: string) => {
-    setDebts((current) =>
-      current.map((debt) =>
-        debt.id === id
-          ? { ...debt, status: debt.status === 'paid' ? 'unpaid' : 'paid' }
-          : debt,
-      ),
-    );
-  }, []);
-
-  const deleteDebt = useCallback((id: string) => {
-    setDebts((current) => current.filter((debt) => debt.id !== id));
-  }, []);
-
-  const setCurrency = useCallback((next: CurrencyCode) => {
-    setCurrencyState(next);
-  }, []);
-
-  const updateProfile = useCallback((patch: Partial<Profile>) => {
-    setProfile((current) => ({ ...current, ...patch }));
-  }, []);
-
-  const resetData = useCallback(() => {
+  const resetData = useCallback(async () => {
+    if (!userId) return;
+    await Promise.all([
+      supabase.from('transactions').delete().eq('user_id', userId),
+      supabase.from('debts').delete().eq('user_id', userId),
+    ]);
     setTransactions([]);
     setDebts([]);
     setProfile(EMPTY_PROFILE);
+  }, [userId]);
+
+  const signIn = useCallback(async (email: string, password: string) => {
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    return error?.message ?? null;
+  }, []);
+
+  const signUp = useCallback(async (email: string, password: string, name?: string) => {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { name: name ?? '' } },
+    });
+    if (error) return error.message;
+    if (!data.session) return 'Account created. Check your email to confirm it, then sign in.';
+    return null;
+  }, []);
+
+  const signOut = useCallback(async () => {
+    await supabase.auth.signOut();
+  }, []);
+
+  const receiptUrl = useCallback(async (path: string | null) => {
+    if (!path) return null;
+    if (path.startsWith('http')) return path;
+    const { data, error } = await supabase.storage
+      .from('receipts')
+      .createSignedUrl(path, 60 * 60);
+    return error ? null : data.signedUrl;
   }, []);
 
   const summary = useMemo(() => {
@@ -170,16 +415,12 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
     const spendByCategory = new Map<TransactionCategory, number>();
 
     for (const transaction of transactions) {
-      if (transaction.type === 'income') {
-        totalIncome += transaction.amount;
-      } else {
-        totalExpense += transaction.amount;
-      }
+      if (transaction.type === 'income') totalIncome += transaction.amount;
+      else totalExpense += transaction.amount;
 
       if (isCurrentMonth(new Date(transaction.date))) {
-        if (transaction.type === 'income') {
-          monthlyIncome += transaction.amount;
-        } else {
+        if (transaction.type === 'income') monthlyIncome += transaction.amount;
+        else {
           monthlyExpense += transaction.amount;
           spendByCategory.set(
             transaction.category,
@@ -218,6 +459,9 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
       profile,
       currency,
       hydrated,
+      session,
+      user: session?.user ?? null,
+      authLoading,
       ...summary,
       addTransaction,
       updateTransaction,
@@ -228,6 +472,11 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
       setCurrency,
       updateProfile,
       resetData,
+      signIn,
+      signUp,
+      signOut,
+      receiptUrl,
+      uploadReceipt,
     }),
     [
       transactions,
@@ -235,6 +484,8 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
       profile,
       currency,
       hydrated,
+      session,
+      authLoading,
       summary,
       addTransaction,
       updateTransaction,
@@ -245,6 +496,11 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
       setCurrency,
       updateProfile,
       resetData,
+      signIn,
+      signUp,
+      signOut,
+      receiptUrl,
+      uploadReceipt,
     ],
   );
 
@@ -253,8 +509,6 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
 
 export function useFinance(): FinanceContextValue {
   const context = useContext(FinanceContext);
-  if (!context) {
-    throw new Error('useFinance must be used inside a FinanceProvider');
-  }
+  if (!context) throw new Error('useFinance must be used inside a FinanceProvider');
   return context;
 }
