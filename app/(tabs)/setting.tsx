@@ -89,7 +89,7 @@ export default function SettingScreen() {
   const openAbout = () => {
     Alert.alert(
       'About My Duit Gw',
-      'Version 1.0.1\n\nA personal finance and peer-to-peer loan tracker. All data stays on this device.',
+      'Version 1.0.3\n\nA personal finance and peer-to-peer loan tracker. All data stays on this device.',
     );
   };
 
@@ -167,7 +167,7 @@ export default function SettingScreen() {
               <Info size={26} color="#9B87FF" strokeWidth={1.6} />
               <View className="mt-auto">
                 <Text className="text-[16px] font-semibold text-ink">About App</Text>
-                <Text className="mt-1 text-[12.5px] text-muted">Version 1.0.1</Text>
+                <Text className="mt-1 text-[12.5px] text-muted">Version 1.0.3</Text>
               </View>
             </Pressable>
           </View>
@@ -226,7 +226,7 @@ export default function SettingScreen() {
           <Text className="text-[15.5px] font-semibold text-coral">Clear All Data</Text>
         </Pressable>
 
-        <Text className="mt-6 text-center text-[12px] text-faint">My Duit Gw · v1.0.1</Text>
+        <Text className="mt-6 text-center text-[12px] text-faint">My Duit Gw · v1.0.3</Text>
       </Screen>
 
       <EditProfileModal visible={editOpen} onClose={() => setEditOpen(false)} />

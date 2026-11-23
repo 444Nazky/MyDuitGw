@@ -1,7 +1,6 @@
 import '../global.css';
 
 import { useEffect } from 'react';
-import { ActivityIndicator, View } from 'react-native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
@@ -15,8 +14,7 @@ import {
   Inter_800ExtraBold,
   useFonts,
 } from '@expo-google-fonts/inter';
-import { LoginScreen } from '@/components/LoginScreen';
-import { FinanceProvider, useFinance } from '@/context/FinanceContext';
+import { FinanceProvider } from '@/context/FinanceContext';
 
 SplashScreen.preventAutoHideAsync().catch(() => undefined);
 
@@ -42,26 +40,14 @@ export default function RootLayout() {
       <SafeAreaProvider>
         <FinanceProvider>
           <StatusBar style="light" />
-          <RootContent />
+          <MainStack />
         </FinanceProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );
 }
 
-function RootContent() {
-  const { authLoading, session } = useFinance();
-
-  if (authLoading) {
-    return (
-      <View className="flex-1 items-center justify-center bg-obsidian">
-        <ActivityIndicator color="#7C5CFF" />
-      </View>
-    );
-  }
-
-  if (!session) return <LoginScreen />;
-
+function MainStack() {
   return (
     <Stack
       screenOptions={{

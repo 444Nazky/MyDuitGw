@@ -1,6 +1,6 @@
 {
   "name": "my-duit-gw",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "expo-router/entry",
   "private": true,
   "scripts": {
@@ -9,6 +9,8 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
+    "build:dashboard": "npm --prefix dashboard run build",
+    "deploy:hosting": "npm run build:dashboard && firebase deploy --only hosting",
     "test": "node --test tests/"
   },
   "dependencies": {
