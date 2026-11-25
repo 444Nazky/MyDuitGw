@@ -128,7 +128,7 @@ export function DebtDetailModal({ debt, onClose }: DebtDetailModalProps) {
           </View>
 
           <Text
-            className={`mt-4 text-center text-[38px] font-bold tracking-tight ${
+            className={`mt-4 text-center text-[34px] font-semibold tracking-tight ${
               paid ? 'text-faint line-through' : 'text-ink'
             }`}
           >

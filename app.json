@@ -2,7 +2,7 @@
   "expo": {
     "name": "My Duit Gw",
     "slug": "my-duit-gw",
-    "version": "1.1.3",
+    "version": "1.1.5",
     "orientation": "portrait",
     "scheme": "myduitgw",
     "userInterfaceStyle": "dark",

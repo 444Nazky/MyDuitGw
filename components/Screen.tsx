@@ -5,9 +5,10 @@ import { useFinance } from '@/context/FinanceContext';
 
 interface ScreenProps {
   children: React.ReactNode;
+  horizontalPadding?: number;
 }
 
-export function Screen({ children }: ScreenProps) {
+export function Screen({ children, horizontalPadding = 22 }: ScreenProps) {
   const insets = useSafeAreaInsets();
   const { refresh } = useFinance();
   const [refreshing, setRefreshing] = useState(false);
@@ -37,7 +38,7 @@ export function Screen({ children }: ScreenProps) {
         }
         contentContainerStyle={{
           paddingTop: insets.top + 12,
-          paddingHorizontal: 22,
+          paddingHorizontal: horizontalPadding,
           paddingBottom: 136,
         }}
       >

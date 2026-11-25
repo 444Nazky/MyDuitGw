@@ -47,7 +47,7 @@ export function BalanceCard({ onAdd }: { onAdd: () => void }) {
             <LinearGradient id="balanceCard" x1="0" y1="1" x2="0.82" y2="0.18">
               <Stop offset="0" stopColor="#161616" />
               <Stop offset="0.48" stopColor="#1D1D1D" />
-              <Stop offset="1" stopColor="#2E2E2E" />
+              <Stop offset="1" stopColor="#2C2C2C" />
             </LinearGradient>
           </Defs>
           <Rect width="100%" height="100%" fill="url(#balanceCard)" />
@@ -78,7 +78,7 @@ export function BalanceCard({ onAdd }: { onAdd: () => void }) {
             <View className="flex-1 pr-3">
               <Text
                 style={{
-                  fontSize: 14.5,
+                  fontSize: 13,
                   fontWeight: '600',
                   letterSpacing: -0.2,
                   color: '#FFFFFF',
@@ -89,8 +89,8 @@ export function BalanceCard({ onAdd }: { onAdd: () => void }) {
               <Text
                 numberOfLines={1}
                 style={{
-                  marginTop: 6,
-                  fontSize: 19,
+                  marginTop: 4,
+                  fontSize: 17,
                   fontWeight: '600',
                   letterSpacing: -0.3,
                   color: '#777777',
@@ -110,7 +110,7 @@ export function BalanceCard({ onAdd }: { onAdd: () => void }) {
                 adjustsFontSizeToFit
                 style={{
                   flex: 1,
-                  fontSize: 31,
+                  fontSize: 27,
                   fontWeight: '700',
                   letterSpacing: -0.8,
                   color: '#FFFFFF',
@@ -127,18 +127,18 @@ export function BalanceCard({ onAdd }: { onAdd: () => void }) {
               >
                 <View
                   style={{
-                    width: 21,
-                    height: 21,
-                    borderRadius: 11,
+                    width: 20,
+                    height: 20,
+                    borderRadius: 10,
                     backgroundColor: '#EB001B',
                   }}
                 />
                 <View
                   style={{
-                    width: 21,
-                    height: 21,
-                    borderRadius: 11,
-                    marginLeft: -8,
+                    width: 20,
+                    height: 20,
+                    borderRadius: 10,
+                    marginLeft: -7,
                     backgroundColor: '#F79E1B',
                     opacity: 0.92,
                   }}
@@ -147,10 +147,10 @@ export function BalanceCard({ onAdd }: { onAdd: () => void }) {
             </View>
 
             <View className="mt-2.5 flex-row items-center justify-between">
-              <Text style={{ fontSize: 13, fontWeight: '500', color: '#777777' }}>
+              <Text style={{ fontSize: 12, fontWeight: '500', color: '#777777' }}>
                 Personal account
               </Text>
-              <Text style={{ fontSize: 13, fontWeight: '500', color: '#777777' }}>
+              <Text style={{ fontSize: 12, fontWeight: '500', color: '#777777' }}>
                 **** 3264
               </Text>
             </View>

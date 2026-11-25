@@ -25,6 +25,11 @@ export default function DebtScreen() {
     ? sortedDebts.find((debt) => debt.id === selectedId) ?? null
     : null;
 
+  // "Rp. 100.000" keeps the dotted rupiah prefix used for lent-out totals.
+  const totalMoney = formatMoney(totalLentOut, currency);
+  const totalLabel =
+    currency === 'IDR' ? totalMoney.replace('Rp ', 'Rp. ') : totalMoney;
+
   return (
     <View className="flex-1">
       <Screen>
@@ -46,11 +51,9 @@ export default function DebtScreen() {
             <Text
               numberOfLines={1}
               adjustsFontSizeToFit
-              className={`mt-2 text-[30px] font-bold tracking-tight ${
-                totalLentOut > 0 ? 'text-accent' : 'text-ink'
-              }`}
+              className="mt-2 text-[30px] font-semibold tracking-tight text-ink"
             >
-              {formatMoney(totalLentOut, currency)}
+              {totalLabel}
             </Text>
             <Text className="mt-2 text-[12.5px] text-faint">
               {activeDebtCount} active loan{activeDebtCount === 1 ? '' : 's'}
@@ -91,8 +94,8 @@ export default function DebtScreen() {
                       Lent on {formatShortDate(debt.loanDate)}
                     </Text>
                   </View>
-                  <Text className="text-[15.5px] font-semibold text-accent">
-                    {formatMoney(debt.amount, currency)}
+                  <Text numberOfLines={1} className="text-[15px] font-medium text-ink">
+                    -{formatMoney(debt.amount, currency)}
                   </Text>
                 </Pressable>
               );

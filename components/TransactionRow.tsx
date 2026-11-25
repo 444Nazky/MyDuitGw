@@ -39,7 +39,8 @@ export function TransactionRow({
         <Text className="mt-1 text-[12.5px] text-muted">{subtitle}</Text>
       </View>
       <Text
-        className={`text-[15px] font-semibold ${
+        numberOfLines={1}
+        className={`text-[15px] font-medium ${
           tone === 'income' ? 'text-positive' : 'text-negative'
         }`}
       >
