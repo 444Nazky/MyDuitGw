@@ -49,6 +49,7 @@ interface FinanceContextValue {
   addDebt: (draft: DebtDraft) => Promise<string | null>;
   toggleDebtStatus: (id: string) => Promise<void>;
   deleteDebt: (id: string) => Promise<void>;
+  setDebtReceipt: (id: string, uri: string | null) => Promise<string | null>;
   setCurrency: (currency: CurrencyCode) => Promise<void>;
   updateProfile: (patch: Partial<Profile>) => Promise<void>;
   resetData: () => Promise<void>;
@@ -364,6 +365,36 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
     if (!error) setDebts((current) => current.filter((debt) => debt.id !== id));
   }, []);
 
+  const setDebtReceipt = useCallback(
+    async (id: string, uri: string | null) => {
+      if (!userId) return 'You are not signed in.';
+
+      if (!uri) {
+        const { error } = await supabase.from('debts').update({ receipt_path: null }).eq('id', id);
+        if (error) return error.message;
+        setDebts((items) =>
+          items.map((debt) => (debt.id === id ? { ...debt, receiptUri: undefined } : debt)),
+        );
+        return null;
+      }
+
+      const uploaded = await uploadReceipt(uri, id);
+      if (!uploaded) return 'Could not upload the receipt. Try a smaller photo.';
+
+      const { error } = await supabase
+        .from('debts')
+        .update({ receipt_path: uploaded })
+        .eq('id', id);
+      if (error) return error.message;
+
+      setDebts((items) =>
+        items.map((debt) => (debt.id === id ? { ...debt, receiptUri: uploaded } : debt)),
+      );
+      return null;
+    },
+    [userId, uploadReceipt],
+  );
+
   const setCurrency = useCallback(
     async (next: CurrencyCode) => {
       if (!userId) return;
@@ -537,6 +568,7 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
       addDebt,
       toggleDebtStatus,
       deleteDebt,
+      setDebtReceipt,
       setCurrency,
       updateProfile,
       resetData,
@@ -562,6 +594,7 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
       addDebt,
       toggleDebtStatus,
       deleteDebt,
+      setDebtReceipt,
       setCurrency,
       updateProfile,
       resetData,

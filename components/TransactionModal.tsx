@@ -164,12 +164,16 @@ export function TransactionModal({
               key={option}
               onPress={() => setType(option)}
               className={`h-12 flex-1 items-center justify-center rounded-xl ${
-                active ? (option === 'income' ? 'bg-positive' : 'bg-[#333333]') : ''
+                active ? (option === 'income' ? 'bg-white' : 'bg-[#333333]') : ''
               }`}
             >
               <Text
                 className={`text-[15px] ${
-                  active ? 'font-semibold text-white' : 'font-medium text-muted'
+                  active
+                    ? option === 'income'
+                      ? 'font-semibold text-black'
+                      : 'font-semibold text-white'
+                    : 'font-medium text-muted'
                 }`}
               >
                 {option === 'income' ? 'Income' : 'Expense'}
@@ -244,16 +248,6 @@ export function TransactionModal({
         className="min-h-[88px] rounded-2xl bg-[#1C1C1C] p-4 text-[15px] text-ink"
         selectionColor="#8B5CF6"
       />
-
-      <View className="mt-4 flex-row items-center justify-center">
-        <View
-          className="mr-2 h-2.5 w-2.5 rounded-full"
-          style={{ backgroundColor: type === 'income' ? '#26C165' : '#9CA3AF' }}
-        />
-        <Text className="text-[12.5px] text-faint">
-          {type === 'income' ? 'Money coming in' : 'Money going out'} · {category}
-        </Text>
-      </View>
     </Sheet>
   );
 }

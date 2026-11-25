@@ -34,12 +34,6 @@ interface ChatMessage {
   card?: ReplyCard;
 }
 
-const QUICK_PROMPTS = [
-  'Catat pengeluaran kopi 25rb',
-  'Tambah pemasukan bonus 500rb',
-  'Catat hutang Budi 100rb',
-];
-
 const DEBT_PATTERN = /(hutang|utang|pinjam|pinjamin|piutang|lent)/i;
 const INCOME_PATTERN = /(pemasukan|masuk|gaji|bonus|dapat|terima|income|freelance|transfer masuk)/i;
 const EXPENSE_PATTERN = /(pengeluaran|keluar|beli|bayar|jajan|makan|kopi|expense|belanja|parkir)/i;
@@ -296,7 +290,7 @@ export function AIAgentSheet({ visible, onClose }: AIAgentSheetProps) {
           <ScrollView
             ref={scrollRef}
             className="flex-1"
-            contentContainerStyle={{ padding: 16, gap: 12, paddingBottom: 24 }}
+            contentContainerStyle={{ padding: 16, gap: 12, paddingBottom: 16 }}
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
             onContentSizeChange={scrollToEnd}
@@ -352,27 +346,9 @@ export function AIAgentSheet({ visible, onClose }: AIAgentSheetProps) {
             ) : null}
           </ScrollView>
 
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ gap: 6, paddingHorizontal: 16, paddingBottom: 8 }}
-          >
-            {QUICK_PROMPTS.map((prompt) => (
-              <Pressable
-                key={prompt}
-                onPress={() => send(prompt)}
-                disabled={thinking}
-                className="rounded-full bg-[#1A1A1A] px-3 py-1.5"
-                style={({ pressed }) => (pressed ? { opacity: 0.75 } : null)}
-              >
-                <Text className="text-[11px] text-[#B9B9C2]">{prompt}</Text>
-              </Pressable>
-            ))}
-          </ScrollView>
-
           <View
-            className="flex-row items-center gap-2 border-t border-white/[0.06] bg-[#0D0D0D] px-4 pt-2"
-            style={{ paddingBottom: Math.max(insets.bottom, 14) }}
+            className="flex-row items-center gap-2 border-t border-[#181818] bg-black px-4"
+            style={{ paddingTop: 12, paddingBottom: Math.max(insets.bottom, 12) }}
           >
             <TextInput
               value={input}

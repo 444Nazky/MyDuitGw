@@ -72,6 +72,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [session?.user.id, loadProfile]);
 
+  // The mobile app writes name/username/avatar to the same profiles row, so a
+  // dashboard left open used to keep showing whatever it loaded at sign-in.
+  useEffect(() => {
+    const userId = session?.user.id;
+    if (!userId) return;
+
+    const channel = supabase
+      .channel(`profile-sync-${userId}`)
+      .on(
+        'postgres_changes',
+        { event: 'UPDATE', schema: 'public', table: 'profiles', filter: `id=eq.${userId}` },
+        () => {
+          void loadProfile(userId);
+        },
+      )
+      .subscribe();
+
+    const onFocus = () => {
+      void loadProfile(userId);
+    };
+    window.addEventListener('focus', onFocus);
+
+    return () => {
+      window.removeEventListener('focus', onFocus);
+      void supabase.removeChannel(channel);
+    };
+  }, [session?.user.id, loadProfile]);
+
   const signIn = useCallback(async (email: string, password: string) => {
     setError(null);
     const { error: signInError } = await supabase.auth.signInWithPassword({
