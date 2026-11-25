@@ -107,7 +107,7 @@ export function AuthScreen() {
                 placeholderTextColor="#7C7C86"
                 autoCapitalize="none"
                 autoCorrect={false}
-                selectionColor="#7C5CFF"
+                selectionColor="#5FE3A1"
                 className={FIELD}
               />
             </View>
@@ -124,7 +124,7 @@ export function AuthScreen() {
               autoCapitalize="none"
               autoCorrect={false}
               autoComplete="email"
-              selectionColor="#7C5CFF"
+              selectionColor="#5FE3A1"
               className={FIELD}
             />
           </View>
@@ -140,31 +140,31 @@ export function AuthScreen() {
               autoCapitalize="none"
               autoCorrect={false}
               autoComplete={isSignUp ? 'new-password' : 'current-password'}
-              selectionColor="#7C5CFF"
+              selectionColor="#5FE3A1"
               onSubmitEditing={() => void submit()}
               className={FIELD}
             />
           </View>
 
           {message ? (
-            <Text className="mt-4 text-[13px] leading-[19px] text-[#FF9B9B]">{message}</Text>
+            <Text className="mt-4 text-[13px] leading-[19px] text-[#C9C9C9]">{message}</Text>
           ) : null}
 
           <Pressable
             accessibilityRole="button"
             disabled={busy}
             onPress={() => void submit()}
-            className="mt-7 h-[54px] flex-row items-center justify-center gap-2 rounded-[16px] bg-neon"
+            className="mt-7 h-[54px] flex-row items-center justify-center gap-2 rounded-[16px] bg-white"
             style={({ pressed }) => (pressed || busy ? { opacity: 0.85 } : null)}
           >
             {busy ? (
-              <ActivityIndicator color="#FFFFFF" />
+              <ActivityIndicator color="#000000" />
             ) : (
               <>
-                <Text className="text-[15.5px] font-semibold text-white">
+                <Text className="text-[15px] font-semibold text-black">
                   {isSignUp ? 'Create account' : 'Sign in'}
                 </Text>
-                <ArrowRight size={17} color="#FFFFFF" strokeWidth={2} />
+                <ArrowRight size={17} color="#000000" strokeWidth={2} />
               </>
             )}
           </Pressable>

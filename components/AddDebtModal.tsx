@@ -127,14 +127,20 @@ export function AddDebtModal({ visible, onClose }: AddDebtModalProps) {
             onPress={() => void handleSave()}
             disabled={!canSave || saving}
             className={`h-14 items-center justify-center rounded-2xl ${
-              canSave ? 'bg-neon' : 'bg-neon/40'
+              canSave ? 'bg-white' : 'bg-white/25'
             }`}
             style={({ pressed }) => (pressed && canSave ? { opacity: 0.88 } : null)}
           >
             {saving ? (
-              <ActivityIndicator color="#FFFFFF" />
+              <ActivityIndicator color="#000000" />
             ) : (
-              <Text className="text-[16.5px] font-semibold text-white">Save Debt Record</Text>
+              <Text
+                className={`text-[16px] font-semibold ${
+                  canSave ? 'text-black' : 'text-black/50'
+                }`}
+              >
+                Save Debt Record
+              </Text>
             )}
           </Pressable>
         </>
@@ -147,14 +153,14 @@ export function AddDebtModal({ visible, onClose }: AddDebtModalProps) {
         placeholder="Enter full name"
         placeholderTextColor="#5A5A63"
         className={INPUT}
-        selectionColor="#7C5CFF"
+        selectionColor="#5FE3A1"
       />
 
       <View className="mt-5 flex-row gap-3">
         <View className="flex-1">
           <Text className={LABEL}>Amount</Text>
           <View
-            className="h-14 flex-row items-center rounded-2xl border border-white/[0.08] bg-[#101012] px-4"
+            className="h-14 flex-row items-center rounded-2xl bg-[#1C1C1C] px-4"
           >
             <Text className="mr-1.5 text-[17px] font-semibold text-ink">{symbol}</Text>
             <TextInput
@@ -164,7 +170,7 @@ export function AddDebtModal({ visible, onClose }: AddDebtModalProps) {
               placeholderTextColor="#5A5A63"
               keyboardType="decimal-pad"
               className="flex-1 text-[17px] font-semibold text-ink"
-              selectionColor="#7C5CFF"
+              selectionColor="#5FE3A1"
             />
           </View>
         </View>
@@ -173,7 +179,7 @@ export function AddDebtModal({ visible, onClose }: AddDebtModalProps) {
           <Text className={LABEL}>Date &amp; Time</Text>
           <Pressable
             onPress={() => setCalendarOpen((open) => !open)}
-            className="h-14 flex-row items-center justify-between rounded-2xl border border-white/[0.08] bg-[#101012] px-3.5"
+            className="h-14 flex-row items-center justify-between rounded-2xl bg-[#1C1C1C] px-3.5"
           >
             <Text className="mr-1 text-[13px] text-ink" numberOfLines={1}>
               {formatDateTime(loanDate.toISOString())}
@@ -195,15 +201,15 @@ export function AddDebtModal({ visible, onClose }: AddDebtModalProps) {
         placeholderTextColor="#5A5A63"
         multiline
         textAlignVertical="top"
-        className="min-h-[96px] rounded-2xl border border-white/[0.08] bg-[#101012] p-4 text-[15px] text-ink"
-        selectionColor="#7C5CFF"
+        className="min-h-[96px] rounded-2xl bg-[#1C1C1C] p-4 text-[15px] text-ink"
+        selectionColor="#5FE3A1"
       />
 
       <Text className={`${LABEL} mt-5`}>Transfer Receipt</Text>
       {receiptUri ? (
         <View className="overflow-hidden rounded-2xl border border-white/[0.08]">
           <Image source={{ uri: receiptUri }} style={{ width: '100%', height: 172 }} resizeMode="cover" />
-          <View className="flex-row items-center justify-between bg-[#101012] px-3 py-2.5">
+          <View className="flex-row items-center justify-between bg-[#1C1C1C] px-3 py-2.5">
             <Pressable
               onPress={openReceiptPicker}
               className="flex-row items-center gap-2 rounded-full bg-white/[0.06] px-3.5 py-2"
@@ -224,7 +230,7 @@ export function AddDebtModal({ visible, onClose }: AddDebtModalProps) {
       ) : (
         <Pressable
           onPress={openReceiptPicker}
-          className="items-center justify-center rounded-2xl border border-dashed border-white/20 bg-[#101012] py-8"
+          className="items-center justify-center rounded-2xl border border-dashed border-white/20 bg-[#1C1C1C] py-8"
           style={({ pressed }) => (pressed ? { opacity: 0.85 } : null)}
         >
           <View className="mb-2 flex-row items-center gap-2">

@@ -71,13 +71,13 @@ export function DebtDetailModal({ debt, onClose }: DebtDetailModalProps) {
             <Pressable
               onPress={() => toggleDebtStatus(current.id)}
               className={`h-14 flex-row items-center justify-center gap-2 rounded-2xl ${
-                paid ? 'border border-white/[0.1] bg-[#1A1A1D]' : 'bg-neon'
+                paid ? 'bg-[#1C1C1C]' : 'bg-white'
               }`}
               style={({ pressed }) => (pressed ? { opacity: 0.88 } : null)}
             >
-              {paid ? null : <Check size={18} color="#FFFFFF" strokeWidth={2.4} />}
+              {paid ? null : <Check size={18} color="#000000" strokeWidth={2.4} />}
               <Text
-                className={`text-[16.5px] font-semibold ${paid ? 'text-[#D5D5DC]' : 'text-white'}`}
+                className={`text-[16px] font-semibold ${paid ? 'text-[#D5D5DC]' : 'text-black'}`}
               >
                 {paid ? 'Mark as Unpaid' : 'Mark as Paid'}
               </Text>
@@ -108,12 +108,12 @@ export function DebtDetailModal({ debt, onClose }: DebtDetailModalProps) {
             </Text>
             <View
               className={`mt-2 rounded-full px-3 py-1 ${
-                paid ? 'bg-neon/20' : 'bg-amber/15'
+                paid ? 'bg-white/10' : 'bg-white/[0.06]'
               }`}
             >
               <Text
-                className={`text-[12px] font-semibold uppercase tracking-wide ${
-                  paid ? 'text-[#B0A0FF]' : 'text-amber'
+                className={`text-[11.5px] font-semibold uppercase tracking-[1.2px] ${
+                  paid ? 'text-ink' : 'text-muted'
                 }`}
               >
                 {paid ? 'Paid' : 'Unpaid'}
@@ -123,13 +123,13 @@ export function DebtDetailModal({ debt, onClose }: DebtDetailModalProps) {
 
           <Text
             className={`mt-4 text-center text-[38px] font-bold tracking-tight ${
-              paid ? 'text-faint line-through' : 'text-amber'
+              paid ? 'text-faint line-through' : 'text-ink'
             }`}
           >
             {formatMoney(current.amount, currency)}
           </Text>
 
-          <View className="mt-6 rounded-2xl border border-white/[0.06] bg-[#101012] p-4">
+          <View className="mt-6 rounded-2xl border border-white/[0.06] bg-[#1C1C1C] p-4">
             <Text className="text-[12px] uppercase tracking-wide text-faint">Lent on</Text>
             <Text className="mt-1.5 text-[15px] text-ink">
               {formatMediumDate(current.loanDate)}
@@ -153,7 +153,7 @@ export function DebtDetailModal({ debt, onClose }: DebtDetailModalProps) {
               resizeMode="cover"
             />
           ) : (
-            <View className="items-center justify-center rounded-2xl border border-dashed border-white/[0.12] bg-[#101012] py-9">
+            <View className="items-center justify-center rounded-2xl border border-dashed border-white/[0.12] bg-[#1C1C1C] py-9">
               <ImageOff size={22} color="#5A5A63" strokeWidth={1.6} />
               <Text className="mt-2 text-[13px] text-faint">No receipt attached</Text>
             </View>

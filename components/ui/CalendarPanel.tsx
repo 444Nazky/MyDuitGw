@@ -60,7 +60,7 @@ export function CalendarPanel({ value, onChange, withTime = false }: CalendarPan
   };
 
   return (
-    <View className="mt-3 rounded-2xl border border-white/[0.07] bg-[#101012] p-4">
+    <View className="mt-3 rounded-[20px] bg-[#1C1C1C] p-4">
       <View className="mb-3 flex-row items-center justify-between">
         <Pressable
           accessibilityLabel="Previous month"
@@ -115,12 +115,12 @@ export function CalendarPanel({ value, onChange, withTime = false }: CalendarPan
             >
               <View
                 className={`h-9 w-9 items-center justify-center rounded-full ${
-                  selected ? 'bg-neon' : isToday ? 'border border-white/20' : ''
+                  selected ? 'bg-white' : isToday ? 'border border-white/25' : ''
                 }`}
               >
                 <Text
                   className={`text-[14px] ${
-                    selected ? 'font-semibold text-white' : 'text-[#D5D5DC]'
+                    selected ? 'font-semibold text-black' : 'text-[#D5D5DC]'
                   }`}
                 >
                   {day.getDate()}

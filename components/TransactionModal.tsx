@@ -131,11 +131,15 @@ export function TransactionModal({
             onPress={handleSave}
             disabled={!canSave}
             className={`h-14 items-center justify-center rounded-2xl ${
-              canSave ? 'bg-neon' : 'bg-neon/40'
+              canSave ? 'bg-white' : 'bg-white/25'
             }`}
             style={({ pressed }) => (pressed && canSave ? { opacity: 0.88 } : null)}
           >
-            <Text className="text-[16.5px] font-semibold text-white">
+            <Text
+              className={`text-[16px] font-semibold ${
+                canSave ? 'text-black' : 'text-black/50'
+              }`}
+            >
               {editing ? 'Save Changes' : 'Save Transaction'}
             </Text>
           </Pressable>
@@ -153,7 +157,7 @@ export function TransactionModal({
         </>
       }
     >
-      <View className="flex-row rounded-2xl border border-white/[0.07] bg-[#19191C] p-1.5">
+      <View className="flex-row rounded-2xl bg-[#1C1C1C] p-1.5">
         {(['income', 'expense'] as TransactionType[]).map((option) => {
           const active = type === option;
           return (
@@ -161,12 +165,12 @@ export function TransactionModal({
               key={option}
               onPress={() => setType(option)}
               className={`h-12 flex-1 items-center justify-center rounded-xl ${
-                active ? 'bg-neon' : ''
+                active ? 'bg-white' : ''
               }`}
             >
               <Text
                 className={`text-[15px] ${
-                  active ? 'font-semibold text-white' : 'font-medium text-muted'
+                  active ? 'font-semibold text-black' : 'font-medium text-muted'
                 }`}
               >
                 {option === 'income' ? 'Income' : 'Expense'}
@@ -190,7 +194,7 @@ export function TransactionModal({
           placeholderTextColor="#4C4C55"
           keyboardType="decimal-pad"
           className={`flex-1 font-bold text-ink ${currency === 'IDR' ? 'text-[32px]' : 'text-[40px]'}`}
-          selectionColor="#7C5CFF"
+          selectionColor="#5FE3A1"
         />
       </View>
 
@@ -202,12 +206,12 @@ export function TransactionModal({
               key={option}
               onPress={() => setCategory(option)}
               className={`h-11 items-center justify-center rounded-full border px-5 ${
-                active ? 'border-neon bg-neon' : 'border-white/[0.09] bg-[#17171A]'
+                active ? 'border-white bg-white' : 'border-transparent bg-[#1C1C1C]'
               }`}
             >
               <Text
-                className={`text-[14.5px] ${
-                  active ? 'font-semibold text-white' : 'font-medium text-[#B9B9C2]'
+                className={`text-[14px] ${
+                  active ? 'font-semibold text-black' : 'font-medium text-[#B9B9C2]'
                 }`}
               >
                 {option}
@@ -238,8 +242,8 @@ export function TransactionModal({
         placeholderTextColor="#5A5A63"
         multiline
         textAlignVertical="top"
-        className="min-h-[88px] rounded-2xl border border-white/[0.08] bg-[#101012] p-4 text-[15px] text-ink"
-        selectionColor="#7C5CFF"
+        className="min-h-[88px] rounded-2xl bg-[#1C1C1C] p-4 text-[15px] text-ink"
+        selectionColor="#5FE3A1"
       />
 
       <View className="mt-4 flex-row items-center justify-center">

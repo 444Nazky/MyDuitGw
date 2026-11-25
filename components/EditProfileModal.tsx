@@ -90,10 +90,10 @@ export function EditProfileModal({ visible, onClose }: EditProfileModalProps) {
       footer={
         <Pressable
           onPress={handleSave}
-          className="h-14 items-center justify-center rounded-2xl bg-neon"
+          className="h-14 items-center justify-center rounded-2xl bg-white"
           style={({ pressed }) => (pressed ? { opacity: 0.88 } : null)}
         >
-          <Text className="text-[16.5px] font-semibold text-white">Save Changes</Text>
+          <Text className="text-[16px] font-semibold text-black">Save Changes</Text>
         </Pressable>
       }
     >
@@ -114,13 +114,13 @@ export function EditProfileModal({ visible, onClose }: EditProfileModalProps) {
             accessibilityRole="button"
             accessibilityLabel="Change photo"
             onPress={choosePhoto}
-            className="absolute -bottom-1 -right-1 h-9 w-9 items-center justify-center rounded-full border-[3px] border-[#141416] bg-neon"
+            className="absolute -bottom-1 -right-1 h-9 w-9 items-center justify-center rounded-full border-[3px] border-[#161616] bg-white"
           >
-            <Camera size={16} color="#FFFFFF" strokeWidth={2} />
+            <Camera size={16} color="#000000" strokeWidth={2} />
           </Pressable>
         </View>
         <Pressable onPress={choosePhoto} hitSlop={8} className="mt-3">
-          <Text className="text-[14px] font-semibold text-neon">Change Photo</Text>
+          <Text className="text-[14px] font-semibold text-ink">Change Photo</Text>
         </Pressable>
       </View>
 
@@ -131,7 +131,7 @@ export function EditProfileModal({ visible, onClose }: EditProfileModalProps) {
         placeholder="Josh Hill"
         placeholderTextColor="#5A5A63"
         className={INPUT}
-        selectionColor="#7C5CFF"
+        selectionColor="#5FE3A1"
       />
 
       <Text className={`${LABEL} mt-5`}>Email</Text>
@@ -143,7 +143,7 @@ export function EditProfileModal({ visible, onClose }: EditProfileModalProps) {
         keyboardType="email-address"
         autoCapitalize="none"
         className={INPUT}
-        selectionColor="#7C5CFF"
+        selectionColor="#5FE3A1"
       />
 
       <Text className={`${LABEL} mt-5`}>Phone Number</Text>
@@ -154,7 +154,7 @@ export function EditProfileModal({ visible, onClose }: EditProfileModalProps) {
         placeholderTextColor="#5A5A63"
         keyboardType="phone-pad"
         className={INPUT}
-        selectionColor="#7C5CFF"
+        selectionColor="#5FE3A1"
       />
 
       <Text className={`${LABEL} mt-5`}>Username</Text>
@@ -165,7 +165,7 @@ export function EditProfileModal({ visible, onClose }: EditProfileModalProps) {
         placeholderTextColor="#5A5A63"
         autoCapitalize="none"
         className={INPUT}
-        selectionColor="#7C5CFF"
+        selectionColor="#5FE3A1"
       />
 
       <Pressable

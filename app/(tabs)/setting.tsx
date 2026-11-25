@@ -82,21 +82,21 @@ export default function SettingScreen() {
   const openAbout = () => {
     Alert.alert(
       'About My Duit Gw',
-      'Version 1.1.2\n\nA personal finance and peer-to-peer loan tracker. Your data is synced to your My Duit Gw account.',
+      'Version 1.1.3\n\nA personal finance and peer-to-peer loan tracker. Your data is synced to your My Duit Gw account.',
     );
   };
 
   return (
     <View className="flex-1">
       <Screen>
-        <Text className="text-[30px] font-bold tracking-tight text-ink">Settings</Text>
+        <Text className="text-[28px] font-bold tracking-tight text-ink">Settings</Text>
 
         <Pressable
           onPress={() => setEditOpen(true)}
-          className="mt-6 flex-row items-center rounded-bento border border-white/[0.07] bg-card p-4"
+          className="mt-6 flex-row items-center rounded-bento bg-card p-4"
           style={({ pressed }) => (pressed ? { opacity: 0.9 } : null)}
         >
-          <View className="h-[54px] w-[54px] items-center justify-center overflow-hidden rounded-full bg-[#232326]">
+          <View className="h-[54px] w-[54px] items-center justify-center overflow-hidden rounded-full bg-[#1C1C1C]">
             {profile.avatarUri ? (
               <Image source={{ uri: profile.avatarUri }} style={{ width: 54, height: 54 }} />
             ) : (
@@ -120,9 +120,9 @@ export default function SettingScreen() {
           <View className="flex-row gap-3">
             <Pressable
               onPress={() => setEditOpen(true)}
-              className="min-h-[150px] flex-1 rounded-bento border border-white/[0.07] bg-card p-4"
+              className="min-h-[150px] flex-1 rounded-bento bg-card p-4"
             >
-              <User size={26} color="#9B87FF" strokeWidth={1.6} />
+              <User size={25} color="#B4B4B4" strokeWidth={1.6} />
               <View className="mt-auto">
                 <Text className="text-[16px] font-semibold text-ink">Profile Settings</Text>
                 <Text className="mt-1 text-[12.5px] text-muted">Name, photo &amp; email</Text>
@@ -131,9 +131,9 @@ export default function SettingScreen() {
 
             <Pressable
               onPress={exportData}
-              className="min-h-[150px] flex-1 rounded-bento border border-white/[0.07] bg-card p-4"
+              className="min-h-[150px] flex-1 rounded-bento bg-card p-4"
             >
-              <Download size={26} color="#9B87FF" strokeWidth={1.6} />
+              <Download size={25} color="#B4B4B4" strokeWidth={1.6} />
               <View className="mt-auto">
                 <Text className="text-[16px] font-semibold text-ink">Export Data</Text>
                 <Text className="mt-1 text-[12.5px] text-muted">Share as CSV</Text>
@@ -144,9 +144,9 @@ export default function SettingScreen() {
           <View className="flex-row gap-3">
             <Pressable
               onPress={() => setUpdateOpen(true)}
-              className="min-h-[150px] flex-1 rounded-bento border border-white/[0.07] bg-card p-4"
+              className="min-h-[150px] flex-1 rounded-bento bg-card p-4"
             >
-              <RefreshCw size={26} color="#9B87FF" strokeWidth={1.6} />
+              <RefreshCw size={25} color="#B4B4B4" strokeWidth={1.6} />
               <View className="mt-auto">
                 <Text className="text-[16px] font-semibold text-ink">App update</Text>
                 <Text className="mt-1 text-[12.5px] text-muted">Check for a newer build</Text>
@@ -155,18 +155,18 @@ export default function SettingScreen() {
 
             <Pressable
               onPress={openAbout}
-              className="min-h-[150px] flex-1 rounded-bento border border-white/[0.07] bg-card p-4"
+              className="min-h-[150px] flex-1 rounded-bento bg-card p-4"
             >
-              <Info size={26} color="#9B87FF" strokeWidth={1.6} />
+              <Info size={25} color="#B4B4B4" strokeWidth={1.6} />
               <View className="mt-auto">
                 <Text className="text-[16px] font-semibold text-ink">About App</Text>
-                <Text className="mt-1 text-[12.5px] text-muted">Version 1.1.2</Text>
+                <Text className="mt-1 text-[12.5px] text-muted">Version 1.1.3</Text>
               </View>
             </Pressable>
           </View>
         </View>
 
-        <View className="mt-4 rounded-bento border border-white/[0.07] bg-card px-5 py-4">
+        <View className="mt-4 rounded-bento bg-card px-5 py-4">
           <Text className="text-[11.5px] font-medium uppercase tracking-[1.5px] text-faint">
             Preferences
           </Text>
@@ -177,20 +177,20 @@ export default function SettingScreen() {
               <Text className="mt-1 text-[12.5px] text-muted">Used across the app</Text>
             </View>
 
-            <View className="flex-row rounded-full border border-white/[0.08] bg-[#101012] p-1">
+            <View className="flex-row rounded-full bg-black p-1">
               {(['USD', 'IDR'] as CurrencyCode[]).map((option) => {
                 const active = currency === option;
                 return (
                   <Pressable
                     key={option}
                     onPress={() => setCurrency(option)}
-                    className={`h-9 justify-center rounded-full px-4 ${
-                      active ? 'bg-neon' : ''
+                    className={`h-8 justify-center rounded-full px-3.5 ${
+                      active ? 'bg-white' : ''
                     }`}
                   >
                     <Text
-                      className={`text-[13px] ${
-                        active ? 'font-semibold text-white' : 'font-medium text-muted'
+                      className={`text-[12.5px] ${
+                        active ? 'font-semibold text-black' : 'font-medium text-muted'
                       }`}
                     >
                       {option === 'USD' ? '$ USD' : 'Rp IDR'}
@@ -214,13 +214,13 @@ export default function SettingScreen() {
 
         <Pressable
           onPress={confirmSignOut}
-          className="h-[58px] items-center justify-center rounded-bento border border-white/[0.07] bg-card-raised"
+          className="h-[56px] items-center justify-center rounded-bento bg-card-raised"
           style={({ pressed }) => (pressed ? { opacity: 0.9 } : null)}
         >
           <Text className="text-[15.5px] font-semibold text-ink">Sign out</Text>
         </Pressable>
 
-        <Text className="mt-6 text-center text-[12px] text-faint">My Duit Gw · v1.1.2</Text>
+        <Text className="mt-6 text-center text-[12px] text-faint">My Duit Gw · v1.1.3</Text>
       </Screen>
 
       <EditProfileModal visible={editOpen} onClose={() => setEditOpen(false)} />
