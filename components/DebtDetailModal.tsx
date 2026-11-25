@@ -71,13 +71,13 @@ export function DebtDetailModal({ debt, onClose }: DebtDetailModalProps) {
             <Pressable
               onPress={() => toggleDebtStatus(current.id)}
               className={`h-14 flex-row items-center justify-center gap-2 rounded-2xl ${
-                paid ? 'bg-[#1C1C1C]' : 'bg-white'
+                paid ? 'bg-[#1C1C1C]' : 'bg-accent-strong'
               }`}
               style={({ pressed }) => (pressed ? { opacity: 0.88 } : null)}
             >
-              {paid ? null : <Check size={18} color="#000000" strokeWidth={2.4} />}
+              {paid ? null : <Check size={18} color="#FFFFFF" strokeWidth={2.4} />}
               <Text
-                className={`text-[16px] font-semibold ${paid ? 'text-[#D5D5DC]' : 'text-black'}`}
+                className={`text-[16px] font-semibold ${paid ? 'text-[#D5D5DC]' : 'text-white'}`}
               >
                 {paid ? 'Mark as Unpaid' : 'Mark as Paid'}
               </Text>
@@ -108,12 +108,12 @@ export function DebtDetailModal({ debt, onClose }: DebtDetailModalProps) {
             </Text>
             <View
               className={`mt-2 rounded-full px-3 py-1 ${
-                paid ? 'bg-white/10' : 'bg-white/[0.06]'
+                paid ? 'bg-positive-soft' : 'bg-accent-soft'
               }`}
             >
               <Text
                 className={`text-[11.5px] font-semibold uppercase tracking-[1.2px] ${
-                  paid ? 'text-ink' : 'text-muted'
+                  paid ? 'text-positive' : 'text-accent'
                 }`}
               >
                 {paid ? 'Paid' : 'Unpaid'}

@@ -8,7 +8,8 @@ import {
   View,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Bell, ScanLine, Search, User, X } from 'lucide-react-native';
+import { Bell, MessageSquare, Plus, Search, Sparkles, User, X } from 'lucide-react-native';
+import { AIAgentSheet } from '@/components/AIAgentSheet';
 import { BalanceCard } from '@/components/BalanceCard';
 import { Screen } from '@/components/Screen';
 import { Sparkline } from '@/components/Sparkline';
@@ -22,6 +23,8 @@ import {
   initialsOf,
   isCurrentMonth,
 } from '@/lib/format';
+
+const SEGMENT_COLORS = ['#737373', '#525252', '#3F3F46', '#2E2E2E'];
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -37,10 +40,23 @@ export default function HomeScreen() {
     debts,
   } = useFinance();
   const [quickInputOpen, setQuickInputOpen] = useState(false);
+  const [aiOpen, setAiOpen] = useState(false);
   const [query, setQuery] = useState('');
 
-  const bars = categoryBreakdown.slice(0, 3);
-  const maxShare = bars.length > 0 ? bars[0].share : 1;
+  const bars = categoryBreakdown.slice(0, 4);
+
+  const segments = useMemo(() => {
+    if (bars.length === 0) {
+      return [36, 18, 10, 13].map((flex, index) => ({
+        flex,
+        color: SEGMENT_COLORS[index],
+      }));
+    }
+    return bars.map((bar, index) => ({
+      flex: Math.max(Math.round(bar.share * 100), 8),
+      color: SEGMENT_COLORS[index] ?? SEGMENT_COLORS[SEGMENT_COLORS.length - 1],
+    }));
+  }, [bars]);
 
   const incomeCategories = useMemo(() => {
     const totals = new Map<string, number>();
@@ -105,6 +121,11 @@ export default function HomeScreen() {
     return [...matchedTransactions, ...matchedDebts].slice(0, 6);
   }, [query, transactions, debts]);
 
+  const spendLabel =
+    currency === 'IDR'
+      ? `-${formatMoney(monthlyExpense, currency).replace('Rp ', 'Rp. ')}`
+      : `-${formatMoney(monthlyExpense, currency)}`;
+
   const openNotifications = () => {
     const unpaid = debts.filter((debt) => debt.status === 'unpaid');
     const loanLine = unpaid.length
@@ -126,64 +147,66 @@ export default function HomeScreen() {
   return (
     <View className="flex-1">
       <Screen>
-        <View className="flex-row items-center gap-2.5">
+        <View className="flex-row items-center gap-2.5 pt-1">
           <Pressable
             accessibilityLabel="Open settings"
             onPress={() => router.push('/setting')}
-            className="h-[44px] w-[44px] items-center justify-center overflow-hidden rounded-full bg-[#1C1C1C]"
+            className="h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-[#1C1C1C]"
           >
             {profile.avatarUri ? (
-              <Image source={{ uri: profile.avatarUri }} style={{ width: 44, height: 44 }} />
+              <Image source={{ uri: profile.avatarUri }} style={{ width: 36, height: 36 }} />
             ) : profile.name ? (
-              <Text className="text-[14.5px] font-semibold text-ink">
+              <Text className="text-[12.5px] font-semibold text-ink">
                 {initialsOf(profile.name)}
               </Text>
             ) : (
-              <User size={19} color="#9A9A9A" strokeWidth={1.8} />
+              <User size={17} color="#9A9A9A" strokeWidth={1.8} />
             )}
           </Pressable>
 
-          <View className="h-11 flex-1 flex-row items-center rounded-full bg-[#1C1C1C] px-4">
-            <Search size={17} color="#6E6E6E" strokeWidth={1.9} />
+          <View className="h-9 flex-1 flex-row items-center rounded-full bg-[#181818] px-3.5">
+            <Search size={15} color="#777777" strokeWidth={2.1} />
             <TextInput
               value={query}
               onChangeText={setQuery}
               placeholder="Search"
-              placeholderTextColor="#6E6E6E"
-              className="ml-2.5 flex-1 text-[14.5px] text-ink"
+              placeholderTextColor="#666666"
+              className="ml-2 flex-1 text-[13px] text-ink"
               returnKeyType="search"
-              selectionColor="#5FE3A1"
+              selectionColor="#8B5CF6"
             />
             {query.length > 0 ? (
               <Pressable accessibilityLabel="Clear search" hitSlop={8} onPress={() => setQuery('')}>
-                <X size={15} color="#8A8A8A" />
+                <X size={14} color="#8A8A8A" />
               </Pressable>
             ) : null}
           </View>
 
           <Pressable
-            accessibilityLabel="Quick add"
+            accessibilityLabel="Open myduitgw AI"
             hitSlop={6}
-            onPress={() => setQuickInputOpen(true)}
-            className="h-[44px] w-[34px] items-center justify-center"
+            onPress={() => setAiOpen(true)}
+            className="h-9 w-9 items-center justify-center rounded-full bg-[#181818]"
+            style={({ pressed }) => (pressed ? { opacity: 0.7 } : null)}
           >
-            <ScanLine size={22} color="#F2F2F2" strokeWidth={1.7} />
+            <Sparkles size={17} color="#8B5CF6" strokeWidth={1.9} />
           </Pressable>
 
           <Pressable
             accessibilityLabel="Notifications"
             hitSlop={6}
             onPress={openNotifications}
-            className="h-[44px] w-[34px] items-center justify-center"
+            className="h-9 w-9 items-center justify-center rounded-full bg-[#181818]"
+            style={({ pressed }) => (pressed ? { opacity: 0.7 } : null)}
           >
-            <Bell size={21} color="#F2F2F2" strokeWidth={1.7} />
+            <Bell size={16} color="#FFFFFF" strokeWidth={1.9} />
             {debts.some((debt) => debt.status === 'unpaid') ? (
-              <View className="absolute right-1.5 top-2.5 h-[7px] w-[7px] rounded-full bg-ink" />
+              <View className="absolute right-2 top-2 h-[6px] w-[6px] rounded-full bg-accent" />
             ) : null}
           </Pressable>
         </View>
 
-        <View className="mt-6">
+        <View className="mt-5">
           <BalanceCard onAdd={() => setQuickInputOpen(true)} />
         </View>
 
@@ -212,102 +235,137 @@ export default function HomeScreen() {
           </View>
         ) : (
           <>
-            <View className="mt-4 flex-row gap-3">
-              <View className="flex-1 rounded-bento bg-card p-[18px]">
-                <Text className="text-[12.5px] text-muted">Spending</Text>
+            <View className="mt-3.5 flex-row gap-3">
+              <Pressable
+                onPress={() => router.push('/history')}
+                className="flex-1 rounded-bento bg-card p-4"
+                style={({ pressed }) => (pressed ? { opacity: 0.9 } : null)}
+              >
+                <Text className="text-[14px] font-semibold text-white">Spending</Text>
+                <Text className="mt-0.5 text-[11.5px] text-[#777777]">Spent this month</Text>
                 <Text
                   numberOfLines={1}
                   adjustsFontSizeToFit
-                  className="mt-2 text-[21px] font-bold tracking-tight text-negative"
+                  className="mt-2 text-[17px] font-bold tracking-tight text-negative"
                 >
-                  -{formatMoney(monthlyExpense, currency)}
+                  {spendLabel}
                 </Text>
-                <Text className="mt-1 text-[12px] text-faint">This month</Text>
 
-                <View className="mt-4 gap-2">
-                  {bars.length > 0 ? (
-                    bars.map((bar, index) => (
-                      <View
-                        key={bar.category}
-                        className="h-[6px] overflow-hidden rounded-full bg-white/[0.08]"
-                      >
-                        <View
-                          className="h-full rounded-full"
-                          style={{
-                            width: `${20 + (bar.share / maxShare) * 70}%`,
-                            backgroundColor: `rgba(242,242,242,${0.85 - index * 0.25})`,
-                          }}
-                        />
-                      </View>
-                    ))
-                  ) : (
-                    <>
-                      <View className="h-[6px] rounded-full bg-white/[0.07]" />
-                      <View className="h-[6px] rounded-full bg-white/[0.07]" />
-                      <View className="h-[6px] rounded-full bg-white/[0.07]" />
-                    </>
-                  )}
+                <View className="mt-3 flex-row items-center gap-1.5">
+                  {segments.map((segment, index) => (
+                    <View
+                      key={`segment-${index}`}
+                      style={{
+                        flex: segment.flex,
+                        height: 14,
+                        borderRadius: 999,
+                        backgroundColor: segment.color,
+                      }}
+                    />
+                  ))}
                 </View>
-              </View>
+              </Pressable>
 
-              <View className="flex-1 rounded-bento bg-card p-[18px]">
-                <Text className="text-[12.5px] text-muted">Income</Text>
+              <Pressable
+                onPress={() => router.push('/history')}
+                className="flex-1 rounded-bento bg-card p-4"
+                style={({ pressed }) => (pressed ? { opacity: 0.9 } : null)}
+              >
+                <Text className="text-[14px] font-semibold text-white">Income</Text>
+                <Text className="mt-0.5 text-[11.5px] text-[#777777]">This month</Text>
                 <Text
                   numberOfLines={1}
                   adjustsFontSizeToFit
-                  className="mt-2 text-[21px] font-bold tracking-tight text-positive"
+                  className="mt-2 text-[17px] font-bold tracking-tight text-white"
                 >
-                  +{formatMoney(monthlyIncome, currency)}
+                  {formatMoney(monthlyIncome, currency)}
                 </Text>
-                <Text className="mt-1 text-[12px] text-faint">This month</Text>
 
-                <View className="mt-4 flex-row flex-wrap gap-2">
+                <View className="mt-3 flex-row flex-wrap gap-1.5">
                   {incomeCategories.length > 0 ? (
                     incomeCategories.map((category) => (
-                      <View
-                        key={category}
-                        className="rounded-full bg-positive/[0.12] px-2.5 py-1"
-                      >
-                        <Text className="text-[12px] font-medium text-positive">
-                          {category}
-                        </Text>
+                      <View key={category} className="rounded-full bg-white/10 px-2.5 py-1">
+                        <Text className="text-[11px] font-semibold text-white">{category}</Text>
                       </View>
                     ))
                   ) : (
-                    <View className="rounded-full bg-white/[0.06] px-2.5 py-1">
-                      <Text className="text-[12px] text-muted">No income yet</Text>
+                    <View className="rounded-full bg-white/10 px-2.5 py-1">
+                      <Text className="text-[11px] text-[#999999]">No income yet</Text>
                     </View>
                   )}
                 </View>
+              </Pressable>
+            </View>
+
+            <View className="mt-3 flex-row items-stretch gap-3">
+              <View className="gap-2.5">
+                <Pressable
+                  accessibilityLabel="Ask myduitgw AI"
+                  onPress={() => setAiOpen(true)}
+                  className="h-11 w-11 items-center justify-center rounded-[15px] bg-card"
+                  style={({ pressed }) => (pressed ? { opacity: 0.75 } : null)}
+                >
+                  <Sparkles size={17} color="#8B5CF6" strokeWidth={2} />
+                </Pressable>
+                <Pressable
+                  accessibilityLabel="Add transaction"
+                  onPress={() => setQuickInputOpen(true)}
+                  className="h-11 w-11 items-center justify-center rounded-[15px] bg-card"
+                  style={({ pressed }) => (pressed ? { opacity: 0.75 } : null)}
+                >
+                  <Plus size={18} color="#FFFFFF" strokeWidth={2} />
+                </Pressable>
+              </View>
+
+              <View className="flex-1 flex-row gap-3">
+                <Pressable
+                  onPress={() => setAiOpen(true)}
+                  className="flex-1 justify-between rounded-bento bg-card p-3.5"
+                  style={({ pressed }) => (pressed ? { opacity: 0.9 } : null)}
+                >
+                  <View className="h-8 w-8 items-center justify-center rounded-xl bg-accent-soft">
+                    <MessageSquare size={16} color="#8B5CF6" strokeWidth={2} />
+                  </View>
+                  <Text className="mt-2 text-[12.5px] font-semibold text-white">AI Insights</Text>
+                </Pressable>
+
+                <Pressable
+                  onPress={() => router.push('/debt')}
+                  className="flex-1 justify-between rounded-bento bg-card p-3.5"
+                  style={({ pressed }) => (pressed ? { opacity: 0.9 } : null)}
+                >
+                  <View className="h-8 w-8 items-center justify-center rounded-xl bg-accent-soft">
+                    <Sparkles size={16} color="#8B5CF6" strokeWidth={2} />
+                  </View>
+                  <Text className="mt-2 text-[12.5px] font-semibold text-white">Debt Tracker</Text>
+                </Pressable>
               </View>
             </View>
 
-            <View className="mt-3 rounded-bento bg-card p-5">
-              <View className="flex-row items-start justify-between">
-                <View className="flex-1 pr-2">
-                  <Text className="text-[12.5px] text-muted">Monthly Cashflow</Text>
-                  <Text
-                    numberOfLines={1}
-                    adjustsFontSizeToFit
-                    className="mt-2 text-[28px] font-bold tracking-tight text-ink"
-                  >
-                    {monthlyNet >= 0 ? '+' : '-'}
-                    {formatMoney(monthlyNet, currency)}
-                  </Text>
-                  <Text className="mt-1 text-[12px] text-faint">Net this month</Text>
+            <View className="mt-3 flex-row items-center justify-between rounded-bento bg-card p-[18px]">
+              <View className="flex-1 pr-3">
+                <Text className="text-[14px] font-semibold text-white">Monthly Cashflow</Text>
+                <Text
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  className="mt-1 text-[21px] font-bold tracking-tight text-white"
+                >
+                  {monthlyNet >= 0 ? '+' : '-'}
+                  {formatMoney(monthlyNet, currency)}
+                </Text>
+                <Text className="mt-0.5 text-[11.5px] text-[#777777]">Net this month</Text>
 
-                  <Pressable
-                    onPress={() => router.push('/history')}
-                    className="mt-4 h-9 self-start justify-center rounded-full bg-white/[0.08] px-4"
-                    style={({ pressed }) => (pressed ? { opacity: 0.8 } : null)}
-                  >
-                    <Text className="text-[13px] font-medium text-ink">View report</Text>
-                  </Pressable>
-                </View>
+                <Pressable
+                  onPress={() => router.push('/history')}
+                  className="mt-3 h-8 self-start justify-center rounded-full bg-[#242424] px-3.5"
+                  style={({ pressed }) => (pressed ? { opacity: 0.8 } : null)}
+                >
+                  <Text className="text-[11.5px] font-medium text-white">View report</Text>
+                </Pressable>
+              </View>
 
-                <View className="pt-6">
-                  <Sparkline values={sparkValues} />
-                </View>
+              <View className="shrink-0">
+                <Sparkline values={sparkValues} />
               </View>
             </View>
           </>
@@ -315,6 +373,7 @@ export default function HomeScreen() {
       </Screen>
 
       <TransactionModal visible={quickInputOpen} onClose={() => setQuickInputOpen(false)} />
+      <AIAgentSheet visible={aiOpen} onClose={() => setAiOpen(false)} />
     </View>
   );
 }

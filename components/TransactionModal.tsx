@@ -12,7 +12,6 @@ import {
 } from '@/lib/format';
 import { INPUT, LABEL } from '@/lib/ui';
 import {
-  CATEGORY_COLORS,
   TRANSACTION_CATEGORIES,
   type Transaction,
   type TransactionCategory,
@@ -131,13 +130,13 @@ export function TransactionModal({
             onPress={handleSave}
             disabled={!canSave}
             className={`h-14 items-center justify-center rounded-2xl ${
-              canSave ? 'bg-white' : 'bg-white/25'
+              canSave ? 'bg-accent-strong' : 'bg-white/15'
             }`}
             style={({ pressed }) => (pressed && canSave ? { opacity: 0.88 } : null)}
           >
             <Text
               className={`text-[16px] font-semibold ${
-                canSave ? 'text-black' : 'text-black/50'
+                canSave ? 'text-white' : 'text-white/40'
               }`}
             >
               {editing ? 'Save Changes' : 'Save Transaction'}
@@ -165,12 +164,12 @@ export function TransactionModal({
               key={option}
               onPress={() => setType(option)}
               className={`h-12 flex-1 items-center justify-center rounded-xl ${
-                active ? 'bg-white' : ''
+                active ? (option === 'income' ? 'bg-positive' : 'bg-[#333333]') : ''
               }`}
             >
               <Text
                 className={`text-[15px] ${
-                  active ? 'font-semibold text-black' : 'font-medium text-muted'
+                  active ? 'font-semibold text-white' : 'font-medium text-muted'
                 }`}
               >
                 {option === 'income' ? 'Income' : 'Expense'}
@@ -194,7 +193,7 @@ export function TransactionModal({
           placeholderTextColor="#4C4C55"
           keyboardType="decimal-pad"
           className={`flex-1 font-bold text-ink ${currency === 'IDR' ? 'text-[32px]' : 'text-[40px]'}`}
-          selectionColor="#5FE3A1"
+          selectionColor="#8B5CF6"
         />
       </View>
 
@@ -243,13 +242,13 @@ export function TransactionModal({
         multiline
         textAlignVertical="top"
         className="min-h-[88px] rounded-2xl bg-[#1C1C1C] p-4 text-[15px] text-ink"
-        selectionColor="#5FE3A1"
+        selectionColor="#8B5CF6"
       />
 
       <View className="mt-4 flex-row items-center justify-center">
         <View
           className="mr-2 h-2.5 w-2.5 rounded-full"
-          style={{ backgroundColor: CATEGORY_COLORS[category] }}
+          style={{ backgroundColor: type === 'income' ? '#26C165' : '#9CA3AF' }}
         />
         <Text className="text-[12.5px] text-faint">
           {type === 'income' ? 'Money coming in' : 'Money going out'} · {category}

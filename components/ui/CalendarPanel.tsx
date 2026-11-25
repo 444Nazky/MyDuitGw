@@ -115,12 +115,12 @@ export function CalendarPanel({ value, onChange, withTime = false }: CalendarPan
             >
               <View
                 className={`h-9 w-9 items-center justify-center rounded-full ${
-                  selected ? 'bg-white' : isToday ? 'border border-white/25' : ''
+                  selected ? 'bg-accent-strong' : isToday ? 'border border-accent/40' : ''
                 }`}
               >
                 <Text
                   className={`text-[14px] ${
-                    selected ? 'font-semibold text-black' : 'text-[#D5D5DC]'
+                    selected ? 'font-semibold text-white' : 'text-[#D5D5DC]'
                   }`}
                 >
                   {day.getDate()}

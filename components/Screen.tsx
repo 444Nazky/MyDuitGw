@@ -30,8 +30,8 @@ export function Screen({ children }: ScreenProps) {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={() => void onRefresh()}
-            tintColor="#F2F2F2"
-            colors={['#F2F2F2']}
+            tintColor="#8B5CF6"
+            colors={['#8B5CF6']}
             progressBackgroundColor="#161616"
           />
         }

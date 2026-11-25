@@ -16,7 +16,7 @@ import { useFinance } from '@/context/FinanceContext';
 type Mode = 'signin' | 'signup';
 
 const FIELD =
-  'mt-2 h-[54px] rounded-[14px] border border-white/[0.08] bg-white/[0.055] px-4 text-[15px] text-ink';
+  'mt-2 h-[54px] rounded-[14px] bg-[#161616] px-4 text-[15px] text-ink';
 
 export function AuthScreen() {
   const insets = useSafeAreaInsets();
@@ -81,8 +81,8 @@ export function AuthScreen() {
         }}
       >
         <View className="flex-row items-center gap-3">
-          <View className="h-10 w-10 items-center justify-center rounded-[12px] bg-ink">
-            <Text className="text-[17px] font-extrabold text-black">M</Text>
+          <View className="h-10 w-10 items-center justify-center rounded-[12px] bg-accent-strong">
+            <Text className="text-[17px] font-extrabold text-white">M</Text>
           </View>
           <Text className="text-[14px] font-medium text-muted">My Duit Gw</Text>
         </View>
@@ -107,7 +107,7 @@ export function AuthScreen() {
                 placeholderTextColor="#7C7C86"
                 autoCapitalize="none"
                 autoCorrect={false}
-                selectionColor="#5FE3A1"
+                selectionColor="#8B5CF6"
                 className={FIELD}
               />
             </View>
@@ -124,7 +124,7 @@ export function AuthScreen() {
               autoCapitalize="none"
               autoCorrect={false}
               autoComplete="email"
-              selectionColor="#5FE3A1"
+              selectionColor="#8B5CF6"
               className={FIELD}
             />
           </View>
@@ -140,7 +140,7 @@ export function AuthScreen() {
               autoCapitalize="none"
               autoCorrect={false}
               autoComplete={isSignUp ? 'new-password' : 'current-password'}
-              selectionColor="#5FE3A1"
+              selectionColor="#8B5CF6"
               onSubmitEditing={() => void submit()}
               className={FIELD}
             />
@@ -154,17 +154,17 @@ export function AuthScreen() {
             accessibilityRole="button"
             disabled={busy}
             onPress={() => void submit()}
-            className="mt-7 h-[54px] flex-row items-center justify-center gap-2 rounded-[16px] bg-white"
+            className="mt-7 h-[54px] flex-row items-center justify-center gap-2 rounded-[16px] bg-accent-strong"
             style={({ pressed }) => (pressed || busy ? { opacity: 0.85 } : null)}
           >
             {busy ? (
-              <ActivityIndicator color="#000000" />
+              <ActivityIndicator color="#FFFFFF" />
             ) : (
               <>
-                <Text className="text-[15px] font-semibold text-black">
+                <Text className="text-[15px] font-semibold text-white">
                   {isSignUp ? 'Create account' : 'Sign in'}
                 </Text>
-                <ArrowRight size={17} color="#000000" strokeWidth={2} />
+                <ArrowRight size={17} color="#FFFFFF" strokeWidth={2} />
               </>
             )}
           </Pressable>

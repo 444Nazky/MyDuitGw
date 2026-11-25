@@ -12,13 +12,19 @@ module.exports = {
         card: '#161616',
         'card-raised': '#1C1C1C',
         hairline: '#242424',
-        ink: '#F2F2F2',
+        ink: '#FFFFFF',
         muted: '#8A8A8A',
-        faint: '#5F5F5F',
-        // Only two accents exist: soft green for money in, grey for money out.
-        positive: '#5FE3A1',
-        negative: '#8A8A8A',
-        // Primary actions are white on black; no extra brand hues.
+        faint: '#666666',
+        // Violet is the single brand accent: primary actions, feature icons,
+        // the cashflow sparkline and active toggles.
+        accent: '#8B5CF6',
+        'accent-strong': '#7C3AED',
+        'accent-soft': 'rgba(139,92,246,0.14)',
+        // Money in is GoPay green, money out is neutral grey.
+        positive: '#26C165',
+        'positive-soft': 'rgba(0,170,91,0.13)',
+        negative: '#9CA3AF',
+        'negative-soft': '#242424',
         neon: '#F2F2F2',
         coral: '#A8A8A8',
         amber: '#BEBEBE',

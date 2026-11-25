@@ -127,16 +127,16 @@ export function AddDebtModal({ visible, onClose }: AddDebtModalProps) {
             onPress={() => void handleSave()}
             disabled={!canSave || saving}
             className={`h-14 items-center justify-center rounded-2xl ${
-              canSave ? 'bg-white' : 'bg-white/25'
+              canSave ? 'bg-accent-strong' : 'bg-white/15'
             }`}
             style={({ pressed }) => (pressed && canSave ? { opacity: 0.88 } : null)}
           >
             {saving ? (
-              <ActivityIndicator color="#000000" />
+              <ActivityIndicator color="#FFFFFF" />
             ) : (
               <Text
                 className={`text-[16px] font-semibold ${
-                  canSave ? 'text-black' : 'text-black/50'
+                  canSave ? 'text-white' : 'text-white/40'
                 }`}
               >
                 Save Debt Record
@@ -153,7 +153,7 @@ export function AddDebtModal({ visible, onClose }: AddDebtModalProps) {
         placeholder="Enter full name"
         placeholderTextColor="#5A5A63"
         className={INPUT}
-        selectionColor="#5FE3A1"
+        selectionColor="#8B5CF6"
       />
 
       <View className="mt-5 flex-row gap-3">
@@ -170,7 +170,7 @@ export function AddDebtModal({ visible, onClose }: AddDebtModalProps) {
               placeholderTextColor="#5A5A63"
               keyboardType="decimal-pad"
               className="flex-1 text-[17px] font-semibold text-ink"
-              selectionColor="#5FE3A1"
+              selectionColor="#8B5CF6"
             />
           </View>
         </View>
@@ -202,7 +202,7 @@ export function AddDebtModal({ visible, onClose }: AddDebtModalProps) {
         multiline
         textAlignVertical="top"
         className="min-h-[96px] rounded-2xl bg-[#1C1C1C] p-4 text-[15px] text-ink"
-        selectionColor="#5FE3A1"
+        selectionColor="#8B5CF6"
       />
 
       <Text className={`${LABEL} mt-5`}>Transfer Receipt</Text>

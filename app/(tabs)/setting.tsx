@@ -113,7 +113,7 @@ export default function SettingScreen() {
               {profile.email || 'Tap to set up your profile'}
             </Text>
           </View>
-          <ChevronRight size={22} color="#8E8E96" strokeWidth={1.8} />
+          <ChevronRight size={20} color="#666666" strokeWidth={1.8} />
         </Pressable>
 
         <View className="mt-4 gap-3">
@@ -122,7 +122,7 @@ export default function SettingScreen() {
               onPress={() => setEditOpen(true)}
               className="min-h-[150px] flex-1 rounded-bento bg-card p-4"
             >
-              <User size={25} color="#B4B4B4" strokeWidth={1.6} />
+              <User size={22} color="#8B5CF6" strokeWidth={1.8} />
               <View className="mt-auto">
                 <Text className="text-[16px] font-semibold text-ink">Profile Settings</Text>
                 <Text className="mt-1 text-[12.5px] text-muted">Name, photo &amp; email</Text>
@@ -133,7 +133,7 @@ export default function SettingScreen() {
               onPress={exportData}
               className="min-h-[150px] flex-1 rounded-bento bg-card p-4"
             >
-              <Download size={25} color="#B4B4B4" strokeWidth={1.6} />
+              <Download size={22} color="#8B5CF6" strokeWidth={1.8} />
               <View className="mt-auto">
                 <Text className="text-[16px] font-semibold text-ink">Export Data</Text>
                 <Text className="mt-1 text-[12.5px] text-muted">Share as CSV</Text>
@@ -146,7 +146,7 @@ export default function SettingScreen() {
               onPress={() => setUpdateOpen(true)}
               className="min-h-[150px] flex-1 rounded-bento bg-card p-4"
             >
-              <RefreshCw size={25} color="#B4B4B4" strokeWidth={1.6} />
+              <RefreshCw size={22} color="#8B5CF6" strokeWidth={1.8} />
               <View className="mt-auto">
                 <Text className="text-[16px] font-semibold text-ink">App update</Text>
                 <Text className="mt-1 text-[12.5px] text-muted">Check for a newer build</Text>
@@ -157,7 +157,7 @@ export default function SettingScreen() {
               onPress={openAbout}
               className="min-h-[150px] flex-1 rounded-bento bg-card p-4"
             >
-              <Info size={25} color="#B4B4B4" strokeWidth={1.6} />
+              <Info size={22} color="#8B5CF6" strokeWidth={1.8} />
               <View className="mt-auto">
                 <Text className="text-[16px] font-semibold text-ink">About App</Text>
                 <Text className="mt-1 text-[12.5px] text-muted">Version 1.1.3</Text>
@@ -185,12 +185,12 @@ export default function SettingScreen() {
                     key={option}
                     onPress={() => setCurrency(option)}
                     className={`h-8 justify-center rounded-full px-3.5 ${
-                      active ? 'bg-white' : ''
+                      active ? 'bg-accent-strong' : ''
                     }`}
                   >
                     <Text
                       className={`text-[12.5px] ${
-                        active ? 'font-semibold text-black' : 'font-medium text-muted'
+                        active ? 'font-semibold text-white' : 'font-medium text-muted'
                       }`}
                     >
                       {option === 'USD' ? '$ USD' : 'Rp IDR'}

@@ -81,7 +81,7 @@ export function BalanceCard({ onAdd }: { onAdd: () => void }) {
                   fontSize: 14.5,
                   fontWeight: '600',
                   letterSpacing: -0.2,
-                  color: '#F2F2F2',
+                  color: '#FFFFFF',
                 }}
               >
                 Total Balance
@@ -121,7 +121,7 @@ export function BalanceCard({ onAdd }: { onAdd: () => void }) {
               </Text>
 
               <View
-                accessibilityLabel="Card mark"
+                accessibilityLabel="Mastercard"
                 className="flex-row items-center"
                 style={{ marginLeft: 12 }}
               >
@@ -130,7 +130,7 @@ export function BalanceCard({ onAdd }: { onAdd: () => void }) {
                     width: 21,
                     height: 21,
                     borderRadius: 11,
-                    backgroundColor: 'rgba(255,255,255,0.62)',
+                    backgroundColor: '#EB001B',
                   }}
                 />
                 <View
@@ -139,7 +139,8 @@ export function BalanceCard({ onAdd }: { onAdd: () => void }) {
                     height: 21,
                     borderRadius: 11,
                     marginLeft: -8,
-                    backgroundColor: 'rgba(255,255,255,0.24)',
+                    backgroundColor: '#F79E1B',
+                    opacity: 0.92,
                   }}
                 />
               </View>
@@ -150,7 +151,7 @@ export function BalanceCard({ onAdd }: { onAdd: () => void }) {
                 Personal account
               </Text>
               <Text style={{ fontSize: 13, fontWeight: '500', color: '#777777' }}>
-                My Duit Gw
+                **** 3264
               </Text>
             </View>
           </View>

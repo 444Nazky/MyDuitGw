@@ -124,13 +124,13 @@ export function UpdateModal({ visible, onClose }: UpdateModalProps) {
 
           {status === 'checking' ? (
             <View className="mt-6 flex-row items-center gap-3">
-              <ActivityIndicator color="#F2F2F2" />
+              <ActivityIndicator color="#8B5CF6" />
               <Text className="text-[14px] text-muted">Checking Supabase for a new build…</Text>
             </View>
           ) : null}
 
           {status === 'up-to-date' ? (
-            <Text className="mt-6 rounded-xl border border-white/[0.08] bg-white/[0.04] px-4 py-3 text-[13.5px] text-[#B8F5C9]">
+            <Text className="mt-6 rounded-xl bg-positive-soft px-4 py-3 text-[13.5px] text-positive">
               You are on the latest version.
             </Text>
           ) : null}
@@ -156,7 +156,7 @@ export function UpdateModal({ visible, onClose }: UpdateModalProps) {
             <View className="mt-5">
               <View className="h-2 overflow-hidden rounded-full bg-white/[0.08]">
                 <View
-                  className="h-full rounded-full bg-white"
+                  className="h-full rounded-full bg-accent"
                   style={{ width: `${Math.round(progress * 100)}%` }}
                 />
               </View>
@@ -184,21 +184,21 @@ export function UpdateModal({ visible, onClose }: UpdateModalProps) {
             {status === 'ready' ? (
               <Pressable
                 onPress={() => void startInstall()}
-                className="h-[50px] items-center justify-center rounded-2xl bg-white"
+                className="h-[50px] items-center justify-center rounded-2xl bg-accent-strong"
                 style={({ pressed }) => (pressed ? { opacity: 0.85 } : null)}
               >
-                <Text className="text-[15px] font-semibold text-black">Install update</Text>
+                <Text className="text-[15px] font-semibold text-white">Install update</Text>
               </Pressable>
             ) : null}
 
             {status === 'idle' || status === 'error' ? (
               <Pressable
                 onPress={() => void startDownload()}
-                className="h-[50px] flex-row items-center justify-center gap-2 rounded-2xl bg-white"
+                className="h-[50px] flex-row items-center justify-center gap-2 rounded-2xl bg-accent-strong"
                 style={({ pressed }) => (pressed ? { opacity: 0.85 } : null)}
               >
-                <Download size={17} color="#000000" strokeWidth={2} />
-                <Text className="text-[15px] font-semibold text-black">
+                <Download size={17} color="#FFFFFF" strokeWidth={2} />
+                <Text className="text-[15px] font-semibold text-white">
                   {status === 'error' ? 'Try again' : 'Download update'}
                 </Text>
               </Pressable>

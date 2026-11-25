@@ -54,12 +54,12 @@ export function FloatingTabBar({ state, navigateToTab }: BottomTabBarProps) {
               >
                 <Icon
                   size={22}
-                  color={focused ? '#F2F2F2' : '#6E6E6E'}
+                  color={focused ? '#FFFFFF' : '#666666'}
                   strokeWidth={focused ? 2.1 : 1.7}
                 />
                 <Text
                   className={`text-[11.5px] ${
-                    focused ? 'font-semibold text-ink' : 'font-medium text-muted'
+                    focused ? 'font-semibold text-white' : 'font-medium text-[#666666]'
                   }`}
                 >
                   {label}

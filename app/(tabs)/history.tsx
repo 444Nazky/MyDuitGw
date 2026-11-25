@@ -54,7 +54,7 @@ export default function HistoryScreen() {
     const transactionItems: HistoryItem[] = transactions.map((transaction) => ({
       key: transaction.id,
       title: transaction.note?.trim() ? transaction.note : transaction.category,
-      subtitle: formatClockTime(transaction.date),
+      subtitle: `${formatClockTime(transaction.date)} · ${transaction.category}`,
       amount: transaction.amount,
       tone: transaction.type,
       category: transaction.category,
@@ -65,7 +65,7 @@ export default function HistoryScreen() {
     const debtItems: HistoryItem[] = debts.map((debt) => ({
       key: debt.id,
       title: `Lent to ${debt.borrowerName}`,
-      subtitle: formatClockTime(debt.loanDate),
+      subtitle: `Lent out · ${formatClockTime(debt.loanDate)}`,
       amount: debt.amount,
       tone: 'debt',
       date: debt.loanDate,
@@ -125,9 +125,9 @@ export default function HistoryScreen() {
             accessibilityLabel="Toggle sort order"
             hitSlop={8}
             onPress={() => setNewestFirst((value) => !value)}
-            className="h-10 w-10 items-center justify-center rounded-full bg-[#1C1C1C]"
+            className="h-10 w-10 items-center justify-center rounded-full bg-[#181818]"
           >
-            <ArrowUpDown size={18} color={newestFirst ? '#FAFAFA' : '#8E8E96'} />
+            <ArrowUpDown size={18} color={newestFirst ? '#FFFFFF' : '#666666'} />
           </Pressable>
         </View>
 
@@ -144,12 +144,12 @@ export default function HistoryScreen() {
                 key={option.key}
                 onPress={() => setFilter(option.key)}
                 className={`h-[44px] justify-center rounded-full px-5 ${
-                  active ? 'bg-white' : 'bg-[#1C1C1C]'
+                  active ? 'bg-white' : 'bg-[#181818]'
                 }`}
               >
                 <Text
                   className={`text-[14.5px] ${
-                    active ? 'font-semibold text-black' : 'font-medium text-[#B9B9C2]'
+                    active ? 'font-semibold text-black' : 'font-medium text-[#8A8A8A]'
                   }`}
                 >
                   {option.label}
