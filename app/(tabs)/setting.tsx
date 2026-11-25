@@ -9,7 +9,6 @@ import {
 } from 'lucide-react-native';
 import { EditProfileModal } from '@/components/EditProfileModal';
 import { Screen } from '@/components/Screen';
-import { MetalFill } from '@/components/ui/MetalFill';
 import { UpdateModal } from '@/components/UpdateModal';
 import { useFinance } from '@/context/FinanceContext';
 import { initialsOf } from '@/lib/format';
@@ -94,10 +93,9 @@ export default function SettingScreen() {
 
         <Pressable
           onPress={() => setEditOpen(true)}
-          className="relative mt-6 flex-row items-center overflow-hidden rounded-bento border border-white/[0.1] p-4"
+          className="mt-6 flex-row items-center rounded-bento border border-white/[0.07] bg-card p-4"
           style={({ pressed }) => (pressed ? { opacity: 0.9 } : null)}
         >
-          <MetalFill />
           <View className="h-[54px] w-[54px] items-center justify-center overflow-hidden rounded-full bg-[#232326]">
             {profile.avatarUri ? (
               <Image source={{ uri: profile.avatarUri }} style={{ width: 54, height: 54 }} />
@@ -122,9 +120,8 @@ export default function SettingScreen() {
           <View className="flex-row gap-3">
             <Pressable
               onPress={() => setEditOpen(true)}
-              className="relative min-h-[150px] flex-1 overflow-hidden rounded-bento border border-white/[0.1] p-4"
+              className="min-h-[150px] flex-1 rounded-bento border border-white/[0.07] bg-card p-4"
             >
-              <MetalFill />
               <User size={26} color="#9B87FF" strokeWidth={1.6} />
               <View className="mt-auto">
                 <Text className="text-[16px] font-semibold text-ink">Profile Settings</Text>
@@ -134,9 +131,8 @@ export default function SettingScreen() {
 
             <Pressable
               onPress={exportData}
-              className="relative min-h-[150px] flex-1 overflow-hidden rounded-bento border border-white/[0.1] p-4"
+              className="min-h-[150px] flex-1 rounded-bento border border-white/[0.07] bg-card p-4"
             >
-              <MetalFill />
               <Download size={26} color="#9B87FF" strokeWidth={1.6} />
               <View className="mt-auto">
                 <Text className="text-[16px] font-semibold text-ink">Export Data</Text>
@@ -148,9 +144,8 @@ export default function SettingScreen() {
           <View className="flex-row gap-3">
             <Pressable
               onPress={() => setUpdateOpen(true)}
-              className="relative min-h-[150px] flex-1 overflow-hidden rounded-bento border border-white/[0.1] p-4"
+              className="min-h-[150px] flex-1 rounded-bento border border-white/[0.07] bg-card p-4"
             >
-              <MetalFill />
               <RefreshCw size={26} color="#9B87FF" strokeWidth={1.6} />
               <View className="mt-auto">
                 <Text className="text-[16px] font-semibold text-ink">App update</Text>
@@ -160,9 +155,8 @@ export default function SettingScreen() {
 
             <Pressable
               onPress={openAbout}
-              className="relative min-h-[150px] flex-1 overflow-hidden rounded-bento border border-white/[0.1] p-4"
+              className="min-h-[150px] flex-1 rounded-bento border border-white/[0.07] bg-card p-4"
             >
-              <MetalFill />
               <Info size={26} color="#9B87FF" strokeWidth={1.6} />
               <View className="mt-auto">
                 <Text className="text-[16px] font-semibold text-ink">About App</Text>
@@ -172,8 +166,7 @@ export default function SettingScreen() {
           </View>
         </View>
 
-        <View className="relative mt-4 overflow-hidden rounded-bento border border-white/[0.1] px-5 py-4">
-          <MetalFill />
+        <View className="mt-4 rounded-bento border border-white/[0.07] bg-card px-5 py-4">
           <Text className="text-[11.5px] font-medium uppercase tracking-[1.5px] text-faint">
             Preferences
           </Text>
@@ -221,10 +214,9 @@ export default function SettingScreen() {
 
         <Pressable
           onPress={confirmSignOut}
-          className="relative mt-3 h-[58px] items-center justify-center overflow-hidden rounded-bento border border-white/[0.1]"
+          className="h-[58px] items-center justify-center rounded-bento border border-white/[0.07] bg-card-raised"
           style={({ pressed }) => (pressed ? { opacity: 0.9 } : null)}
         >
-          <MetalFill />
           <Text className="text-[15.5px] font-semibold text-ink">Sign out</Text>
         </Pressable>
 

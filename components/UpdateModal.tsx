@@ -8,7 +8,6 @@ import {
   View,
 } from 'react-native';
 import { Download, ShieldCheck, TriangleAlert } from 'lucide-react-native';
-import { MetalFill } from '@/components/ui/MetalFill';
 import {
   compareVersions,
   downloadAndVerify,
@@ -112,8 +111,7 @@ export function UpdateModal({ visible, onClose }: UpdateModalProps) {
       }}
     >
       <View className="flex-1 items-center justify-center bg-black/70 px-6">
-        <View className="relative w-full max-w-[420px] overflow-hidden rounded-[26px] border border-white/[0.12] p-6">
-          <MetalFill />
+        <View className="w-full max-w-[420px] rounded-[26px] border border-white/[0.1] bg-[#141416] p-6">
           <View className="flex-row items-center gap-2.5">
             <ShieldCheck size={19} color="#9B87FF" strokeWidth={1.8} />
             <Text className="text-[17px] font-semibold text-ink">App update</Text>

@@ -3,7 +3,6 @@ import { Pressable, ScrollView, Text, View } from 'react-native';
 import { ArrowUpDown } from 'lucide-react-native';
 import { DebtDetailModal } from '@/components/DebtDetailModal';
 import { Screen } from '@/components/Screen';
-import { MetalFill } from '@/components/ui/MetalFill';
 import { TransactionModal } from '@/components/TransactionModal';
 import { TransactionRow } from '@/components/TransactionRow';
 import { useFinance } from '@/context/FinanceContext';
@@ -120,7 +119,7 @@ export default function HistoryScreen() {
       <Screen>
         <View className="flex-row items-center justify-between">
           <Text className="text-[30px] font-bold tracking-tight text-ink">
-            Transaction History
+            History
           </Text>
           <Pressable
             accessibilityLabel="Toggle sort order"
@@ -163,8 +162,7 @@ export default function HistoryScreen() {
         </ScrollView>
 
         {groups.length === 0 ? (
-          <View className="relative mt-10 items-center overflow-hidden rounded-bento border border-white/[0.1] px-6 py-12">
-            <MetalFill />
+          <View className="mt-10 items-center rounded-bento border border-white/[0.07] bg-card px-6 py-12">
             <Text className="text-[15.5px] font-medium text-ink">Nothing here yet</Text>
             <Text className="mt-1.5 text-center text-[13.5px] text-muted">
               Add a transaction from Home to start building your history.

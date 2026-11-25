@@ -16,6 +16,7 @@ import {
   useFonts,
 } from '@expo-google-fonts/inter';
 import { AuthScreen } from '@/components/AuthScreen';
+import { BackgroundGradient } from '@/components/BackgroundGradient';
 import { FinanceProvider, useFinance } from '@/context/FinanceContext';
 
 SplashScreen.preventAutoHideAsync().catch(() => undefined);
@@ -41,6 +42,7 @@ export default function RootLayout() {
         <FinanceProvider>
           <StatusBar style="light" />
           <View className="flex-1 bg-obsidian">
+            <BackgroundGradient />
             <RootContent />
           </View>
         </FinanceProvider>

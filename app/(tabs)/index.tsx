@@ -11,7 +11,6 @@ import { useRouter } from 'expo-router';
 import { Bell, Plus, Search, User, X } from 'lucide-react-native';
 import { Screen } from '@/components/Screen';
 import { Sparkline } from '@/components/Sparkline';
-import { MetalFill } from '@/components/ui/MetalFill';
 import { TransactionModal } from '@/components/TransactionModal';
 import { TransactionRow } from '@/components/TransactionRow';
 import { useFinance } from '@/context/FinanceContext';
@@ -178,10 +177,9 @@ export default function HomeScreen() {
 
         <Pressable
           onPress={() => setQuickInputOpen(true)}
-          className="relative mt-6 overflow-hidden rounded-bento border border-white/[0.1] p-5"
+          className="mt-6 rounded-bento border border-white/[0.07] bg-card p-5"
           style={({ pressed }) => (pressed ? { opacity: 0.94 } : null)}
         >
-          <MetalFill />
           <View className="flex-row items-start justify-between">
             <View className="flex-1 pr-3">
               <Text className="text-[14.5px] text-muted">Total Balance</Text>
@@ -236,8 +234,7 @@ export default function HomeScreen() {
         ) : (
           <>
             <View className="mt-4 flex-row gap-3">
-              <View className="relative flex-1 overflow-hidden rounded-bento border border-white/[0.1] p-4">
-                <MetalFill />
+              <View className="flex-1 rounded-bento border border-white/[0.07] bg-card p-4">
                 <Text className="text-[18px] font-semibold text-ink">Spending</Text>
                 <Text className="mt-1 text-[12.5px] text-muted">Spent this month</Text>
                 <Text
@@ -274,8 +271,7 @@ export default function HomeScreen() {
                 </View>
               </View>
 
-              <View className="relative flex-1 overflow-hidden rounded-bento border border-white/[0.1] p-4">
-                <MetalFill />
+              <View className="flex-1 rounded-bento border border-white/[0.07] bg-card p-4">
                 <Text className="text-[18px] font-semibold text-ink">Income</Text>
                 <Text className="mt-1 text-[12.5px] text-muted">This month</Text>
                 <Text
@@ -307,8 +303,7 @@ export default function HomeScreen() {
               </View>
             </View>
 
-            <View className="relative mt-4 overflow-hidden rounded-bento border border-white/[0.1] p-5">
-              <MetalFill />
+            <View className="mt-4 rounded-bento border border-white/[0.07] bg-card p-5">
               <View className="flex-row items-start justify-between">
                 <View className="flex-1 pr-2">
                   <Text className="text-[16px] font-semibold text-ink">Monthly Cashflow</Text>

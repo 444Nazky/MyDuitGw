@@ -1,6 +1,5 @@
 import { Pressable, Text, View } from 'react-native';
 import { CategoryIcon } from '@/components/CategoryIcon';
-import { MetalFill } from '@/components/ui/MetalFill';
 import { useFinance } from '@/context/FinanceContext';
 import { formatMoney } from '@/lib/format';
 import type { TransactionCategory } from '@/types/finance';
@@ -35,10 +34,9 @@ export function TransactionRow({
     <Pressable
       onPress={onPress}
       disabled={!onPress}
-      className="relative flex-row items-center overflow-hidden rounded-bento border border-white/[0.08] px-4 py-3.5"
+      className="flex-row items-center rounded-bento border border-white/[0.07] bg-card px-4 py-3.5"
       style={({ pressed }) => (pressed ? { opacity: 0.85 } : null)}
     >
-      <MetalFill />
       <CategoryIcon category={category} tone={tone} />
       <View className="ml-3.5 flex-1 pr-2">
         <Text numberOfLines={1} className="text-[15.5px] font-semibold text-ink">

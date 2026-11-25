@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { MetalFill } from '@/components/ui/MetalFill';
 import {
   Animated,
   Easing,
@@ -80,9 +79,8 @@ export function Sheet({ visible, onClose, title, children, footer }: SheetProps)
         <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={0}>
           <Animated.View
             style={{ transform: [{ translateY }], maxHeight: height * 0.92 }}
-            className="relative overflow-hidden rounded-t-[28px] border-t border-white/[0.12]"
+            className="rounded-t-[28px] border-t border-white/[0.1] bg-[#141416]"
           >
-            <MetalFill />
             <View className="items-center pt-3">
               <View className="h-1.5 w-11 rounded-full bg-white/15" />
             </View>
