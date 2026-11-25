@@ -69,7 +69,13 @@ export function DebtDetailModal({ debt, onClose }: DebtDetailModalProps) {
         current ? (
           <>
             <Pressable
-              onPress={() => toggleDebtStatus(current.id)}
+              onPress={() => {
+                const wasPaid = current.status === 'paid';
+                void toggleDebtStatus(current.id);
+                // Paid loans are removed from the Debt page, so close the
+                // sheet instead of leaving a detail view for a hidden row.
+                if (!wasPaid) onClose();
+              }}
               className={`h-14 flex-row items-center justify-center gap-2 rounded-2xl ${
                 paid ? 'bg-[#1C1C1C]' : 'bg-accent-strong'
               }`}
