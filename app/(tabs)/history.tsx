@@ -8,6 +8,7 @@ import { TransactionRow } from '@/components/TransactionRow';
 import { useFinance } from '@/context/FinanceContext';
 import {
   formatClockTime,
+  formatLongDate,
   isToday,
   isYesterday,
 } from '@/lib/format';
@@ -92,15 +93,22 @@ export default function HistoryScreen() {
       return newestFirst ? tie : -tie;
     });
 
-    const buckets: { label: string; items: HistoryItem[] }[] = [];
+    // One group per calendar day. Today and Yesterday keep their names, older
+    // days show their own date instead of a shared "Earlier" bucket.
+    const buckets: { key: string; label: string; items: HistoryItem[] }[] = [];
     for (const item of items) {
       const date = new Date(item.date);
-      const label = isToday(date) ? 'Today' : isYesterday(date) ? 'Yesterday' : 'Earlier';
+      const key = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+      const label = isToday(date)
+        ? 'Today'
+        : isYesterday(date)
+          ? 'Yesterday'
+          : formatLongDate(item.date);
       const last = buckets[buckets.length - 1];
-      if (last && last.label === label) {
+      if (last && last.key === key) {
         last.items.push(item);
       } else {
-        buckets.push({ label, items: [item] });
+        buckets.push({ key, label, items: [item] });
       }
     }
     return buckets;
@@ -162,14 +170,14 @@ export default function HistoryScreen() {
           </View>
         ) : (
           groups.map((group) => (
-            <View key={group.label} className="mt-6">
+            <View key={group.key} className="mt-6">
               <Text className="mb-3 text-[12px] font-medium uppercase tracking-[1.5px] text-faint">
                 {group.label}
               </Text>
               <View className="gap-2.5">
                 {group.items.map((item) => (
                   <TransactionRow
-                    key={`${group.label}-${item.key}`}
+                    key={`${group.key}-${item.key}`}
                     title={item.title}
                     subtitle={item.subtitle}
                     amount={item.amount}

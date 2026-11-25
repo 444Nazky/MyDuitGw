@@ -46,7 +46,7 @@ interface FinanceContextValue {
   addTransaction: (draft: TransactionDraft) => Promise<void>;
   updateTransaction: (id: string, draft: TransactionDraft) => Promise<void>;
   deleteTransaction: (id: string) => Promise<void>;
-  addDebt: (draft: DebtDraft) => Promise<void>;
+  addDebt: (draft: DebtDraft) => Promise<string | null>;
   toggleDebtStatus: (id: string) => Promise<void>;
   deleteDebt: (id: string) => Promise<void>;
   setCurrency: (currency: CurrencyCode) => Promise<void>;
@@ -308,28 +308,42 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
 
   const addDebt = useCallback(
     async (draft: DebtDraft) => {
-      if (!userId) return;
-      const debtId = `debt_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
-      let receiptPath: string | null = draft.receiptUri ?? null;
-      if (draft.receiptUri && !draft.receiptUri.startsWith('http')) {
-        const uploaded = await uploadReceipt(draft.receiptUri, debtId);
-        receiptPath = uploaded;
-      }
+      if (!userId) return 'You are not signed in.';
+
+      // debts.id is a uuid with a database default; never send a custom string
+      // here or Postgres rejects the whole insert.
       const { data, error } = await supabase
         .from('debts')
         .insert({
-          id: debtId,
           user_id: userId,
           borrower_name: draft.borrowerName,
           amount: draft.amount,
           loan_date: draft.loanDate,
           reason: draft.reason,
-          receipt_path: receiptPath,
         })
         .select()
         .single();
-      if (error || !data) return;
-      setDebts((current) => [toDebt(data as DebtRow), ...current]);
+
+      if (error || !data) return error?.message ?? 'Could not save this debt.';
+
+      const row = data as DebtRow;
+      let receiptPath: string | null = null;
+      if (draft.receiptUri && !draft.receiptUri.startsWith('http')) {
+        const uploaded = await uploadReceipt(draft.receiptUri, row.id);
+        if (uploaded) {
+          const { error: receiptError } = await supabase
+            .from('debts')
+            .update({ receipt_path: uploaded })
+            .eq('id', row.id);
+          if (!receiptError) receiptPath = uploaded;
+        }
+      }
+
+      setDebts((current) => [
+        { ...toDebt(row), receiptUri: receiptPath ?? undefined },
+        ...current,
+      ]);
+      return null;
     },
     [userId, uploadReceipt],
   );

@@ -79,7 +79,7 @@ export function Sheet({ visible, onClose, title, children, footer }: SheetProps)
         <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={0}>
           <Animated.View
             style={{ transform: [{ translateY }], maxHeight: height * 0.92 }}
-            className="rounded-t-[28px] border-t border-white/[0.08] bg-[#141416]"
+            className="rounded-t-[28px] border-t border-white/[0.1] bg-[#141416]/85"
           >
             <View className="items-center pt-3">
               <View className="h-1.5 w-11 rounded-full bg-white/15" />

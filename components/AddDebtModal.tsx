@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
   Alert,
   Image,
   Platform,
@@ -88,15 +89,23 @@ export function AddDebtModal({ visible, onClose }: AddDebtModalProps) {
     ]);
   };
 
-  const handleSave = () => {
-    if (!canSave) return;
-    addDebt({
+  const [saving, setSaving] = useState(false);
+
+  const handleSave = async () => {
+    if (!canSave || saving) return;
+    setSaving(true);
+    const error = await addDebt({
       borrowerName: borrowerName.trim(),
       amount: currency === 'IDR' ? amount / USD_TO_IDR : amount,
       loanDate: loanDate.toISOString(),
       reason: reason.trim(),
       receiptUri,
     });
+    setSaving(false);
+    if (error) {
+      Alert.alert('Could not save this debt', error);
+      return;
+    }
     onClose();
   };
 
@@ -115,14 +124,18 @@ export function AddDebtModal({ visible, onClose }: AddDebtModalProps) {
             </Text>
           ) : null}
           <Pressable
-            onPress={handleSave}
-            disabled={!canSave}
+            onPress={() => void handleSave()}
+            disabled={!canSave || saving}
             className={`h-14 items-center justify-center rounded-2xl ${
               canSave ? 'bg-neon' : 'bg-neon/40'
             }`}
             style={({ pressed }) => (pressed && canSave ? { opacity: 0.88 } : null)}
           >
-            <Text className="text-[16.5px] font-semibold text-white">Save Debt Record</Text>
+            {saving ? (
+              <ActivityIndicator color="#FFFFFF" />
+            ) : (
+              <Text className="text-[16.5px] font-semibold text-white">Save Debt Record</Text>
+            )}
           </Pressable>
         </>
       }
