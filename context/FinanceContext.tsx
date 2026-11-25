@@ -31,6 +31,7 @@ interface FinanceContextValue {
   profile: Profile;
   currency: CurrencyCode;
   hydrated: boolean;
+  refresh: () => Promise<void>;
   session: Session | null;
   user: User | null;
   authLoading: boolean;
@@ -52,10 +53,9 @@ interface FinanceContextValue {
   updateProfile: (patch: Partial<Profile>) => Promise<void>;
   resetData: () => Promise<void>;
   signIn: (email: string, password: string) => Promise<string | null>;
-  signUp: (email: string, password: string, name?: string) => Promise<string | null>;
+  signUp: (email: string, password: string, username: string) => Promise<string | null>;
   signOut: () => Promise<void>;
   receiptUrl: (path: string | null) => Promise<string | null>;
-  uploadReceipt: (uri: string, debtId: string) => Promise<string | null>;
 }
 
 interface TransactionRow {
@@ -136,7 +136,7 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [debts, setDebts] = useState<Debt[]>([]);
   const [profile, setProfile] = useState<Profile>(EMPTY_PROFILE);
-  const [currency, setCurrencyState] = useState<CurrencyCode>('USD');
+  const [currency, setCurrencyState] = useState<CurrencyCode>('IDR');
   const [hydrated, setHydrated] = useState(false);
   const [session, setSession] = useState<Session | null>(null);
   const [authLoading, setAuthLoading] = useState(true);
@@ -188,7 +188,7 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
           email: '',
           phone: '',
           username: '',
-          currency: 'USD',
+          currency: 'IDR',
         })
         .select()
         .maybeSingle();
@@ -198,6 +198,11 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const userId = session?.user.id;
+
+  const refresh = useCallback(async () => {
+    if (!userId) return;
+    await loadData(userId);
+  }, [userId, loadData]);
 
   useEffect(() => {
     if (!userId) {
@@ -361,7 +366,19 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
       if (patch.avatarUri !== undefined) row.avatar_url = patch.avatarUri;
       setProfile((current) => ({ ...current, ...patch }));
       if (Object.keys(row).length > 0) {
-        await supabase.from('profiles').update(row).eq('id', userId);
+        const { error } = await supabase
+          .from('profiles')
+          .upsert({ id: userId, ...row }, { onConflict: 'id' });
+        if (!error && (patch.username !== undefined || patch.name !== undefined)) {
+          // Mirror the values the app writes so a later sign-in or a rebuilt
+          // profile row still shows the same username on the dashboard.
+          await supabase.auth.updateUser({
+            data: {
+              ...(patch.username !== undefined ? { username: patch.username } : {}),
+              ...(patch.name !== undefined ? { name: patch.name } : {}),
+            },
+          });
+        }
       }
     },
     [userId],
@@ -383,14 +400,29 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
     return error?.message ?? null;
   }, []);
 
-  const signUp = useCallback(async (email: string, password: string, name?: string) => {
+  const signUp = useCallback(async (email: string, password: string, username: string) => {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      options: { data: { name: name ?? '' } },
+      options: { data: { username, name: username } },
     });
     if (error) return error.message;
-    if (!data.session) return 'Account created. Check your email to confirm it, then sign in.';
+
+    // Keep the shared profile row in sync even if the DB trigger is missing,
+    // so the web dashboard can show the same username.
+    if (!data.session) {
+      if ((data.user?.identities?.length ?? 0) === 0) {
+        return 'This Gmail is already registered. Sign in instead.';
+      }
+      return 'Account created. Sign in to continue.';
+    }
+
+    if (data.user) {
+      await supabase
+        .from('profiles')
+        .upsert({ id: data.user.id, email, name: username, username }, { onConflict: 'id' });
+    }
+
     return null;
   }, []);
 
@@ -463,6 +495,7 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
       user: session?.user ?? null,
       authLoading,
       ...summary,
+      refresh,
       addTransaction,
       updateTransaction,
       deleteTransaction,
@@ -476,7 +509,6 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
       signUp,
       signOut,
       receiptUrl,
-      uploadReceipt,
     }),
     [
       transactions,
@@ -487,6 +519,7 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
       session,
       authLoading,
       summary,
+      refresh,
       addTransaction,
       updateTransaction,
       deleteTransaction,
@@ -500,7 +533,6 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
       signUp,
       signOut,
       receiptUrl,
-      uploadReceipt,
     ],
   );
 

@@ -12,7 +12,7 @@ interface AddDebtModalProps {
 export function AddDebtModal({ open, onClose }: AddDebtModalProps) {
   const { addDebt } = useData();
   const { profile } = useAuth();
-  const currency = profile?.currency ?? 'USD';
+  const currency = profile?.currency ?? 'IDR';
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [amount, setAmount] = useState('');

@@ -14,7 +14,7 @@ export function DebtsPage() {
   const [query, setQuery] = useState('');
   const [addOpen, setAddOpen] = useState(false);
   const [selectedDebt, setSelectedDebt] = useState<DebtRow | null>(null);
-  const currency = profile?.currency ?? 'USD';
+  const currency = profile?.currency ?? 'IDR';
   const money = (amount: number) => formatMoney(amount, currency);
 
   const summary = useMemo(() => {

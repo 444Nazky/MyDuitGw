@@ -1,6 +1,7 @@
 import '../global.css';
 
 import { useEffect } from 'react';
+import { ActivityIndicator, View } from 'react-native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
@@ -14,7 +15,8 @@ import {
   Inter_800ExtraBold,
   useFonts,
 } from '@expo-google-fonts/inter';
-import { FinanceProvider } from '@/context/FinanceContext';
+import { AuthScreen } from '@/components/AuthScreen';
+import { FinanceProvider, useFinance } from '@/context/FinanceContext';
 
 SplashScreen.preventAutoHideAsync().catch(() => undefined);
 
@@ -28,23 +30,39 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    if (fontsLoaded) {
-      SplashScreen.hideAsync().catch(() => undefined);
-    }
+    if (fontsLoaded) SplashScreen.hideAsync().catch(() => undefined);
   }, [fontsLoaded]);
 
   if (!fontsLoaded) return null;
 
   return (
-    <GestureHandlerRootView style={{ flex: 1, backgroundColor: '#0A0A0A' }}>
+    <GestureHandlerRootView className="flex-1 bg-obsidian">
       <SafeAreaProvider>
         <FinanceProvider>
           <StatusBar style="light" />
-          <MainStack />
+          <View className="flex-1 bg-obsidian">
+            <RootContent />
+          </View>
         </FinanceProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );
+}
+
+function RootContent() {
+  const { authLoading, session } = useFinance();
+
+  if (authLoading) {
+    return (
+      <View className="flex-1 items-center justify-center">
+        <ActivityIndicator color="#7C5CFF" />
+      </View>
+    );
+  }
+
+  if (!session) return <AuthScreen />;
+
+  return <MainStack />;
 }
 
 function MainStack() {
@@ -52,7 +70,7 @@ function MainStack() {
     <Stack
       screenOptions={{
         headerShown: false,
-        contentStyle: { backgroundColor: '#0A0A0A' },
+        contentStyle: { backgroundColor: 'transparent' },
         animation: 'fade',
       }}
     />

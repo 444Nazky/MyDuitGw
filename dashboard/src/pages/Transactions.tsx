@@ -20,7 +20,7 @@ export function TransactionsPage() {
   const { transactions, debts } = useData();
   const [filter, setFilter] = useState<Filter>('all');
   const [query, setQuery] = useState('');
-  const currency = profile?.currency ?? 'USD';
+  const currency = profile?.currency ?? 'IDR';
 
   const rows = useMemo(() => {
     const needle = query.trim().toLowerCase();

@@ -1,5 +1,7 @@
-import { ScrollView, View } from 'react-native';
+import { useCallback, useState } from 'react';
+import { RefreshControl, ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useFinance } from '@/context/FinanceContext';
 
 interface ScreenProps {
   children: React.ReactNode;
@@ -7,12 +9,32 @@ interface ScreenProps {
 
 export function Screen({ children }: ScreenProps) {
   const insets = useSafeAreaInsets();
+  const { refresh } = useFinance();
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    try {
+      await refresh();
+    } finally {
+      setRefreshing(false);
+    }
+  }, [refresh]);
 
   return (
-    <View className="flex-1 bg-obsidian">
+    <View className="flex-1">
       <ScrollView
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => void onRefresh()}
+            tintColor="#FAFAFA"
+            colors={['#FAFAFA']}
+            progressBackgroundColor="#141416"
+          />
+        }
         contentContainerStyle={{
           paddingTop: insets.top + 12,
           paddingHorizontal: 24,

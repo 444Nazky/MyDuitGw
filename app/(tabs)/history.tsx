@@ -100,7 +100,7 @@ export default function HistoryScreen() {
   }, [transactions, debts, filter, newestFirst]);
 
   return (
-    <View className="flex-1 bg-obsidian">
+    <View className="flex-1">
       <Screen>
         <View className="flex-row items-center justify-between">
           <Text className="text-[30px] font-bold tracking-tight text-ink">

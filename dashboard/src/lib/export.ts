@@ -1,4 +1,4 @@
-import { formatMoney, toAmount } from './format';
+import { toAmount } from './format';
 import type { DebtRow, TransactionRow } from './types';
 
 function csvCell(value: string): string {
@@ -62,8 +62,4 @@ export function exportJson(transactions: TransactionRow[], debts: DebtRow[]) {
 export function receiptFileName(path: string | null): string {
   if (!path) return 'receipt';
   return path.split('/').pop() ?? 'receipt';
-}
-
-export function moneyLabel(amount: number, currency: 'USD' | 'IDR'): string {
-  return formatMoney(amount, currency);
 }

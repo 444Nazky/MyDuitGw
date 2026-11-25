@@ -26,7 +26,7 @@ export function FloatingTabBar({ state, navigateToTab }: BottomTabBarProps) {
       style={{ position: 'absolute', left: 0, right: 0, bottom: 0 }}
     >
       <View className="mx-6" style={{ paddingBottom: Math.max(insets.bottom, 16), paddingTop: 8 }}>
-        <View className="flex-row items-center rounded-[26px] border border-white/[0.07] bg-card px-2 py-2.5">
+        <View className="flex-row items-center rounded-[26px] border border-white/[0.09] bg-[#141416] px-2 py-2.5">
           {state.routes.map((route, index) => {
             const focused = state.index === index;
             const Icon = ICONS[route.name as keyof typeof ICONS] ?? House;

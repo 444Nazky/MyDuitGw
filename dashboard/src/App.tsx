@@ -6,6 +6,8 @@ import type { Page } from './lib/nav';
 import { DashboardPage } from './pages/Dashboard';
 import { DebtsPage } from './pages/Debts';
 import { LoginPage } from './pages/Login';
+import { ServerPage } from './pages/Server';
+import { SettingsPage } from './pages/Settings';
 import { SyncMonitorPage } from './pages/SyncMonitor';
 import { TransactionsPage } from './pages/Transactions';
 import { UsersPage } from './pages/Users';
@@ -57,7 +59,9 @@ function Shell() {
         {page === 'transactions' ? <TransactionsPage /> : null}
         {page === 'debts' ? <DebtsPage /> : null}
         {page === 'users' ? <UsersPage /> : null}
+        {page === 'server' ? <ServerPage /> : null}
         {page === 'sync' ? <SyncMonitorPage /> : null}
+        {page === 'settings' ? <SettingsPage /> : null}
       </main>
     </div>
   );

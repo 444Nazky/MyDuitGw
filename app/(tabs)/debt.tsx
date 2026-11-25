@@ -24,7 +24,7 @@ export default function DebtScreen() {
   const selectedDebt = selectedId ? debts.find((debt) => debt.id === selectedId) ?? null : null;
 
   return (
-    <View className="flex-1 bg-obsidian">
+    <View className="flex-1">
       <Screen>
         <View className="flex-row items-center justify-between">
           <Text className="text-[30px] font-bold tracking-tight text-ink">Debt List</Text>

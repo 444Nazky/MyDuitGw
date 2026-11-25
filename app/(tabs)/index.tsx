@@ -125,7 +125,7 @@ export default function HomeScreen() {
   };
 
   return (
-    <View className="flex-1 bg-obsidian">
+    <View className="flex-1">
       <Screen>
         <View className="flex-row items-center gap-3">
           <Pressable

@@ -28,7 +28,7 @@ export function DashboardPage({ onNavigate }: { onNavigate: (page: Page) => void
   const [selectedDebt, setSelectedDebt] = useState<DebtRow | null>(null);
   const [receiptPreview, setReceiptPreview] = useState<string | null>(null);
   const stats = useMemo(() => computeStats(transactions, debts), [transactions, debts]);
-  const currency = profile?.currency ?? 'USD';
+  const currency = profile?.currency ?? 'IDR';
   const money = (amount: number) => formatMoney(amount, currency);
 
   const visibleActivity = useMemo(

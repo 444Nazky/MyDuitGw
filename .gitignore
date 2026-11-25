@@ -13,3 +13,6 @@ tools/receipt-hash/target/
 
 # Firebase deploy cache
 .firebase/
+
+# Local publish credentials (service role key)
+tools/.env.publish

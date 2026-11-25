@@ -31,10 +31,6 @@ export function formatMoney(amount: number, currency: CurrencyCode): string {
   return `$${groupDigits(absolute.toFixed(2), ',')}`;
 }
 
-export function formatSigned(amount: number, currency: CurrencyCode): string {
-  return `${amount < 0 ? '-' : '+'}${formatMoney(amount, currency)}`;
-}
-
 export function formatClockTime(iso: string): string {
   const date = new Date(iso);
   const hours = date.getHours();

@@ -36,7 +36,7 @@ export function ReceiptModal({ debt, onClose }: ReceiptModalProps) {
 
   if (!debt) return null;
 
-  const currency = profile?.currency ?? 'USD';
+  const currency = profile?.currency ?? 'IDR';
   const paid = debt.status === 'paid';
 
   return (

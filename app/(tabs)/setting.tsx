@@ -9,17 +9,26 @@ import {
 } from 'lucide-react-native';
 import { EditProfileModal } from '@/components/EditProfileModal';
 import { Screen } from '@/components/Screen';
+import { UpdateModal } from '@/components/UpdateModal';
 import { useFinance } from '@/context/FinanceContext';
 import { initialsOf } from '@/lib/format';
 import type { CurrencyCode } from '@/types/finance';
 
 export default function SettingScreen() {
-  const { profile, currency, setCurrency, transactions, debts, resetData } = useFinance();
+  const { profile, currency, setCurrency, transactions, debts, resetData, signOut } = useFinance();
   const [editOpen, setEditOpen] = useState(false);
+  const [updateOpen, setUpdateOpen] = useState(false);
+
+  const confirmSignOut = () => {
+    Alert.alert('Sign out?', 'You can sign back in with the same Gmail and password.', [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'Sign out', style: 'destructive', onPress: () => void signOut() },
+    ]);
+  };
 
   const confirmReset = () => {
     const message =
-      'This erases every transaction, debt, and profile detail saved on this device. It cannot be undone.';
+      'This erases every transaction, debt, and profile detail in your account. It cannot be undone.';
 
     if (Platform.OS === 'web') {
       const confirmFn = (globalThis as { confirm?: (text: string) => boolean }).confirm;
@@ -89,12 +98,12 @@ export default function SettingScreen() {
   const openAbout = () => {
     Alert.alert(
       'About My Duit Gw',
-      'Version 1.0.3\n\nA personal finance and peer-to-peer loan tracker. All data stays on this device.',
+      'Version 1.0.8\n\nA personal finance and peer-to-peer loan tracker. Your data is synced to your My Duit Gw account.',
     );
   };
 
   return (
-    <View className="flex-1 bg-obsidian">
+    <View className="flex-1">
       <Screen>
         <Text className="text-[30px] font-bold tracking-tight text-ink">Settings</Text>
 
@@ -167,7 +176,7 @@ export default function SettingScreen() {
               <Info size={26} color="#9B87FF" strokeWidth={1.6} />
               <View className="mt-auto">
                 <Text className="text-[16px] font-semibold text-ink">About App</Text>
-                <Text className="mt-1 text-[12.5px] text-muted">Version 1.0.3</Text>
+                <Text className="mt-1 text-[12.5px] text-muted">Version 1.0.8</Text>
               </View>
             </Pressable>
           </View>
@@ -212,11 +221,24 @@ export default function SettingScreen() {
 
           <View className="flex-row items-center justify-between">
             <View className="flex-1 pr-3">
-              <Text className="text-[16px] font-semibold text-ink">Data source</Text>                <Text className="mt-1 text-[12.5px] text-muted">Saved on this device</Text>
+              <Text className="text-[16px] font-semibold text-ink">Data source</Text>
+              <Text className="mt-1 text-[12.5px] text-muted">Synced with your account</Text>
             </View>
             <Text className="text-[13px] text-muted">{transactions.length} transactions</Text>
           </View>
         </View>
+
+        <Pressable
+          onPress={() => setUpdateOpen(true)}
+          className="mt-4 flex-row items-center justify-between rounded-bento border border-white/[0.06] bg-card px-5 py-4"
+          style={({ pressed }) => (pressed ? { opacity: 0.9 } : null)}
+        >
+          <View className="flex-1 pr-3">
+            <Text className="text-[16px] font-semibold text-ink">App update</Text>
+            <Text className="mt-1 text-[12.5px] text-muted">Check for a newer build</Text>
+          </View>
+          <ChevronRight size={22} color="#8E8E96" strokeWidth={1.8} />
+        </Pressable>
 
         <Pressable
           onPress={confirmReset}
@@ -226,10 +248,19 @@ export default function SettingScreen() {
           <Text className="text-[15.5px] font-semibold text-coral">Clear All Data</Text>
         </Pressable>
 
-        <Text className="mt-6 text-center text-[12px] text-faint">My Duit Gw · v1.0.3</Text>
+        <Pressable
+          onPress={confirmSignOut}
+          className="mt-3 h-[58px] items-center justify-center rounded-bento border border-white/[0.08] bg-card-raised"
+          style={({ pressed }) => (pressed ? { opacity: 0.9 } : null)}
+        >
+          <Text className="text-[15.5px] font-semibold text-ink">Sign out</Text>
+        </Pressable>
+
+        <Text className="mt-6 text-center text-[12px] text-faint">My Duit Gw · v1.0.8</Text>
       </Screen>
 
       <EditProfileModal visible={editOpen} onClose={() => setEditOpen(false)} />
+      <UpdateModal visible={updateOpen} onClose={() => setUpdateOpen(false)} />
     </View>
   );
 }

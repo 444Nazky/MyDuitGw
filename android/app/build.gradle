@@ -92,10 +92,20 @@ android {
         applicationId 'com.myduitgw.app'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 3
-        versionName "1.0.3"
+        versionCode 8
+        versionName "1.0.8"
 
         buildConfigField "String", "REACT_NATIVE_RELEASE_LEVEL", "\"${findProperty('reactNativeReleaseLevel') ?: 'stable'}\""
+    }
+    // Release builds are split per ABI so the self-hosted updater stays under the
+    // Supabase Storage upload cap; arm64-v8a covers current Android devices.
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'arm64-v8a'
+            universalApk false
+        }
     }
     signingConfigs {
         debug {

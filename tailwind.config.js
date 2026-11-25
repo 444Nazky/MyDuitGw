@@ -6,8 +6,8 @@ module.exports = {
     extend: {
       colors: {
         obsidian: '#0A0A0A',
-        card: '#161618',
-        'card-raised': '#1C1C1F',
+        card: '#141416',
+        'card-raised': '#1C1C20',
         hairline: '#252529',
         ink: '#FAFAFA',
         muted: '#8E8E96',
