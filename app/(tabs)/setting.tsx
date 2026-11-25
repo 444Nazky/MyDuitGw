@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Alert, Image, Pressable, Share, Text, View } from 'react-native';
+import Constants from 'expo-constants';
 import {
   ChevronRight,
   Download,
@@ -13,6 +14,9 @@ import { UpdateModal } from '@/components/UpdateModal';
 import { useFinance } from '@/context/FinanceContext';
 import { initialsOf } from '@/lib/format';
 import type { CurrencyCode } from '@/types/finance';
+
+// Read from app.json so the About copy can never drift from the real build.
+const APP_VERSION = Constants.expoConfig?.version ?? '1.1.10';
 
 export default function SettingScreen() {
   const { profile, currency, setCurrency, transactions, debts, signOut } = useFinance();
@@ -82,14 +86,14 @@ export default function SettingScreen() {
   const openAbout = () => {
     Alert.alert(
       'About My Duit Gw',
-      'Version 1.1.8\n\nA personal finance and peer-to-peer loan tracker. Your data is synced to your My Duit Gw account.',
+      `Version ${APP_VERSION}\n\nA personal finance and peer-to-peer loan tracker. Your data is synced to your My Duit Gw account.`,
     );
   };
 
   return (
     <View className="flex-1">
-      <Screen>
-        <Text className="text-[28px] font-bold tracking-tight text-ink">Settings</Text>
+      <Screen bottomPadding={100}>
+        <Text className="mt-4 text-[28px] font-bold tracking-tight text-ink">Settings</Text>
 
         <Pressable
           onPress={() => setEditOpen(true)}
@@ -160,7 +164,7 @@ export default function SettingScreen() {
               <Info size={22} color="#8B5CF6" strokeWidth={1.8} />
               <View className="mt-auto">
                 <Text className="text-[16px] font-semibold text-ink">About App</Text>
-                <Text className="mt-1 text-[12.5px] text-muted">Version 1.1.8</Text>
+                <Text className="mt-1 text-[12.5px] text-muted">Version {APP_VERSION}</Text>
               </View>
             </Pressable>
           </View>
@@ -214,13 +218,13 @@ export default function SettingScreen() {
 
         <Pressable
           onPress={confirmSignOut}
-          className="h-[56px] items-center justify-center rounded-bento bg-card-raised"
+          className="mb-6 mt-4 h-[56px] items-center justify-center rounded-bento bg-card-raised"
           style={({ pressed }) => (pressed ? { opacity: 0.9 } : null)}
         >
           <Text className="text-[15.5px] font-semibold text-ink">Sign out</Text>
         </Pressable>
 
-        <Text className="mt-6 text-center text-[12px] text-faint">My Duit Gw · v1.1.8</Text>
+        <Text className="mt-6 text-center text-[12px] text-faint">My Duit Gw · v{APP_VERSION}</Text>
       </Screen>
 
       <EditProfileModal visible={editOpen} onClose={() => setEditOpen(false)} />

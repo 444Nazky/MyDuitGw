@@ -142,7 +142,7 @@ export function DebtsPage() {
                       <span
                         className={`rounded-full px-3 py-1 text-[12px] font-medium ${
                           paid
-                            ? 'bg-emerald-500/15 text-emerald-400'
+                            ? 'bg-white/[0.06] text-muted'
                             : 'bg-amber/15 text-amber'
                         }`}
                       >
@@ -160,7 +160,7 @@ export function DebtsPage() {
                         {!paid ? (
                           <button
                             onClick={() => void setDebtStatus(debt.id, 'paid')}
-                            className="h-9 rounded-full bg-emerald-600/15 px-3 text-[12px] font-medium text-emerald-400 transition-colors hover:bg-emerald-600/25"
+                            className="h-9 rounded-full bg-neon/15 px-3 text-[12px] font-medium text-neon transition-colors hover:bg-neon/25"
                             title="Mark as paid"
                           >
                             Paid
@@ -219,7 +219,7 @@ function SummaryCard({
   const toneClasses = {
     neutral: 'bg-white/[0.06] text-muted',
     amber: 'bg-amber/15 text-amber',
-    green: 'bg-emerald-500/15 text-emerald-400',
+    green: 'bg-neon/15 text-neon',
   }[badgeTone];
 
   return (

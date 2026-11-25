@@ -140,12 +140,12 @@ export function DebtDetailModal({ debt, onClose }: DebtDetailModalProps) {
             </Text>
             <View
               className={`mt-2 rounded-full px-3 py-1 ${
-                paid ? 'bg-positive-soft' : 'bg-accent-soft'
+                paid ? 'bg-white/[0.08]' : 'bg-accent-soft'
               }`}
             >
               <Text
                 className={`text-[11.5px] font-semibold uppercase tracking-[1.2px] ${
-                  paid ? 'text-positive' : 'text-accent'
+                  paid ? 'text-[#D5D5DC]' : 'text-accent'
                 }`}
               >
                 {paid ? 'Paid' : 'Unpaid'}

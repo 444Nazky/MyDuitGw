@@ -215,8 +215,8 @@ export function DashboardPage({ onNavigate }: { onNavigate: (page: Page) => void
                   <ArrowUpRight size={18} />
                 </button>
               </div>
-              <p className="mt-3 flex items-center gap-2 text-[14px] font-medium text-emerald-400">
-                <span className="h-2 w-2 rounded-full bg-emerald-400" />
+              <p className="mt-3 flex items-center gap-2 text-[14px] font-medium text-neon">
+                <span className="h-2 w-2 rounded-full bg-neon" />
                 {realtimeStatus === 'subscribed' ? 'Live' : realtimeStatus}
               </p>
               <p className="mt-1 text-[27px] font-bold tracking-tight">
@@ -385,7 +385,7 @@ function ChangePill({ value }: { value: number | null }) {
   return (
     <span
       className={`flex items-center gap-1 rounded-full px-3 py-1 text-[12px] font-medium ${
-        positive ? 'bg-emerald-500/15 text-emerald-400' : 'bg-coral/15 text-coral'
+        positive ? 'bg-neon/15 text-neon' : 'bg-coral/15 text-coral'
       }`}
     >
       {positive ? <ArrowUp size={12} /> : <ArrowDown size={12} />}

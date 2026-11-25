@@ -111,7 +111,7 @@ export function ReceiptModal({ debt, onClose }: ReceiptModalProps) {
                 void setDebtStatus(debt.id, 'paid');
                 onClose();
               }}
-              className="flex h-12 min-w-[150px] flex-1 items-center justify-center gap-2 rounded-2xl bg-emerald-600 text-[15px] font-semibold text-white transition-opacity hover:opacity-90"
+              className="flex h-12 min-w-[150px] flex-1 items-center justify-center gap-2 rounded-2xl bg-neon text-[15px] font-semibold text-white transition-opacity hover:opacity-90"
             >
               <Check size={16} />
               Mark as Paid

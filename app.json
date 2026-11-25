@@ -2,7 +2,7 @@
   "expo": {
     "name": "My Duit Gw",
     "slug": "my-duit-gw",
-    "version": "1.1.9",
+    "version": "1.1.10",
     "orientation": "portrait",
     "scheme": "myduitgw",
     "userInterfaceStyle": "dark",
@@ -14,7 +14,8 @@
     },
     "android": {
       "package": "com.myduitgw.app",
-      "backgroundColor": "#000000"
+      "backgroundColor": "#000000",
+      "softwareKeyboardLayoutMode": "resize"
     },
     "web": {
       "bundler": "metro",

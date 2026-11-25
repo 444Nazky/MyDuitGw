@@ -130,7 +130,7 @@ export function UpdateModal({ visible, onClose }: UpdateModalProps) {
           ) : null}
 
           {status === 'up-to-date' ? (
-            <Text className="mt-6 rounded-xl bg-positive-soft px-4 py-3 text-[13.5px] text-positive">
+            <Text className="mt-6 rounded-xl bg-accent-soft px-4 py-3 text-[13.5px] text-accent">
               You are on the latest version.
             </Text>
           ) : null}

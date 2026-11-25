@@ -1,5 +1,7 @@
-import { type ComponentRef, useMemo, useRef, useState } from 'react';
+import { type ComponentRef, useEffect, useMemo, useRef, useState } from 'react';
 import {
+  Dimensions,
+  Keyboard,
   KeyboardAvoidingView,
   Modal,
   Platform,
@@ -126,6 +128,7 @@ export function AIAgentSheet({ visible, onClose }: AIAgentSheetProps) {
 
   const scrollRef = useRef<ComponentRef<typeof ScrollView>>(null);
   const [input, setInput] = useState('');
+  const [keyboardPadding, setKeyboardPadding] = useState(0);
   const [thinking, setThinking] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>(() => [
     {
@@ -138,6 +141,28 @@ export function AIAgentSheet({ visible, onClose }: AIAgentSheetProps) {
   const scrollToEnd = () => {
     requestAnimationFrame(() => scrollRef.current?.scrollToEnd({ animated: true }));
   };
+
+  // Android does not reliably resize the window for the keyboard (edge-to-edge
+  // builds ignore adjustResize), so the input bar is lifted by whatever share of
+  // the keyboard height the layout did not already lose.
+  useEffect(() => {
+    if (Platform.OS !== 'android') return;
+
+    const show = Keyboard.addListener('keyboardDidShow', (event) => {
+      const shrink = Math.max(
+        Dimensions.get('screen').height - Dimensions.get('window').height,
+        0,
+      );
+      setKeyboardPadding(Math.max(event.endCoordinates.height - shrink, 0) + 8);
+      setTimeout(scrollToEnd, 60);
+    });
+    const hide = Keyboard.addListener('keyboardDidHide', () => setKeyboardPadding(0));
+
+    return () => {
+      show.remove();
+      hide.remove();
+    };
+  }, []);
 
   const buildReply = (prompt: string): ChatMessage => {
     const nominal = parseNominal(prompt);
@@ -348,7 +373,11 @@ export function AIAgentSheet({ visible, onClose }: AIAgentSheetProps) {
 
           <View
             className="flex-row items-center gap-2 border-t border-[#181818] bg-black px-4"
-            style={{ paddingTop: 12, paddingBottom: Math.max(insets.bottom, 12) }}
+            style={{
+              paddingTop: 12,
+              paddingBottom:
+                keyboardPadding > 0 ? keyboardPadding : Math.max(insets.bottom, 12),
+            }}
           >
             <TextInput
               value={input}

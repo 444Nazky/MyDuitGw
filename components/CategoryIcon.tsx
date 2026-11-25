@@ -25,7 +25,7 @@ const ICONS: Record<TransactionCategory, IconComponent> = {
 };
 
 const TONES = {
-  income: { background: 'rgba(0,170,91,0.13)', color: '#26C165' },
+  income: { background: 'rgba(139,92,246,0.14)', color: '#8B5CF6' },
   expense: { background: '#242424', color: '#9CA3AF' },
   debt: { background: '#242424', color: '#9CA3AF' },
 } as const;

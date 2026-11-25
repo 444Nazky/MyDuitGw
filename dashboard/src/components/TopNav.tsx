@@ -61,7 +61,7 @@ export function TopNav({ page, onNavigate }: TopNavProps) {
               aria-label="Account menu"
             >
               <Avatar name={name} url={profile?.avatar_url} size={44} />
-              <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-obsidian bg-emerald-400" />
+              <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-obsidian bg-neon" />
             </button>
             {menuOpen ? (
               <div className="absolute right-0 top-14 w-64 rounded-2xl border border-white/[0.08] bg-raised p-4 shadow-2xl">

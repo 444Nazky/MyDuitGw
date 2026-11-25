@@ -20,8 +20,8 @@ import {
 } from 'lucide-react-native';
 import { AIAgentSheet } from '@/components/AIAgentSheet';
 import { BalanceCard } from '@/components/BalanceCard';
+import { CashflowHeatmap } from '@/components/CashflowHeatmap';
 import { Screen } from '@/components/Screen';
-import { Sparkline } from '@/components/Sparkline';
 import { TransactionModal } from '@/components/TransactionModal';
 import { TransactionRow } from '@/components/TransactionRow';
 import { useFinance } from '@/context/FinanceContext';
@@ -80,22 +80,6 @@ export default function HomeScreen() {
       .sort((a, b) => b[1] - a[1])
       .slice(0, 2)
       .map(([category]) => category);
-  }, [transactions]);
-
-  const sparkValues = useMemo(() => {
-    const now = new Date();
-    const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-    const daily = new Array<number>(daysInMonth).fill(0);
-
-    for (const transaction of transactions) {
-      const date = new Date(transaction.date);
-      if (!isCurrentMonth(date)) continue;
-      const index = date.getDate() - 1;
-      daily[index] += transaction.type === 'income' ? transaction.amount : -transaction.amount;
-    }
-
-    let running = 0;
-    return daily.slice(0, now.getDate()).map((value) => (running += value));
   }, [transactions]);
 
   const results = useMemo(() => {
@@ -384,7 +368,7 @@ export default function HomeScreen() {
                 </View>
 
                 <View className="shrink-0">
-                  <Sparkline values={sparkValues} />
+                  <CashflowHeatmap transactions={transactions} />
                 </View>
               </View>
             </>

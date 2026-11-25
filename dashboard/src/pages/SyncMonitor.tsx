@@ -26,7 +26,7 @@ export function SyncMonitorPage() {
         </div>
         <div className="flex items-center gap-3">
           <span className="flex items-center gap-2 rounded-full border border-white/[0.08] bg-card px-4 py-2 text-[13px] text-muted">
-            <span className={`h-2 w-2 rounded-full ${live ? 'bg-emerald-400' : 'bg-amber'}`} />
+            <span className={`h-2 w-2 rounded-full ${live ? 'bg-neon' : 'bg-amber'}`} />
             ap-northeast-1 · {live ? 'Live' : realtimeStatus}
           </span>
           <button
@@ -67,7 +67,7 @@ export function SyncMonitorPage() {
               <HardDrive size={18} className="text-muted" />
               Storage Bucket · receipts
             </h3>
-            <span className="rounded-full bg-emerald-500/15 px-3 py-1 text-[12px] text-emerald-400">
+            <span className="rounded-full bg-neon/15 px-3 py-1 text-[12px] text-neon">
               Healthy
             </span>
           </div>
@@ -90,7 +90,7 @@ export function SyncMonitorPage() {
               <Radio size={18} className="text-muted" />
               Realtime API
             </h3>
-            <span className="text-[12px] text-emerald-400">{live ? '1 connection' : 'connecting'}</span>
+            <span className="text-[12px] text-neon">{live ? '1 connection' : 'connecting'}</span>
           </div>
           <div className="mt-6 grid grid-cols-2 gap-6">
             <Metric label="Status" value={live ? 'Subscribed' : realtimeStatus} />
@@ -111,7 +111,7 @@ export function SyncMonitorPage() {
             <Activity size={18} className="text-muted" />
             Realtime Connection Logs
           </h3>
-          <span className="rounded-full bg-emerald-500/15 px-3 py-1 text-[12px] text-emerald-400">
+          <span className="rounded-full bg-neon/15 px-3 py-1 text-[12px] text-neon">
             Live tail
           </span>
         </div>
@@ -143,7 +143,7 @@ export function SyncMonitorPage() {
                         entry.event === 'DELETE'
                           ? 'text-coral'
                           : entry.event === 'INSERT'
-                            ? 'text-emerald-400'
+                            ? 'text-neon'
                             : 'text-sky'
                       }`}
                     >
@@ -153,7 +153,7 @@ export function SyncMonitorPage() {
                     <td className="max-w-[400px] truncate px-6 py-3 font-mono text-[12px] text-[#D5D5DC]">
                       {entry.payload}
                     </td>
-                    <td className="px-6 py-3 text-emerald-400">200 OK</td>
+                    <td className="px-6 py-3 text-neon">200 OK</td>
                   </tr>
                 ))}
               </tbody>
@@ -162,7 +162,7 @@ export function SyncMonitorPage() {
         )}
         <div className="flex justify-between border-t border-white/[0.06] px-6 py-4 text-[12.5px] text-muted">
           <span>Auto-refresh on · retention 40 events</span>
-          <span className="text-emerald-400">Realtime healthy</span>
+          <span className="text-neon">Realtime healthy</span>
         </div>
       </section>
     </div>
