@@ -13,12 +13,6 @@ interface TransactionRowProps {
   onPress?: () => void;
 }
 
-const TONE_COLORS = {
-  income: '#9B87FF',
-  expense: '#FF6B6B',
-  debt: '#FFB020',
-} as const;
-
 export function TransactionRow({
   title,
   subtitle,
@@ -34,17 +28,21 @@ export function TransactionRow({
     <Pressable
       onPress={onPress}
       disabled={!onPress}
-      className="flex-row items-center rounded-bento border border-white/[0.07] bg-card px-4 py-3.5"
+      className="flex-row items-center rounded-bento bg-card px-4 py-3.5"
       style={({ pressed }) => (pressed ? { opacity: 0.85 } : null)}
     >
       <CategoryIcon category={category} tone={tone} />
       <View className="ml-3.5 flex-1 pr-2">
-        <Text numberOfLines={1} className="text-[15.5px] font-semibold text-ink">
+        <Text numberOfLines={1} className="text-[15px] font-semibold text-ink">
           {title}
         </Text>
-        <Text className="mt-1 text-[13px] text-muted">{subtitle}</Text>
+        <Text className="mt-1 text-[12.5px] text-muted">{subtitle}</Text>
       </View>
-      <Text className="text-[15.5px] font-semibold" style={{ color: TONE_COLORS[tone] }}>
+      <Text
+        className={`text-[15px] font-semibold ${
+          tone === 'income' ? 'text-positive' : 'text-negative'
+        }`}
+      >
         {sign}
         {formatMoney(amount, currency)}
       </Text>

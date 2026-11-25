@@ -16,7 +16,6 @@ import {
   useFonts,
 } from '@expo-google-fonts/inter';
 import { AuthScreen } from '@/components/AuthScreen';
-import { BackgroundGradient } from '@/components/BackgroundGradient';
 import { FinanceProvider, useFinance } from '@/context/FinanceContext';
 
 SplashScreen.preventAutoHideAsync().catch(() => undefined);
@@ -37,12 +36,11 @@ export default function RootLayout() {
   if (!fontsLoaded) return null;
 
   return (
-    <GestureHandlerRootView className="flex-1 bg-obsidian">
+    <GestureHandlerRootView className="flex-1 bg-black">
       <SafeAreaProvider>
         <FinanceProvider>
           <StatusBar style="light" />
-          <View className="flex-1 bg-obsidian">
-            <BackgroundGradient />
+          <View className="flex-1 bg-black">
             <RootContent />
           </View>
         </FinanceProvider>
@@ -57,7 +55,7 @@ function RootContent() {
   if (authLoading) {
     return (
       <View className="flex-1 items-center justify-center">
-        <ActivityIndicator color="#7C5CFF" />
+        <ActivityIndicator color="#F2F2F2" />
       </View>
     );
   }

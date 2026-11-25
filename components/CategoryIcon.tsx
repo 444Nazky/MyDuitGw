@@ -25,9 +25,9 @@ const ICONS: Record<TransactionCategory, IconComponent> = {
 };
 
 const TONES = {
-  income: { background: 'rgba(124,92,255,0.14)', color: '#9B87FF' },
-  expense: { background: 'rgba(255,95,95,0.12)', color: '#FF6B6B' },
-  debt: { background: 'rgba(255,176,32,0.12)', color: '#FFB020' },
+  income: { background: 'rgba(95,227,161,0.12)', color: '#5FE3A1' },
+  expense: { background: 'rgba(242,242,242,0.06)', color: '#B4B4B4' },
+  debt: { background: 'rgba(242,242,242,0.06)', color: '#B4B4B4' },
 } as const;
 
 interface CategoryIconProps {
@@ -35,7 +35,7 @@ interface CategoryIconProps {
   tone: 'income' | 'expense' | 'debt';
 }
 
-const SIZE = 46;
+const SIZE = 44;
 
 export function CategoryIcon({ category, tone }: CategoryIconProps) {
   const Icon = tone === 'debt' ? Wallet : ICONS[category ?? 'Etc'];
@@ -43,7 +43,7 @@ export function CategoryIcon({ category, tone }: CategoryIconProps) {
 
   return (
     <View
-      className="items-center justify-center rounded-[15px]"
+      className="items-center justify-center rounded-[14px]"
       style={{ width: SIZE, height: SIZE, backgroundColor: palette.background }}
     >
       <Icon size={SIZE * 0.46} color={palette.color} strokeWidth={1.8} />

@@ -7,7 +7,7 @@ interface SparklineProps {
 
 const WIDTH = 118;
 const HEIGHT = 54;
-const COLOR = '#7C5CFF';
+const COLOR = 'rgba(242,242,242,0.55)';
 
 export function Sparkline({ values }: SparklineProps) {
   const path = useMemo(() => {
@@ -32,7 +32,7 @@ export function Sparkline({ values }: SparklineProps) {
       <Path
         d={path}
         stroke={COLOR}
-        strokeWidth={2.6}
+        strokeWidth={2.4}
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"

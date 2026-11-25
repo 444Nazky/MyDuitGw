@@ -8,7 +8,8 @@ import {
   View,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Bell, Plus, Search, User, X } from 'lucide-react-native';
+import { Bell, ScanLine, Search, User, X } from 'lucide-react-native';
+import { BalanceCard } from '@/components/BalanceCard';
 import { Screen } from '@/components/Screen';
 import { Sparkline } from '@/components/Sparkline';
 import { TransactionModal } from '@/components/TransactionModal';
@@ -21,8 +22,6 @@ import {
   initialsOf,
   isCurrentMonth,
 } from '@/lib/format';
-
-const BAR_COLORS = ['#7C5CFF', '#FF5F5F', '#FFB020'];
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -127,90 +126,70 @@ export default function HomeScreen() {
   return (
     <View className="flex-1">
       <Screen>
-        <View className="flex-row items-center gap-3">
+        <View className="flex-row items-center gap-2.5">
           <Pressable
             accessibilityLabel="Open settings"
             onPress={() => router.push('/setting')}
-            className="h-[46px] w-[46px] items-center justify-center overflow-hidden rounded-full border border-white/[0.06] bg-[#1C1C1F]"
+            className="h-[44px] w-[44px] items-center justify-center overflow-hidden rounded-full bg-[#1C1C1C]"
           >
             {profile.avatarUri ? (
-              <Image source={{ uri: profile.avatarUri }} style={{ width: 46, height: 46 }} />
+              <Image source={{ uri: profile.avatarUri }} style={{ width: 44, height: 44 }} />
             ) : profile.name ? (
-              <Text className="text-[15px] font-semibold text-ink">
+              <Text className="text-[14.5px] font-semibold text-ink">
                 {initialsOf(profile.name)}
               </Text>
             ) : (
-              <User size={19} color="#9A9AA2" strokeWidth={1.8} />
+              <User size={19} color="#9A9A9A" strokeWidth={1.8} />
             )}
           </Pressable>
 
-          <View className="h-11 flex-1 flex-row items-center rounded-full border border-white/[0.08] bg-white/[0.05] px-4">
-            <Search size={18} color="#77777F" strokeWidth={1.9} />
+          <View className="h-11 flex-1 flex-row items-center rounded-full bg-[#1C1C1C] px-4">
+            <Search size={17} color="#6E6E6E" strokeWidth={1.9} />
             <TextInput
               value={query}
               onChangeText={setQuery}
               placeholder="Search"
-              placeholderTextColor="#77777F"
-              className="ml-3 flex-1 text-[15px] text-ink"
+              placeholderTextColor="#6E6E6E"
+              className="ml-2.5 flex-1 text-[14.5px] text-ink"
               returnKeyType="search"
-              selectionColor="#7C5CFF"
+              selectionColor="#5FE3A1"
             />
             {query.length > 0 ? (
               <Pressable accessibilityLabel="Clear search" hitSlop={8} onPress={() => setQuery('')}>
-                <X size={16} color="#8E8E96" />
+                <X size={15} color="#8A8A8A" />
               </Pressable>
             ) : null}
           </View>
 
           <Pressable
+            accessibilityLabel="Quick add"
+            hitSlop={6}
+            onPress={() => setQuickInputOpen(true)}
+            className="h-[44px] w-[34px] items-center justify-center"
+          >
+            <ScanLine size={22} color="#F2F2F2" strokeWidth={1.7} />
+          </Pressable>
+
+          <Pressable
             accessibilityLabel="Notifications"
             hitSlop={6}
             onPress={openNotifications}
-            className="h-[46px] w-[46px] items-center justify-center"
+            className="h-[44px] w-[34px] items-center justify-center"
           >
-            <Bell size={22} color="#FAFAFA" strokeWidth={1.7} />
+            <Bell size={21} color="#F2F2F2" strokeWidth={1.7} />
             {debts.some((debt) => debt.status === 'unpaid') ? (
-              <View className="absolute right-3 top-3 h-2 w-2 rounded-full bg-amber" />
+              <View className="absolute right-1.5 top-2.5 h-[7px] w-[7px] rounded-full bg-ink" />
             ) : null}
           </Pressable>
         </View>
 
-        <Pressable
-          onPress={() => setQuickInputOpen(true)}
-          className="mt-6 rounded-bento border border-white/[0.07] bg-card p-5"
-          style={({ pressed }) => (pressed ? { opacity: 0.94 } : null)}
-        >
-          <View className="flex-row items-start justify-between">
-            <View className="flex-1 pr-3">
-              <Text className="text-[14.5px] text-muted">Total Balance</Text>
-              <Text className="mt-2 text-[16px] font-medium text-[#D5D5DC]">
-                {profile.name || 'Your account'}
-              </Text>
-              <Text
-                numberOfLines={1}
-                adjustsFontSizeToFit
-                className="mt-1.5 text-[42px] font-bold tracking-tight text-ink"
-              >
-                {totalBalance < 0 ? '-' : ''}
-                {formatMoney(totalBalance, currency)}
-              </Text>
-              <Text className="mt-2 text-[13.5px] text-faint">Personal account</Text>
-            </View>
-
-            <View className="h-11 w-11 items-center justify-center rounded-full border border-white/[0.1]">
-              <Plus size={20} color="#FAFAFA" strokeWidth={1.9} />
-            </View>
-          </View>
-
-          <View className="absolute bottom-5 right-5 flex-row">
-            <View className="h-[26px] w-[26px] rounded-full bg-coral" />
-            <View className="-ml-2.5 h-[26px] w-[26px] rounded-full bg-amber" />
-          </View>
-        </Pressable>
+        <View className="mt-6">
+          <BalanceCard onAdd={() => setQuickInputOpen(true)} />
+        </View>
 
         {query.trim().length > 0 ? (
           <View className="mt-6">
-            <Text className="mb-3 text-[12px] font-medium uppercase tracking-[1.5px] text-faint">
+            <Text className="mb-3 text-[11.5px] font-medium uppercase tracking-[1.6px] text-faint">
               {results.length > 0 ? `${results.length} result${results.length > 1 ? 's' : ''}` : 'No results'}
             </Text>
             <View className="gap-2.5">
@@ -234,99 +213,99 @@ export default function HomeScreen() {
         ) : (
           <>
             <View className="mt-4 flex-row gap-3">
-              <View className="flex-1 rounded-bento border border-white/[0.07] bg-card p-4">
-                <Text className="text-[18px] font-semibold text-ink">Spending</Text>
-                <Text className="mt-1 text-[12.5px] text-muted">Spent this month</Text>
+              <View className="flex-1 rounded-bento bg-card p-[18px]">
+                <Text className="text-[12.5px] text-muted">Spending</Text>
                 <Text
                   numberOfLines={1}
                   adjustsFontSizeToFit
-                  className="mt-2.5 text-[21px] font-bold tracking-tight text-ink"
+                  className="mt-2 text-[21px] font-bold tracking-tight text-negative"
                 >
-                  {formatMoney(monthlyExpense, currency)}
+                  -{formatMoney(monthlyExpense, currency)}
                 </Text>
+                <Text className="mt-1 text-[12px] text-faint">This month</Text>
 
                 <View className="mt-4 gap-2">
                   {bars.length > 0 ? (
                     bars.map((bar, index) => (
                       <View
                         key={bar.category}
-                        className="h-[7px] overflow-hidden rounded-full bg-[#26262A]"
+                        className="h-[6px] overflow-hidden rounded-full bg-white/[0.08]"
                       >
                         <View
                           className="h-full rounded-full"
                           style={{
                             width: `${20 + (bar.share / maxShare) * 70}%`,
-                            backgroundColor: BAR_COLORS[index],
+                            backgroundColor: `rgba(242,242,242,${0.85 - index * 0.25})`,
                           }}
                         />
                       </View>
                     ))
                   ) : (
                     <>
-                      <View className="h-[7px] rounded-full bg-[#26262A]" />
-                      <View className="h-[7px] rounded-full bg-[#26262A]" />
-                      <View className="h-[7px] rounded-full bg-[#26262A]" />
+                      <View className="h-[6px] rounded-full bg-white/[0.07]" />
+                      <View className="h-[6px] rounded-full bg-white/[0.07]" />
+                      <View className="h-[6px] rounded-full bg-white/[0.07]" />
                     </>
                   )}
                 </View>
               </View>
 
-              <View className="flex-1 rounded-bento border border-white/[0.07] bg-card p-4">
-                <Text className="text-[18px] font-semibold text-ink">Income</Text>
-                <Text className="mt-1 text-[12.5px] text-muted">This month</Text>
+              <View className="flex-1 rounded-bento bg-card p-[18px]">
+                <Text className="text-[12.5px] text-muted">Income</Text>
                 <Text
                   numberOfLines={1}
                   adjustsFontSizeToFit
-                  className="mt-2.5 text-[21px] font-bold tracking-tight text-ink"
+                  className="mt-2 text-[21px] font-bold tracking-tight text-positive"
                 >
-                  {formatMoney(monthlyIncome, currency)}
+                  +{formatMoney(monthlyIncome, currency)}
                 </Text>
+                <Text className="mt-1 text-[12px] text-faint">This month</Text>
 
                 <View className="mt-4 flex-row flex-wrap gap-2">
                   {incomeCategories.length > 0 ? (
                     incomeCategories.map((category) => (
                       <View
                         key={category}
-                        className="rounded-full border border-neon/40 bg-neon/15 px-3 py-1.5"
+                        className="rounded-full bg-positive/[0.12] px-2.5 py-1"
                       >
-                        <Text className="text-[12.5px] font-medium text-[#B3A3FF]">
+                        <Text className="text-[12px] font-medium text-positive">
                           {category}
                         </Text>
                       </View>
                     ))
                   ) : (
-                    <View className="rounded-full border border-white/10 px-3 py-1.5">
-                      <Text className="text-[12.5px] text-muted">No income yet</Text>
+                    <View className="rounded-full bg-white/[0.06] px-2.5 py-1">
+                      <Text className="text-[12px] text-muted">No income yet</Text>
                     </View>
                   )}
                 </View>
               </View>
             </View>
 
-            <View className="mt-4 rounded-bento border border-white/[0.07] bg-card p-5">
+            <View className="mt-3 rounded-bento bg-card p-5">
               <View className="flex-row items-start justify-between">
                 <View className="flex-1 pr-2">
-                  <Text className="text-[16px] font-semibold text-ink">Monthly Cashflow</Text>
+                  <Text className="text-[12.5px] text-muted">Monthly Cashflow</Text>
                   <Text
                     numberOfLines={1}
                     adjustsFontSizeToFit
-                    className="mt-2 text-[30px] font-bold tracking-tight text-ink"
+                    className="mt-2 text-[28px] font-bold tracking-tight text-ink"
                   >
                     {monthlyNet >= 0 ? '+' : '-'}
                     {formatMoney(monthlyNet, currency)}
                   </Text>
-                  <Text className="mt-1 text-[12.5px] text-muted">Net this month</Text>
+                  <Text className="mt-1 text-[12px] text-faint">Net this month</Text>
 
                   <Pressable
                     onPress={() => router.push('/history')}
-                    className="mt-4 h-10 self-start justify-center rounded-full border border-white/[0.12] px-5"
+                    className="mt-4 h-9 self-start justify-center rounded-full bg-white/[0.08] px-4"
                     style={({ pressed }) => (pressed ? { opacity: 0.8 } : null)}
                   >
-                    <Text className="text-[13.5px] text-[#D5D5DC]">View report</Text>
+                    <Text className="text-[13px] font-medium text-ink">View report</Text>
                   </Pressable>
                 </View>
 
-                <View className="pt-8">
+                <View className="pt-6">
                   <Sparkline values={sparkValues} />
                 </View>
               </View>

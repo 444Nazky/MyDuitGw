@@ -118,14 +118,14 @@ export default function HistoryScreen() {
     <View className="flex-1">
       <Screen>
         <View className="flex-row items-center justify-between">
-          <Text className="text-[30px] font-bold tracking-tight text-ink">
+          <Text className="text-[28px] font-bold tracking-tight text-ink">
             History
           </Text>
           <Pressable
             accessibilityLabel="Toggle sort order"
             hitSlop={8}
             onPress={() => setNewestFirst((value) => !value)}
-            className="h-10 w-10 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.05]"
+            className="h-10 w-10 items-center justify-center rounded-full bg-[#1C1C1C]"
           >
             <ArrowUpDown size={18} color={newestFirst ? '#FAFAFA' : '#8E8E96'} />
           </Pressable>
@@ -143,10 +143,8 @@ export default function HistoryScreen() {
               <Pressable
                 key={option.key}
                 onPress={() => setFilter(option.key)}
-                className={`h-[46px] justify-center rounded-full border px-5 ${
-                  active
-                    ? 'border-white bg-white'
-                    : 'border-white/[0.08] bg-white/[0.05]'
+                className={`h-[44px] justify-center rounded-full px-5 ${
+                  active ? 'bg-white' : 'bg-[#1C1C1C]'
                 }`}
               >
                 <Text
@@ -162,7 +160,7 @@ export default function HistoryScreen() {
         </ScrollView>
 
         {groups.length === 0 ? (
-          <View className="mt-10 items-center rounded-bento border border-white/[0.07] bg-card px-6 py-12">
+          <View className="mt-10 items-center rounded-bento bg-card px-6 py-12">
             <Text className="text-[15.5px] font-medium text-ink">Nothing here yet</Text>
             <Text className="mt-1.5 text-center text-[13.5px] text-muted">
               Add a transaction from Home to start building your history.

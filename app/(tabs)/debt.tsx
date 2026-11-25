@@ -27,37 +27,37 @@ export default function DebtScreen() {
     <View className="flex-1">
       <Screen>
         <View className="flex-row items-center justify-between">
-          <Text className="text-[30px] font-bold tracking-tight text-ink">Debt List</Text>
+          <Text className="text-[28px] font-bold tracking-tight text-ink">Debt List</Text>
           <Pressable
             onPress={() => setAddOpen(true)}
-            className="h-11 flex-row items-center gap-1.5 rounded-full bg-neon px-5"
+            className="h-11 flex-row items-center gap-1.5 rounded-full bg-white px-5"
             style={({ pressed }) => (pressed ? { opacity: 0.88 } : null)}
           >
-            <Plus size={16} color="#FFFFFF" strokeWidth={2.4} />
-            <Text className="text-[14.5px] font-semibold text-white">Add Debt</Text>
+            <Plus size={16} color="#000000" strokeWidth={2.4} />
+            <Text className="text-[14px] font-semibold text-black">Add Debt</Text>
           </Pressable>
         </View>
 
-        <View className="mt-6 flex-row items-center rounded-bento border border-white/[0.07] bg-card p-5">
+        <View className="mt-6 flex-row items-center rounded-bento bg-card p-5">
           <View className="flex-1">
-            <Text className="text-[14.5px] text-muted">Total Lent Out</Text>
+            <Text className="text-[12.5px] text-muted">Total Lent Out</Text>
             <Text
               numberOfLines={1}
               adjustsFontSizeToFit
-              className="mt-2 text-[34px] font-bold tracking-tight text-amber"
+              className="mt-2 text-[30px] font-bold tracking-tight text-ink"
             >
               {formatMoney(totalLentOut, currency)}
             </Text>
-            <Text className="mt-2 text-[13px] text-faint">
+            <Text className="mt-2 text-[12.5px] text-faint">
               {activeDebtCount} active loan{activeDebtCount === 1 ? '' : 's'}
               {settledDebtCount > 0 ? ` · ${settledDebtCount} settled` : ''}
             </Text>
           </View>
-          <Bookmark size={34} color="#FFB020" strokeWidth={1.5} />
+          <Bookmark size={30} color="#777777" strokeWidth={1.5} />
         </View>
 
         {sortedDebts.length === 0 ? (
-          <View className="mt-6 items-center rounded-bento border border-white/[0.07] bg-card px-6 py-12">
+          <View className="mt-6 items-center rounded-bento bg-card px-6 py-12">
             <Text className="text-[15.5px] font-medium text-ink">No loans recorded</Text>
             <Text className="mt-1.5 text-center text-[13.5px] text-muted">
               Tap Add Debt to log money you have lent out.
@@ -71,10 +71,10 @@ export default function DebtScreen() {
                 <Pressable
                   key={debt.id}
                   onPress={() => setSelectedId(debt.id)}
-                  className="flex-row items-center rounded-bento border border-white/[0.07] bg-card px-4 py-4"
+                  className="flex-row items-center rounded-bento bg-card px-4 py-4"
                   style={({ pressed }) => (pressed ? { opacity: 0.86 } : null)}
                 >
-                  <View className="h-[44px] w-[44px] items-center justify-center rounded-full bg-[#232326]">
+                  <View className="h-[44px] w-[44px] items-center justify-center rounded-full bg-[#1C1C1C]">
                     <Text className="text-[13px] font-semibold text-[#C9C9D1]">
                       {initialsOf(debt.borrowerName)}
                     </Text>
@@ -94,8 +94,8 @@ export default function DebtScreen() {
                     </Text>
                   </View>
                   <Text
-                    className={`text-[16.5px] font-semibold ${
-                      paid ? 'text-faint line-through' : 'text-amber'
+                    className={`text-[15.5px] font-semibold ${
+                      paid ? 'text-faint line-through' : 'text-ink'
                     }`}
                   >
                     {formatMoney(debt.amount, currency)}

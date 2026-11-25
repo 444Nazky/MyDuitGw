@@ -30,14 +30,14 @@ export function Screen({ children }: ScreenProps) {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={() => void onRefresh()}
-            tintColor="#FAFAFA"
-            colors={['#FAFAFA']}
-            progressBackgroundColor="#141416"
+            tintColor="#F2F2F2"
+            colors={['#F2F2F2']}
+            progressBackgroundColor="#161616"
           />
         }
         contentContainerStyle={{
           paddingTop: insets.top + 12,
-          paddingHorizontal: 24,
+          paddingHorizontal: 22,
           paddingBottom: 136,
         }}
       >
