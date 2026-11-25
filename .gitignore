@@ -10,6 +10,7 @@ web-build/
 .env.*.local
 dashboard/dist/
 tools/receipt-hash/target/
+android/.kotlin/
 
 # Firebase deploy cache
 .firebase/
