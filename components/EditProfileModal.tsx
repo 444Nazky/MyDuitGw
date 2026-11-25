@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { Camera, User } from 'lucide-react-native';
+import { Camera, Trash2, User } from 'lucide-react-native';
 import { Sheet } from '@/components/ui/Sheet';
 import { useFinance } from '@/context/FinanceContext';
 import { initialsOf } from '@/lib/format';
@@ -20,7 +20,7 @@ interface EditProfileModalProps {
 }
 
 export function EditProfileModal({ visible, onClose }: EditProfileModalProps) {
-  const { profile, updateProfile } = useFinance();
+  const { profile, updateProfile, resetProfile } = useFinance();
   const [name, setName] = useState(profile.name);
   const [email, setEmail] = useState(profile.email);
   const [phone, setPhone] = useState(profile.phone);
@@ -51,6 +51,24 @@ export function EditProfileModal({ visible, onClose }: EditProfileModalProps) {
     if (!result.canceled && result.assets?.length) {
       setAvatarUri(result.assets[0].uri);
     }
+  };
+
+  const handleDelete = () => {
+    Alert.alert(
+      'Delete profile?',
+      'Your photo, name, username, email and phone go back to the default initials (NN). Transactions and debts are kept.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Delete',
+          style: 'destructive',
+          onPress: () => {
+            void resetProfile();
+            onClose();
+          },
+        },
+      ],
+    );
   };
 
   const handleSave = () => {
@@ -149,6 +167,16 @@ export function EditProfileModal({ visible, onClose }: EditProfileModalProps) {
         className={INPUT}
         selectionColor="#7C5CFF"
       />
+
+      <Pressable
+        accessibilityRole="button"
+        onPress={handleDelete}
+        className="mt-6 h-12 flex-row items-center justify-center gap-2 rounded-2xl border border-coral/30"
+        style={({ pressed }) => (pressed ? { opacity: 0.8 } : null)}
+      >
+        <Trash2 size={15} color="#FF5F5F" strokeWidth={2} />
+        <Text className="text-[14.5px] font-semibold text-coral">Delete profile</Text>
+      </Pressable>
 
     </Sheet>
   );

@@ -52,6 +52,7 @@ interface FinanceContextValue {
   setCurrency: (currency: CurrencyCode) => Promise<void>;
   updateProfile: (patch: Partial<Profile>) => Promise<void>;
   resetData: () => Promise<void>;
+  resetProfile: () => Promise<void>;
   signIn: (email: string, password: string) => Promise<string | null>;
   signUp: (email: string, password: string, username: string) => Promise<string | null>;
   signOut: () => Promise<void>;
@@ -66,6 +67,7 @@ interface TransactionRow {
   category: TransactionCategory;
   note: string | null;
   date: string;
+  created_at?: string;
 }
 
 interface DebtRow {
@@ -107,6 +109,7 @@ function toTransaction(row: TransactionRow): Transaction {
     category: row.category,
     note: row.note ?? undefined,
     date: row.date,
+    createdAt: row.created_at,
   };
 }
 
@@ -163,7 +166,8 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
         .from('transactions')
         .select('*')
         .eq('user_id', userId)
-        .order('date', { ascending: false }),
+        .order('date', { ascending: false })
+        .order('created_at', { ascending: false }),
       supabase
         .from('debts')
         .select('*')
@@ -384,6 +388,19 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
     [userId],
   );
 
+  const resetProfile = useCallback(async () => {
+    if (!userId) return;
+    const { error } = await supabase
+      .from('profiles')
+      .upsert(
+        { id: userId, name: '', email: '', phone: '', username: '', avatar_url: null },
+        { onConflict: 'id' },
+      );
+    if (error) return;
+    setProfile(EMPTY_PROFILE);
+    await supabase.auth.updateUser({ data: { name: '', username: '' } });
+  }, [userId]);
+
   const resetData = useCallback(async () => {
     if (!userId) return;
     await Promise.all([
@@ -505,6 +522,7 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
       setCurrency,
       updateProfile,
       resetData,
+      resetProfile,
       signIn,
       signUp,
       signOut,
@@ -529,6 +547,7 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
       setCurrency,
       updateProfile,
       resetData,
+      resetProfile,
       signIn,
       signUp,
       signOut,

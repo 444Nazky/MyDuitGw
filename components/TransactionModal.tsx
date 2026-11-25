@@ -65,12 +65,23 @@ export function TransactionModal({
 
   const handleSave = () => {
     if (!canSave) return;
+    // The calendar only picks the day, which resets the clock to 00:00 and made
+    // a fresh entry sink below older ones from the same day. Keep a real time:
+    // now for new entries, the original time when editing.
+    const reference = transaction ? new Date(transaction.date) : new Date();
+    const stamped = new Date(date);
+    stamped.setHours(
+      reference.getHours(),
+      reference.getMinutes(),
+      reference.getSeconds(),
+      reference.getMilliseconds(),
+    );
     const draft = {
       type,
       amount: currency === 'IDR' ? amount / USD_TO_IDR : amount,
       category,
       note: note.trim() ? note.trim() : undefined,
-      date: date.toISOString(),
+      date: stamped.toISOString(),
     };
 
     if (transaction) {

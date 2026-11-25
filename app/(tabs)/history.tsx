@@ -30,6 +30,7 @@ interface HistoryItem {
   tone: 'income' | 'expense' | 'debt';
   category?: TransactionCategory;
   date: string;
+  createdAt: string;
   debt?: Debt;
 }
 
@@ -57,6 +58,7 @@ export default function HistoryScreen() {
       tone: transaction.type,
       category: transaction.category,
       date: transaction.date,
+      createdAt: transaction.createdAt ?? '',
     }));
 
     const debtItems: HistoryItem[] = debts.map((debt) => ({
@@ -66,6 +68,7 @@ export default function HistoryScreen() {
       amount: debt.amount,
       tone: 'debt',
       date: debt.loanDate,
+      createdAt: '',
       debt,
     }));
 
@@ -82,7 +85,11 @@ export default function HistoryScreen() {
 
     items.sort((a, b) => {
       const delta = new Date(b.date).getTime() - new Date(a.date).getTime();
-      return newestFirst ? delta : -delta;
+      if (delta !== 0) return newestFirst ? delta : -delta;
+      // Same timestamp (entries saved on the same day): the row created last
+      // still belongs on top, so fall back to the creation time.
+      const tie = b.createdAt.localeCompare(a.createdAt);
+      return newestFirst ? tie : -tie;
     });
 
     const buckets: { label: string; items: HistoryItem[] }[] = [];

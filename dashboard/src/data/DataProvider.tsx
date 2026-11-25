@@ -72,8 +72,16 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
   const refresh = useCallback(async () => {
     if (!user) return;
     const [transactionsResult, debtsResult, profilesResult] = await Promise.all([
-      supabase.from('transactions').select('*').order('date', { ascending: false }),
-      supabase.from('debts').select('*').order('loan_date', { ascending: false }),
+      supabase
+        .from('transactions')
+        .select('*')
+        .order('date', { ascending: false })
+        .order('created_at', { ascending: false }),
+      supabase
+        .from('debts')
+        .select('*')
+        .order('loan_date', { ascending: false })
+        .order('created_at', { ascending: false }),
       supabase.from('profiles').select('*').order('created_at', { ascending: true }),
     ]);
 

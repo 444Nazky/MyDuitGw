@@ -16,6 +16,7 @@ export interface Transaction {
   category: TransactionCategory;
   note?: string;
   date: string; // ISO timestamp
+  createdAt?: string;
 }
 
 export interface Debt {
