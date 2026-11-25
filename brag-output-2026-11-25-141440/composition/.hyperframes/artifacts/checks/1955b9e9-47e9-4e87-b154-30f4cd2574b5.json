@@ -1,0 +1,2459 @@
+{
+  "ok": false,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 9,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Audible clips overlap on Studio track 5: assets/sfx/rollover2.ogg at 2.95-3.25s and assets/sfx/rollover2.ogg at 3.2-3.5s. Both play at once whatever their track (the render mixes every audible clip; data-track-index only picks the Studio lane), and Studio draws them over each other in that lane.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "If both should sound (a whoosh into a hit), give one its own data-track-index; the mix does not change. If one is a leftover duplicate, remove it or move it so the windows do not overlap."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Audible clips overlap on Studio track 5: assets/sfx/rollover2.ogg at 3.2-3.5s and assets/sfx/bong_001.ogg at 3.45-3.85s. Both play at once whatever their track (the render mixes every audible clip; data-track-index only picks the Studio lane), and Studio draws them over each other in that lane.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "If both should sound (a whoosh into a hit), give one its own data-track-index; the mix does not change. If one is a leftover duplicate, remove it or move it so the windows do not overlap."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Audible clips overlap on Studio track 5: assets/sfx/keypress-001.wav at 7.45-7.65s and assets/sfx/keypress-002.wav at 7.6-7.8s. Both play at once whatever their track (the render mixes every audible clip; data-track-index only picks the Studio lane), and Studio draws them over each other in that lane.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "If both should sound (a whoosh into a hit), give one its own data-track-index; the mix does not change. If one is a leftover duplicate, remove it or move it so the windows do not overlap."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Audible clips overlap on Studio track 5: assets/sfx/keypress-002.wav at 7.6-7.8s and assets/sfx/keypress-003.wav at 7.75-7.95s. Both play at once whatever their track (the render mixes every audible clip; data-track-index only picks the Studio lane), and Studio draws them over each other in that lane.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "If both should sound (a whoosh into a hit), give one its own data-track-index; the mix does not change. If one is a leftover duplicate, remove it or move it so the windows do not overlap."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Audible clips overlap on Studio track 5: assets/sfx/keypress-003.wav at 7.75-7.95s and assets/sfx/keypress-004.wav at 7.9-8.1s. Both play at once whatever their track (the render mixes every audible clip; data-track-index only picks the Studio lane), and Studio draws them over each other in that lane.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "If both should sound (a whoosh into a hit), give one its own data-track-index; the mix does not change. If one is a leftover duplicate, remove it or move it so the windows do not overlap."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Audible clips overlap on Studio track 5: assets/sfx/click_003.ogg at 17.45-17.75s and assets/sfx/impactSoft_medium_002.ogg at 17.62-18.02s. Both play at once whatever their track (the render mixes every audible clip; data-track-index only picks the Studio lane), and Studio draws them over each other in that lane.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "If both should sound (a whoosh into a hit), give one its own data-track-index; the mix does not change. If one is a leftover duplicate, remove it or move it so the windows do not overlap."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Audible clips overlap on Studio track 5: assets/sfx/impactSoft_medium_003.ogg at 21.42-21.92s and assets/sfx/bong_001.ogg at 21.5-21.9s. Both play at once whatever their track (the render mixes every audible clip; data-track-index only picks the Studio lane), and Studio draws them over each other in that lane.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "If both should sound (a whoosh into a hit), give one its own data-track-index; the mix does not change. If one is a leftover duplicate, remove it or move it so the windows do not overlap."
+      },
+      {
+        "code": "overlapping_gsap_tweens",
+        "severity": "warning",
+        "message": "GSAP tweens overlap on \"#hm-glow\" for opacity between 0.90s and 1.00s.",
+        "selector": "#hm-glow",
+        "dataAttributes": {},
+        "sourceFile": "/home/nazky/RPL/MyDuitGw/brag-output-2026-11-25-141440/composition/compositions/home.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Shorten the earlier tween, move the later tween, or add `overwrite: \"auto\"`."
+      },
+      {
+        "code": "gsap_repeated_fromto_without_baseline",
+        "severity": "warning",
+        "message": "3 tl.fromTo() calls target \"proxy (unresolved DOM association)\" with no stable baseline. The last-authored fromTo \"from\" values become the element's resting state for any seek before the first tween actually runs, because GSAP applies fromTo from-values at authoring time (immediateRender), not at tween position.",
+        "selector": "proxy (unresolved DOM association)",
+        "dataAttributes": {},
+        "sourceFile": "/home/nazky/RPL/MyDuitGw/brag-output-2026-11-25-141440/composition/compositions/tap.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add `immediateRender: false` to every fromTo except the earliest-positioned one (at 3.7s), so pre-first-tween seeks keep its \"from\" values. A hiding `tl.set(..., 0)` baseline trips gsap_timeline_set_initial_hide, and a `gsap.set` authored before the fromTo calls is overwritten by them."
+      }
+    ],
+    "filesScanned": 8
+  },
+  "runtime": {
+    "ok": false,
+    "errorCount": 1,
+    "warningCount": 17,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "console_error",
+        "severity": "error",
+        "message": "[HyperFrames] composition script error: tap TypeError: Cannot set properties of null (setting 'textContent')",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "22.8",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0,
+        "url": "",
+        "line": 2060
+      },
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"sfx-hook\" is 0.19s but its slot (data-duration) is 0.60s — the slot is shortened to the media length when rendered. Set data-duration to ~0.19s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "22.8",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0
+      },
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"sfx-phone\" is 0.06s but its slot (data-duration) is 0.30s — the slot is shortened to the media length when rendered. Set data-duration to ~0.06s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "22.8",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0
+      },
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"sfx-card1\" is 0.06s but its slot (data-duration) is 0.30s — the slot is shortened to the media length when rendered. Set data-duration to ~0.06s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "22.8",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0
+      },
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"sfx-card2\" is 0.06s but its slot (data-duration) is 0.30s — the slot is shortened to the media length when rendered. Set data-duration to ~0.06s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "22.8",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0
+      },
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"sfx-card3\" is 0.13s but its slot (data-duration) is 0.40s — the slot is shortened to the media length when rendered. Set data-duration to ~0.13s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "22.8",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0
+      },
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"sfx-tap\" is 0.01s but its slot (data-duration) is 0.30s — the slot is shortened to the media length when rendered. Set data-duration to ~0.01s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "22.8",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0
+      },
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"sfx-sheet\" is 0.19s but its slot (data-duration) is 0.50s — the slot is shortened to the media length when rendered. Set data-duration to ~0.19s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "22.8",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0
+      },
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"sfx-chip\" is 0.01s but its slot (data-duration) is 0.30s — the slot is shortened to the media length when rendered. Set data-duration to ~0.01s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "22.8",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0
+      },
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"sfx-save\" is 0.06s but its slot (data-duration) is 0.30s — the slot is shortened to the media length when rendered. Set data-duration to ~0.06s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "22.8",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0
+      },
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"sfx-row\" is 0.13s but its slot (data-duration) is 0.40s — the slot is shortened to the media length when rendered. Set data-duration to ~0.13s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "22.8",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0
+      },
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"sfx-expand\" is 0.06s but its slot (data-duration) is 0.40s — the slot is shortened to the media length when rendered. Set data-duration to ~0.06s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "22.8",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0
+      },
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"sfx-grid\" is 0.15s but its slot (data-duration) is 0.50s — the slot is shortened to the media length when rendered. Set data-duration to ~0.15s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "22.8",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0
+      },
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"sfx-paid\" is 0.01s but its slot (data-duration) is 0.30s — the slot is shortened to the media length when rendered. Set data-duration to ~0.01s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "22.8",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0
+      },
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"sfx-paid-settle\" is 0.14s but its slot (data-duration) is 0.40s — the slot is shortened to the media length when rendered. Set data-duration to ~0.14s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "22.8",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0
+      },
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"sfx-dash\" is 0.50s but its slot (data-duration) is 0.70s — the slot is shortened to the media length when rendered. Set data-duration to ~0.50s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "22.8",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0
+      },
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"sfx-mark\" is 0.14s but its slot (data-duration) is 0.50s — the slot is shortened to the media length when rendered. Set data-duration to ~0.14s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "22.8",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0
+      },
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"sfx-mark-tone\" is 0.13s but its slot (data-duration) is 0.40s — the slot is shortened to the media length when rendered. Set data-duration to ~0.13s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "22.8",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0
+      }
+    ]
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "duration": 22.8,
+    "samples": [
+      1.267,
+      3.8,
+      6.333,
+      8.867,
+      11.4,
+      13.933,
+      16.467,
+      19,
+      21.533
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 0,
+    "truncated": false,
+    "faceCheck": {
+      "ran": true,
+      "candidates": 0,
+      "faces": 0
+    }
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 13,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 3.33:1; WCAG AA requires 4.5:1.",
+        "text": "No separate page to log it.",
+        "fg": "rgb(99,99,107)",
+        "bg": "rgb(10,10,10)",
+        "ratio": 3.33,
+        "requiredRatio": 4.5,
+        "suggestedColor": "rgb(120,120,127)",
+        "large": false,
+        "selector": "div > div:nth-of-type(3) > div > div:nth-of-type(1) > div:nth-of-type(4) > span:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/tap.html",
+        "bbox": {
+          "x": 184,
+          "y": 658.03125,
+          "width": 175.03125,
+          "height": 17
+        },
+        "time": 6.333,
+        "times": [
+          6.333
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 3.74:1; WCAG AA requires 4.5:1.",
+        "text": "N",
+        "fg": "rgb(20,16,31)",
+        "bg": "rgb(131,78,230)",
+        "ratio": 3.74,
+        "requiredRatio": 4.5,
+        "suggestedColor": "rgb(243,243,244)",
+        "large": false,
+        "selector": "#tp-avatar",
+        "dataAttributes": {},
+        "sourceFile": "compositions/tap.html",
+        "bbox": {
+          "x": 1153,
+          "y": 146,
+          "width": 32,
+          "height": 32
+        },
+        "time": 6.333,
+        "times": [
+          6.333
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 3.7:1; WCAG AA requires 4.5:1.",
+        "text": "Search",
+        "fg": "rgb(111,111,120)",
+        "bg": "rgb(20,20,20)",
+        "ratio": 3.7,
+        "requiredRatio": 4.5,
+        "suggestedColor": "rgb(125,125,133)",
+        "large": false,
+        "selector": "#tp-search",
+        "dataAttributes": {},
+        "sourceFile": "compositions/tap.html",
+        "bbox": {
+          "x": 1194,
+          "y": 145,
+          "width": 278,
+          "height": 34
+        },
+        "time": 6.333,
+        "times": [
+          6.333
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 3.53:1; WCAG AA requires 4.5:1.",
+        "text": "Nazky",
+        "fg": "rgb(122,122,131)",
+        "bg": "rgb(40,34,66)",
+        "ratio": 3.53,
+        "requiredRatio": 4.5,
+        "suggestedColor": "rgb(140,140,148)",
+        "large": false,
+        "selector": "#tp-balance-owner",
+        "dataAttributes": {},
+        "sourceFile": "compositions/tap.html",
+        "bbox": {
+          "x": 1171,
+          "y": 227,
+          "width": 326,
+          "height": 20
+        },
+        "time": 6.333,
+        "times": [
+          6.333
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 4.11:1; WCAG AA requires 4.5:1.",
+        "text": "Spent this month",
+        "fg": "rgb(119,119,119)",
+        "bg": "rgb(20,20,20)",
+        "ratio": 4.11,
+        "requiredRatio": 4.5,
+        "suggestedColor": "rgb(126,126,126)",
+        "large": false,
+        "selector": "div > div:nth-of-type(3) > div > div:nth-of-type(2) > div > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/tap.html",
+        "bbox": {
+          "x": 1167,
+          "y": 403,
+          "width": 147.5,
+          "height": 12
+        },
+        "time": 6.333,
+        "times": [
+          6.333
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 4.11:1; WCAG AA requires 4.5:1.",
+        "text": "This month",
+        "fg": "rgb(119,119,119)",
+        "bg": "rgb(20,20,20)",
+        "ratio": 4.11,
+        "requiredRatio": 4.5,
+        "suggestedColor": "rgb(126,126,126)",
+        "large": false,
+        "selector": "div > div:nth-of-type(3) > div > div:nth-of-type(2) > div > div:nth-of-type(4) > div:nth-of-type(2) > div:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/tap.html",
+        "bbox": {
+          "x": 1353.5,
+          "y": 403,
+          "width": 147.5,
+          "height": 12
+        },
+        "time": 6.333,
+        "times": [
+          6.333
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 4.11:1; WCAG AA requires 4.5:1.",
+        "text": "Net this month",
+        "fg": "rgb(119,119,119)",
+        "bg": "rgb(20,20,20)",
+        "ratio": 4.11,
+        "requiredRatio": 4.5,
+        "suggestedColor": "rgb(126,126,126)",
+        "large": false,
+        "selector": "#tp-cf-net",
+        "dataAttributes": {},
+        "sourceFile": "compositions/tap.html",
+        "bbox": {
+          "x": 1435.453125,
+          "y": 506.5,
+          "width": 65.546875,
+          "height": 11
+        },
+        "time": 6.333,
+        "times": [
+          6.333
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 4.22:1; WCAG AA requires 4.5:1.",
+        "text": "Outstanding",
+        "fg": "rgb(111,111,120)",
+        "bg": "rgb(0,0,0)",
+        "ratio": 4.22,
+        "requiredRatio": 4.5,
+        "suggestedColor": "rgb(116,116,124)",
+        "large": false,
+        "selector": "#db-label",
+        "dataAttributes": {},
+        "sourceFile": "compositions/debt.html",
+        "bbox": {
+          "x": 1153,
+          "y": 157,
+          "width": 362,
+          "height": 13
+        },
+        "time": 16.467,
+        "times": [
+          16.467
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 4.11:1; WCAG AA requires 4.5:1.",
+        "text": "bensin + makan",
+        "fg": "rgb(119,119,119)",
+        "bg": "rgb(20,20,20)",
+        "ratio": 4.11,
+        "requiredRatio": 4.5,
+        "suggestedColor": "rgb(126,126,126)",
+        "large": false,
+        "selector": "#db-reason",
+        "dataAttributes": {},
+        "sourceFile": "compositions/debt.html",
+        "bbox": {
+          "x": 1215,
+          "y": 280,
+          "width": 83.203125,
+          "height": 14
+        },
+        "time": 16.467,
+        "times": [
+          16.467
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 3.09:1; WCAG AA requires 4.5:1.",
+        "text": "12 Nov",
+        "fg": "rgb(99,99,107)",
+        "bg": "rgb(20,20,20)",
+        "ratio": 3.09,
+        "requiredRatio": 4.5,
+        "suggestedColor": "rgb(125,125,131)",
+        "large": false,
+        "selector": "#db-date",
+        "dataAttributes": {},
+        "sourceFile": "compositions/debt.html",
+        "bbox": {
+          "x": 1470.0625,
+          "y": 271,
+          "width": 31.9375,
+          "height": 12
+        },
+        "time": 16.467,
+        "times": [
+          16.467
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 4.15:1; WCAG AA requires 4.5:1.",
+        "text": "Transfer receipt",
+        "fg": "rgb(119,119,119)",
+        "bg": "rgb(19,19,19)",
+        "ratio": 4.15,
+        "requiredRatio": 4.5,
+        "suggestedColor": "rgb(125,125,125)",
+        "large": false,
+        "selector": "div > div:nth-of-type(5) > div > div:nth-of-type(2) > div > div:nth-of-type(4) > div:nth-of-type(1) > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/debt.html",
+        "bbox": {
+          "x": 1166,
+          "y": 338.7886047363281,
+          "width": 109.40625,
+          "height": 13
+        },
+        "time": 16.467,
+        "times": [
+          16.467
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 4.15:1; WCAG AA requires 4.5:1.",
+        "text": "JPG",
+        "fg": "rgb(119,119,119)",
+        "bg": "rgb(19,19,19)",
+        "ratio": 4.15,
+        "requiredRatio": 4.5,
+        "suggestedColor": "rgb(125,125,125)",
+        "large": false,
+        "selector": "div > div:nth-of-type(5) > div > div:nth-of-type(2) > div > div:nth-of-type(4) > div:nth-of-type(1) > span:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/debt.html",
+        "bbox": {
+          "x": 1479.890625,
+          "y": 338.7886047363281,
+          "width": 22.109375,
+          "height": 13
+        },
+        "time": 16.467,
+        "times": [
+          16.467
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 3.94:1; WCAG AA requires 4.5:1.",
+        "text": "Transfer berhasil",
+        "fg": "rgb(107,114,128)",
+        "bg": "rgb(231,232,234)",
+        "ratio": 3.94,
+        "requiredRatio": 4.5,
+        "suggestedColor": "rgb(98,105,117)",
+        "large": false,
+        "selector": "#db-thumb-bank",
+        "dataAttributes": {},
+        "sourceFile": "compositions/debt.html",
+        "bbox": {
+          "x": 1182.968017578125,
+          "y": 376.0942077636719,
+          "width": 302.06396484375,
+          "height": 10.718414306640625
+        },
+        "time": 16.467,
+        "times": [
+          16.467
+        ]
+      }
+    ],
+    "enabled": true,
+    "samples": [
+      1.267,
+      6.333,
+      11.4,
+      16.467,
+      21.533
+    ],
+    "checked": 42,
+    "passed": 29
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 13,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "first_frame_empty",
+        "severity": "warning",
+        "message": "Frame 0 shows only the background, and the first frame is the thumbnail on social players: have the title or key image already on screen at 0 s instead of entering from nothing; see references/review.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"No separate page to log it.\" (6 words) is on screen 1.10 s (±0.01 s), under its 1.72 s floor: hold it about 0.5 s + 0.3 s a word (2.30 s here) before it leaves or changes; see references/motion.md.",
+        "text": "No separate page to log it.",
+        "selector": "#intro-caption",
+        "dataAttributes": {},
+        "sourceFile": "compositions/intro.html",
+        "bbox": {
+          "x": 794.86,
+          "y": 601.95,
+          "width": 330.2500000000001,
+          "height": 33
+        },
+        "time": 1.238,
+        "words": 6,
+        "seconds": 1.098,
+        "floorSeconds": 1.725,
+        "measured": [
+          {
+            "time": 0.872,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 0.997,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 1.121,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 1.246,
+            "opacity": 0.55,
+            "heightPx": 33
+          },
+          {
+            "time": 1.37,
+            "opacity": 0.94,
+            "heightPx": 33
+          },
+          {
+            "time": 1.495,
+            "opacity": 1,
+            "heightPx": 33
+          },
+          {
+            "time": 1.62,
+            "opacity": 1,
+            "heightPx": 33
+          },
+          {
+            "time": 1.869,
+            "opacity": 1,
+            "heightPx": 33
+          },
+          {
+            "time": 1.993,
+            "opacity": 1,
+            "heightPx": 33
+          },
+          {
+            "time": 2.118,
+            "opacity": 1,
+            "heightPx": 33
+          },
+          {
+            "time": 2.243,
+            "opacity": 0.93,
+            "heightPx": 33
+          },
+          {
+            "time": 2.367,
+            "opacity": 0.13,
+            "heightPx": 33
+          },
+          {
+            "time": 2.492,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 2.616,
+            "opacity": null,
+            "heightPx": null
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"No separate page to log it.\" renders at 27 px for 1.12 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "No separate page to log it.",
+        "selector": "#intro-caption",
+        "dataAttributes": {},
+        "sourceFile": "compositions/intro.html",
+        "bbox": {
+          "x": 794.86,
+          "y": 601.95,
+          "width": 330.25,
+          "height": 33
+        },
+        "time": 1.246,
+        "times": [
+          1.246
+        ],
+        "fontPx": 27,
+        "floorPx": 28,
+        "seconds": 1.122,
+        "elements": [
+          {
+            "selector": "#intro-caption",
+            "text": "No separate page to log it.",
+            "fontPx": 27,
+            "time": 1.246,
+            "seconds": 1.122
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 23 text elements stay under it for 0.5 s or more, the smallest \"Home\" at 10 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Home",
+        "selector": "#hm-nav-active",
+        "dataAttributes": {},
+        "sourceFile": "compositions/home.html",
+        "bbox": {
+          "x": 1246.89,
+          "y": 983.42,
+          "width": 27.42,
+          "height": 11
+        },
+        "time": 2.741,
+        "times": [
+          2.741,
+          2.741,
+          2.741,
+          2.741,
+          2.741,
+          2.741,
+          2.741,
+          3.115,
+          3.115,
+          3.115,
+          3.364,
+          3.364,
+          3.364,
+          3.364,
+          3.364,
+          3.364,
+          3.489,
+          3.613,
+          3.613,
+          3.613,
+          3.738,
+          3.862,
+          3.987
+        ],
+        "fontPx": 9.5,
+        "floorPx": 28,
+        "seconds": 2.866,
+        "elements": [
+          {
+            "selector": "#hm-nav-active",
+            "text": "Home",
+            "fontPx": 9.5,
+            "time": 2.741,
+            "seconds": 2.866
+          },
+          {
+            "selector": "#hm-nav > span:nth-of-type(2)",
+            "text": "History",
+            "fontPx": 9.5,
+            "time": 2.741,
+            "seconds": 2.866
+          },
+          {
+            "selector": "#hm-nav > span:nth-of-type(3)",
+            "text": "Debt",
+            "fontPx": 9.5,
+            "time": 2.741,
+            "seconds": 2.866
+          },
+          {
+            "selector": "#hm-nav > span:nth-of-type(4)",
+            "text": "Setting",
+            "fontPx": 9.5,
+            "time": 2.741,
+            "seconds": 2.866
+          },
+          {
+            "selector": "#hm-cashflow-net",
+            "text": "Net this month",
+            "fontPx": 9.5,
+            "time": 3.613,
+            "seconds": 1.994
+          },
+          {
+            "selector": "#hm-balance-meta",
+            "text": "IDR",
+            "fontPx": 10,
+            "time": 3.115,
+            "seconds": 2.492
+          },
+          {
+            "selector": "#hm-spending-card > div:nth-of-type(2)",
+            "text": "Spent this month",
+            "fontPx": 10,
+            "time": 3.364,
+            "seconds": 2.243
+          },
+          {
+            "selector": "#hm-income-card > div:nth-of-type(2)",
+            "text": "This month",
+            "fontPx": 10,
+            "time": 3.364,
+            "seconds": 2.243
+          },
+          {
+            "selector": "#hm-status > span:nth-of-type(1)",
+            "text": "9:41",
+            "fontPx": 11.5,
+            "time": 2.741,
+            "seconds": 2.866
+          },
+          {
+            "selector": "#hm-search",
+            "text": "Search",
+            "fontPx": 11.5,
+            "time": 2.741,
+            "seconds": 2.866
+          },
+          {
+            "selector": "#hm-avatar",
+            "text": "N",
+            "fontPx": 12,
+            "time": 2.741,
+            "seconds": 2.866
+          },
+          {
+            "selector": "#hm-balance-label",
+            "text": "Total Balance",
+            "fontPx": 12,
+            "time": 3.115,
+            "seconds": 2.492
+          },
+          {
+            "selector": "#hm-cashflow-title",
+            "text": "Monthly Cashflow",
+            "fontPx": 13,
+            "time": 3.613,
+            "seconds": 1.994
+          },
+          {
+            "selector": "#hm-spending-card > div:nth-of-type(1)",
+            "text": "Spending",
+            "fontPx": 13.5,
+            "time": 3.364,
+            "seconds": 2.243
+          },
+          {
+            "selector": "#hm-income-card > div:nth-of-type(1)",
+            "text": "Income",
+            "fontPx": 13.5,
+            "time": 3.364,
+            "seconds": 2.243
+          },
+          {
+            "selector": "#hm-chips > div:nth-of-type(1)",
+            "text": "Income & spending",
+            "fontPx": 14,
+            "time": 3.738,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#hm-chips > div:nth-of-type(2)",
+            "text": "Peer-to-peer loans",
+            "fontPx": 14,
+            "time": 3.862,
+            "seconds": 1.745
+          },
+          {
+            "selector": "#hm-chips > div:nth-of-type(3)",
+            "text": "Transfer receipts",
+            "fontPx": 14,
+            "time": 3.987,
+            "seconds": 1.62
+          },
+          {
+            "selector": "#hm-balance-owner",
+            "text": "Nazky",
+            "fontPx": 16,
+            "time": 3.115,
+            "seconds": 2.492
+          },
+          {
+            "selector": "#hm-spending-card > div:nth-of-type(3)",
+            "text": "-Rp. 445.000",
+            "fontPx": 18.5,
+            "time": 3.364,
+            "seconds": 2.243
+          },
+          {
+            "selector": "#hm-income-card > div:nth-of-type(3)",
+            "text": "Rp 690.000",
+            "fontPx": 18.5,
+            "time": 3.364,
+            "seconds": 2.243
+          },
+          {
+            "selector": "#hm-cashflow-amount",
+            "text": "+Rp 245.000",
+            "fontPx": 19,
+            "time": 3.613,
+            "seconds": 1.994
+          },
+          {
+            "selector": "#hm-sub",
+            "text": "Personal finance & peer-to-peer loan tracker",
+            "fontPx": 23,
+            "time": 3.489,
+            "seconds": 2.118
+          }
+        ]
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 5.73 s (5.61–11.34 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 5.607,
+        "seconds": 5.731,
+        "floorSeconds": 3,
+        "until": 11.338
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 16 text elements stay under it for 0.5 s or more, the smallest \"Net this month\" at 10 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Net this month",
+        "selector": "#tp-cf-net",
+        "dataAttributes": {},
+        "sourceFile": "compositions/tap.html",
+        "bbox": {
+          "x": 1435.45,
+          "y": 506.5,
+          "width": 65.55,
+          "height": 11
+        },
+        "time": 5.607,
+        "times": [
+          5.607,
+          5.607,
+          5.607,
+          5.607,
+          5.607,
+          5.607,
+          5.607,
+          5.607,
+          5.607,
+          5.607,
+          5.607,
+          5.607,
+          5.607,
+          5.607,
+          5.607,
+          5.607
+        ],
+        "fontPx": 9.5,
+        "floorPx": 28,
+        "seconds": 5.856,
+        "elements": [
+          {
+            "selector": "#tp-cf-net",
+            "text": "Net this month",
+            "fontPx": 9.5,
+            "time": 5.607,
+            "seconds": 5.856
+          },
+          {
+            "selector": "#tp-pair > div:nth-of-type(1) > div:nth-of-type(2)",
+            "text": "Spent this month",
+            "fontPx": 10,
+            "time": 5.607,
+            "seconds": 5.856
+          },
+          {
+            "selector": "#tp-pair > div:nth-of-type(2) > div:nth-of-type(2)",
+            "text": "This month",
+            "fontPx": 10,
+            "time": 5.607,
+            "seconds": 5.856
+          },
+          {
+            "selector": "#tp-status > span:nth-of-type(1)",
+            "text": "9:41",
+            "fontPx": 11.5,
+            "time": 5.607,
+            "seconds": 5.856
+          },
+          {
+            "selector": "#tp-search",
+            "text": "Search",
+            "fontPx": 11.5,
+            "time": 5.607,
+            "seconds": 5.856
+          },
+          {
+            "selector": "#tp-avatar",
+            "text": "N",
+            "fontPx": 12,
+            "time": 5.607,
+            "seconds": 5.856
+          },
+          {
+            "selector": "#tp-balance-label",
+            "text": "Total Balance",
+            "fontPx": 12,
+            "time": 5.607,
+            "seconds": 5.856
+          },
+          {
+            "selector": "#tp-cf-title",
+            "text": "Monthly Cashflow",
+            "fontPx": 13,
+            "time": 5.607,
+            "seconds": 5.856
+          },
+          {
+            "selector": "#tp-pair > div:nth-of-type(1) > div:nth-of-type(1)",
+            "text": "Spending",
+            "fontPx": 13.5,
+            "time": 5.607,
+            "seconds": 5.856
+          },
+          {
+            "selector": "#tp-pair > div:nth-of-type(2) > div:nth-of-type(1)",
+            "text": "Income",
+            "fontPx": 13.5,
+            "time": 5.607,
+            "seconds": 5.856
+          },
+          {
+            "selector": "#tap-note > span:nth-of-type(2)",
+            "text": "No separate page to log it.",
+            "fontPx": 14,
+            "time": 5.607,
+            "seconds": 5.856
+          },
+          {
+            "selector": "#tp-balance-owner",
+            "text": "Nazky",
+            "fontPx": 16,
+            "time": 5.607,
+            "seconds": 5.856
+          },
+          {
+            "selector": "#tp-spend",
+            "text": "-Rp. 445.000",
+            "fontPx": 18,
+            "time": 5.607,
+            "seconds": 5.856
+          },
+          {
+            "selector": "#tp-pair > div:nth-of-type(2) > div:nth-of-type(3)",
+            "text": "Rp 690.000",
+            "fontPx": 18,
+            "time": 5.607,
+            "seconds": 5.856
+          },
+          {
+            "selector": "#tp-cf-amount",
+            "text": "+Rp 245.000",
+            "fontPx": 19,
+            "time": 5.607,
+            "seconds": 5.856
+          },
+          {
+            "selector": "#tap-sub",
+            "text": "Expense, category, save. The balance, Spending and the heatmap all move on their own.",
+            "fontPx": 22,
+            "time": 5.607,
+            "seconds": 5.856
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 17 text elements stay under it for 0.5 s or more, the smallest \"Dec\" at 11 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Dec",
+        "selector": "#yr-labels > div:nth-of-type(2) > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/year.html",
+        "bbox": {
+          "x": 204.56,
+          "y": 373.62,
+          "width": 20.93,
+          "height": 13.76
+        },
+        "time": 11.587,
+        "times": [
+          11.587,
+          11.587,
+          11.587,
+          11.587,
+          11.587,
+          11.587,
+          11.587,
+          11.587,
+          11.587,
+          11.587,
+          11.587,
+          11.587,
+          12.21,
+          13.83,
+          13.954,
+          14.079,
+          14.452
+        ],
+        "fontPx": 10.81,
+        "floorPx": 28,
+        "seconds": 4.112,
+        "elements": [
+          {
+            "selector": "#yr-labels > div:nth-of-type(2) > span:nth-of-type(1)",
+            "text": "Dec",
+            "fontPx": 10.81,
+            "time": 11.587,
+            "seconds": 4.112
+          },
+          {
+            "selector": "#yr-labels > div:nth-of-type(6) > span:nth-of-type(1)",
+            "text": "Jan",
+            "fontPx": 10.81,
+            "time": 11.587,
+            "seconds": 4.112
+          },
+          {
+            "selector": "#yr-labels > div:nth-of-type(11) > span:nth-of-type(1)",
+            "text": "Feb",
+            "fontPx": 10.81,
+            "time": 11.587,
+            "seconds": 4.112
+          },
+          {
+            "selector": "#yr-labels > div:nth-of-type(15) > span:nth-of-type(1)",
+            "text": "Mar",
+            "fontPx": 10.81,
+            "time": 11.587,
+            "seconds": 4.112
+          },
+          {
+            "selector": "#yr-labels > div:nth-of-type(19) > span:nth-of-type(1)",
+            "text": "Apr",
+            "fontPx": 10.81,
+            "time": 11.587,
+            "seconds": 4.112
+          },
+          {
+            "selector": "#yr-labels > div:nth-of-type(23) > span:nth-of-type(1)",
+            "text": "May",
+            "fontPx": 10.81,
+            "time": 11.587,
+            "seconds": 4.112
+          },
+          {
+            "selector": "#yr-labels > div:nth-of-type(28) > span:nth-of-type(1)",
+            "text": "Jun",
+            "fontPx": 10.81,
+            "time": 11.587,
+            "seconds": 4.112
+          },
+          {
+            "selector": "#yr-labels > div:nth-of-type(32) > span:nth-of-type(1)",
+            "text": "Jul",
+            "fontPx": 10.81,
+            "time": 11.587,
+            "seconds": 4.112
+          },
+          {
+            "selector": "#yr-labels > div:nth-of-type(36) > span:nth-of-type(1)",
+            "text": "Aug",
+            "fontPx": 10.81,
+            "time": 11.587,
+            "seconds": 4.112
+          },
+          {
+            "selector": "#yr-labels > div:nth-of-type(41) > span:nth-of-type(1)",
+            "text": "Sep",
+            "fontPx": 10.81,
+            "time": 11.587,
+            "seconds": 4.112
+          },
+          {
+            "selector": "#yr-labels > div:nth-of-type(45) > span:nth-of-type(1)",
+            "text": "Oct",
+            "fontPx": 10.81,
+            "time": 11.587,
+            "seconds": 4.112
+          },
+          {
+            "selector": "#yr-labels > div:nth-of-type(50) > span:nth-of-type(1)",
+            "text": "Nov",
+            "fontPx": 10.81,
+            "time": 11.587,
+            "seconds": 4.112
+          },
+          {
+            "selector": "#yr-legend > div:nth-of-type(1)",
+            "text": "Income",
+            "fontPx": 13,
+            "time": 13.83,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#yr-legend > div:nth-of-type(2)",
+            "text": "Spending",
+            "fontPx": 13,
+            "time": 13.954,
+            "seconds": 1.745
+          },
+          {
+            "selector": "#yr-legend > div:nth-of-type(3)",
+            "text": "No spending",
+            "fontPx": 13,
+            "time": 14.079,
+            "seconds": 1.62
+          },
+          {
+            "selector": "#yr-foot",
+            "text": "Monthly Cashflow · the same grid you see on the phone, unscrolled",
+            "fontPx": 14,
+            "time": 14.452,
+            "seconds": 1.247
+          },
+          {
+            "selector": "#yr-sub",
+            "text": "One grid, no charts to read.",
+            "fontPx": 20,
+            "time": 12.21,
+            "seconds": 3.489
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 17 text elements stay under it for 0.5 s or more, the smallest \"Transfer berhasil\" at 9 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Transfer berhasil",
+        "selector": "#db-thumb-bank",
+        "dataAttributes": {},
+        "sourceFile": "compositions/debt.html",
+        "bbox": {
+          "x": 1184.66,
+          "y": 377.28,
+          "width": 109.94,
+          "height": 10.6
+        },
+        "time": 16.446,
+        "times": [
+          15.823,
+          15.823,
+          15.823,
+          15.823,
+          15.823,
+          16.197,
+          16.197,
+          16.197,
+          16.197,
+          16.446,
+          16.446,
+          16.446,
+          16.446,
+          16.446,
+          16.695,
+          17.567,
+          17.692
+        ],
+        "fontPx": 8.67,
+        "floorPx": 28,
+        "seconds": 2.368,
+        "elements": [
+          {
+            "selector": "#db-thumb-bank",
+            "text": "Transfer berhasil",
+            "fontPx": 8.67,
+            "time": 16.446,
+            "seconds": 2.368
+          },
+          {
+            "selector": "#db-thumb-ok",
+            "text": "Berhasil",
+            "fontPx": 8.67,
+            "time": 16.446,
+            "seconds": 2.368
+          },
+          {
+            "selector": "#db-date",
+            "text": "12 Nov",
+            "fontPx": 10,
+            "time": 16.197,
+            "seconds": 2.617
+          },
+          {
+            "selector": "#db-label",
+            "text": "Outstanding",
+            "fontPx": 10.5,
+            "time": 15.823,
+            "seconds": 2.991
+          },
+          {
+            "selector": "#db-receipt-head > span:nth-of-type(1)",
+            "text": "Transfer receipt",
+            "fontPx": 10.5,
+            "time": 16.446,
+            "seconds": 2.368
+          },
+          {
+            "selector": "#db-receipt-head > span:nth-of-type(2)",
+            "text": "JPG",
+            "fontPx": 10.5,
+            "time": 16.446,
+            "seconds": 2.368
+          },
+          {
+            "selector": "#db-paid-badge",
+            "text": "Paid",
+            "fontPx": 10.5,
+            "time": 17.692,
+            "seconds": 1.122
+          },
+          {
+            "selector": "#db-reason",
+            "text": "bensin + makan",
+            "fontPx": 11,
+            "time": 16.197,
+            "seconds": 2.617
+          },
+          {
+            "selector": "#db-top > span:nth-of-type(1)",
+            "text": "‹ Debt",
+            "fontPx": 12,
+            "time": 15.823,
+            "seconds": 2.991
+          },
+          {
+            "selector": "#db-secondary",
+            "text": "Change receipt photo",
+            "fontPx": 12,
+            "time": 15.823,
+            "seconds": 2.991
+          },
+          {
+            "selector": "#db-top-title",
+            "text": "Debt detail",
+            "fontPx": 13,
+            "time": 15.823,
+            "seconds": 2.991
+          },
+          {
+            "selector": "#db-primary-label",
+            "text": "Mark as Paid",
+            "fontPx": 13.1,
+            "time": 15.823,
+            "seconds": 1.745
+          },
+          {
+            "selector": "#db-primary-paid",
+            "text": "✓ Paid",
+            "fontPx": 13.49,
+            "time": 17.567,
+            "seconds": 1.247
+          },
+          {
+            "selector": "#db-avatar",
+            "text": "R",
+            "fontPx": 14,
+            "time": 16.197,
+            "seconds": 2.617
+          },
+          {
+            "selector": "#db-name",
+            "text": "Lent to Raka",
+            "fontPx": 14,
+            "time": 16.197,
+            "seconds": 2.617
+          },
+          {
+            "selector": "#db-thumb-amount",
+            "text": "Rp 150.000",
+            "fontPx": 18.31,
+            "time": 16.446,
+            "seconds": 2.368
+          },
+          {
+            "selector": "#db-sub",
+            "text": "Attach the transfer proof when you lend. Mark as Paid when it comes back.",
+            "fontPx": 22,
+            "time": 16.695,
+            "seconds": 2.119
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Attach the transfer proof when you lend. Mark as Paid whe...\" (14 words) is on screen 2.20 s (±0.01 s), under its 3.53 s floor: hold it about 0.5 s + 0.3 s a word (4.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Attach the transfer proof when you lend. Mark as Paid when it comes back.",
+        "selector": "#db-sub",
+        "dataAttributes": {},
+        "sourceFile": "compositions/debt.html",
+        "bbox": {
+          "x": 168,
+          "y": 533.89,
+          "width": 420.23,
+          "height": 59
+        },
+        "time": 16.601,
+        "words": 14,
+        "seconds": 2.204,
+        "floorSeconds": 3.525,
+        "measured": [
+          {
+            "time": 16.321,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 16.446,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 16.57,
+            "opacity": 0.46,
+            "heightPx": 59
+          },
+          {
+            "time": 16.695,
+            "opacity": 0.85,
+            "heightPx": 59
+          },
+          {
+            "time": 16.82,
+            "opacity": 1,
+            "heightPx": 59
+          },
+          {
+            "time": 16.944,
+            "opacity": 1,
+            "heightPx": 59
+          },
+          {
+            "time": 17.069,
+            "opacity": 1,
+            "heightPx": 59
+          },
+          {
+            "time": 18.315,
+            "opacity": 1,
+            "heightPx": 59
+          },
+          {
+            "time": 18.439,
+            "opacity": 1,
+            "heightPx": 59
+          },
+          {
+            "time": 18.564,
+            "opacity": 1,
+            "heightPx": 59
+          },
+          {
+            "time": 18.689,
+            "opacity": 1,
+            "heightPx": 59
+          },
+          {
+            "time": 18.813,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 18.938,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 19.062,
+            "opacity": null,
+            "heightPx": null
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 45 text elements stay under it for 0.5 s or more, the smallest \"Total Balance\" at 8 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Total Balance",
+        "selector": "#ds-phone-label",
+        "dataAttributes": {},
+        "sourceFile": "compositions/dash.html",
+        "bbox": {
+          "x": 1348.86,
+          "y": 500.05,
+          "width": 69.56,
+          "height": 9.9
+        },
+        "time": 19.685,
+        "times": [
+          19.187,
+          19.187,
+          19.187,
+          19.187,
+          19.311,
+          19.311,
+          19.311,
+          19.311,
+          19.311,
+          19.311,
+          19.311,
+          19.311,
+          19.311,
+          19.311,
+          19.311,
+          19.311,
+          19.311,
+          19.311,
+          19.436,
+          19.436,
+          19.436,
+          19.436,
+          19.436,
+          19.436,
+          19.436,
+          19.436,
+          19.436,
+          19.436,
+          19.436,
+          19.436,
+          19.436,
+          19.436,
+          19.436,
+          19.436,
+          19.436,
+          19.436,
+          19.436,
+          19.436,
+          19.436,
+          19.436,
+          19.436,
+          19.436,
+          19.561,
+          19.685,
+          19.685
+        ],
+        "fontPx": 7.92,
+        "floorPx": 28,
+        "seconds": 1.62,
+        "elements": [
+          {
+            "selector": "#ds-phone-label",
+            "text": "Total Balance",
+            "fontPx": 7.92,
+            "time": 19.685,
+            "seconds": 1.62
+          },
+          {
+            "selector": "#ds-rows > div:nth-of-type(3) > div:nth-of-type(1)",
+            "text": "Loan",
+            "fontPx": 10,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#ds-rows > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2)",
+            "text": "25 Nov 2026 · just saved",
+            "fontPx": 11,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#ds-rows > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2)",
+            "text": "24 Nov 2026 · monthly",
+            "fontPx": 11,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#ds-rows > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2)",
+            "text": "12 Nov 2026 · bensin + makan",
+            "fontPx": 11,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#ds-rows > div:nth-of-type(4) > div:nth-of-type(2) > div:nth-of-type(2)",
+            "text": "9 Nov 2026 · from Raka",
+            "fontPx": 11,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#ds-proof-label",
+            "text": "Latest Transfer Proof",
+            "fontPx": 11,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "div.ds-card > div:nth-of-type(4)",
+            "text": "eu-central-1 · Realtime on",
+            "fontPx": 11.5,
+            "time": 19.311,
+            "seconds": 1.994
+          },
+          {
+            "selector": "#ds-shell > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(3)",
+            "text": "Food · Kuota · Shopping",
+            "fontPx": 12,
+            "time": 19.187,
+            "seconds": 2.118
+          },
+          {
+            "selector": "#ds-net-chips > div:nth-of-type(1)",
+            "text": "▲ 12.4%",
+            "fontPx": 12,
+            "time": 19.311,
+            "seconds": 1.994
+          },
+          {
+            "selector": "#ds-net-chips > div:nth-of-type(2)",
+            "text": "+Rp 235.000",
+            "fontPx": 12,
+            "time": 19.311,
+            "seconds": 1.994
+          },
+          {
+            "selector": "#ds-shell > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2)",
+            "text": "Income, expense and repayments",
+            "fontPx": 12,
+            "time": 19.311,
+            "seconds": 1.994
+          },
+          {
+            "selector": "div.ds-card > div:nth-of-type(3) > span:nth-of-type(1)",
+            "text": "● Income",
+            "fontPx": 12,
+            "time": 19.311,
+            "seconds": 1.994
+          },
+          {
+            "selector": "div.ds-card > div:nth-of-type(3) > span:nth-of-type(2)",
+            "text": "● Expense",
+            "fontPx": 12,
+            "time": 19.311,
+            "seconds": 1.994
+          },
+          {
+            "selector": "div.ds-card > div:nth-of-type(3) > span:nth-of-type(3)",
+            "text": "● Debt Repayments",
+            "fontPx": 12,
+            "time": 19.311,
+            "seconds": 1.994
+          },
+          {
+            "selector": "#ds-shell > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3)",
+            "text": "1 of 2 settled",
+            "fontPx": 12,
+            "time": 19.311,
+            "seconds": 1.994
+          },
+          {
+            "selector": "#ds-history-sub",
+            "text": "Latest activity across all records",
+            "fontPx": 12,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "div.ds-pill.on",
+            "text": "All",
+            "fontPx": 12,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#ds-filters > div:nth-of-type(2)",
+            "text": "Income",
+            "fontPx": 12,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#ds-filters > div:nth-of-type(3)",
+            "text": "Expense",
+            "fontPx": 12,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#ds-filters > div:nth-of-type(4)",
+            "text": "Debt",
+            "fontPx": 12,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#ds-proof-meta",
+            "text": "12 Nov 2026 · Supabase Storage",
+            "fontPx": 12,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#ds-proof-thumb",
+            "text": "receipt attached",
+            "fontPx": 12,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#ds-rows > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1)",
+            "text": "Food",
+            "fontPx": 13,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#ds-rows > div:nth-of-type(1) > div:nth-of-type(3)",
+            "text": "-Rp. 10.000",
+            "fontPx": 13,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#ds-rows > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1)",
+            "text": "Salary",
+            "fontPx": 13,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#ds-rows > div:nth-of-type(2) > div:nth-of-type(3)",
+            "text": "+Rp 690.000",
+            "fontPx": 13,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#ds-rows > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+            "text": "Lent to Raka",
+            "fontPx": 13,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#ds-rows > div:nth-of-type(3) > div:nth-of-type(3)",
+            "text": "Rp 150.000",
+            "fontPx": 13,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#ds-rows > div:nth-of-type(4) > div:nth-of-type(2) > div:nth-of-type(1)",
+            "text": "Transfer repayment",
+            "fontPx": 13,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#ds-rows > div:nth-of-type(4) > div:nth-of-type(3)",
+            "text": "+Rp 200.000",
+            "fontPx": 13,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#ds-export",
+            "text": "Export CSV / JSON",
+            "fontPx": 13,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#ds-live",
+            "text": "Live",
+            "fontPx": 13,
+            "time": 19.561,
+            "seconds": 1.744
+          },
+          {
+            "selector": "#ds-shell > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1)",
+            "text": "Total Income",
+            "fontPx": 14,
+            "time": 19.187,
+            "seconds": 2.118
+          },
+          {
+            "selector": "#ds-shell > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1)",
+            "text": "Total Expense",
+            "fontPx": 14,
+            "time": 19.187,
+            "seconds": 2.118
+          },
+          {
+            "selector": "#ds-shell > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1)",
+            "text": "Top Spending",
+            "fontPx": 14,
+            "time": 19.187,
+            "seconds": 2.118
+          },
+          {
+            "selector": "#ds-net-label",
+            "text": "Net Balance",
+            "fontPx": 14,
+            "time": 19.311,
+            "seconds": 1.994
+          },
+          {
+            "selector": "#ds-shell > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1)",
+            "text": "Pending Debts",
+            "fontPx": 14,
+            "time": 19.311,
+            "seconds": 1.994
+          },
+          {
+            "selector": "#ds-shell > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+            "text": "Supabase Status",
+            "fontPx": 14,
+            "time": 19.311,
+            "seconds": 1.994
+          },
+          {
+            "selector": "#ds-history-title",
+            "text": "Transaction History",
+            "fontPx": 16,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#ds-shell > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+            "text": "Cashflow Overview",
+            "fontPx": 17,
+            "time": 19.311,
+            "seconds": 1.994
+          },
+          {
+            "selector": "#ds-proof-name",
+            "text": "receipt-raka-150000.jpg",
+            "fontPx": 17,
+            "time": 19.436,
+            "seconds": 1.869
+          },
+          {
+            "selector": "#ds-phone-amount",
+            "text": "Rp 1.235.000",
+            "fontPx": 19.8,
+            "time": 19.685,
+            "seconds": 1.62
+          },
+          {
+            "selector": "#ds-shell > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(3)",
+            "text": "128 Records",
+            "fontPx": 22,
+            "time": 19.311,
+            "seconds": 1.994
+          },
+          {
+            "selector": "#ds-shell > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2)",
+            "text": "Rp 150.000",
+            "fontPx": 26,
+            "time": 19.311,
+            "seconds": 1.994
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "The film's last line \"M\" (1 word) is on screen 1.40 s (±0.01 s), under the 2.00 s a closing line needs: hold it about 0.5 s + 0.3 s a word and at least 2 s before the film ends; see references/motion.md.",
+        "text": "M",
+        "selector": "#mk-badge",
+        "dataAttributes": {},
+        "sourceFile": "compositions/mark.html",
+        "bbox": {
+          "x": 943.73,
+          "y": 432.36,
+          "width": 32.5,
+          "height": 44.120000000000005
+        },
+        "time": 21.407,
+        "words": 1,
+        "seconds": 1.397,
+        "floorSeconds": 2,
+        "measured": [
+          {
+            "time": 21.056,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 21.18,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 21.305,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 21.43,
+            "opacity": 0.66,
+            "heightPx": 44
+          },
+          {
+            "time": 21.554,
+            "opacity": 0.98,
+            "heightPx": 46
+          },
+          {
+            "time": 21.679,
+            "opacity": 1,
+            "heightPx": 46
+          },
+          {
+            "time": 21.803,
+            "opacity": 1,
+            "heightPx": 46
+          },
+          {
+            "time": 22.302,
+            "opacity": 1,
+            "heightPx": 46
+          },
+          {
+            "time": 22.426,
+            "opacity": 1,
+            "heightPx": 46
+          },
+          {
+            "time": 22.551,
+            "opacity": 1,
+            "heightPx": 46
+          },
+          {
+            "time": 22.675,
+            "opacity": 1,
+            "heightPx": 46
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "The film's last line \"My Duit Gw\" (3 words) is on screen 1.23 s (±0.01 s), under the 2.00 s a closing line needs: hold it about 0.5 s + 0.3 s a word and at least 2 s before the film ends; see references/motion.md.",
+        "text": "My Duit Gw",
+        "selector": "#mk-name",
+        "dataAttributes": {},
+        "sourceFile": "compositions/mark.html",
+        "bbox": {
+          "x": 835.19,
+          "y": 515.32,
+          "width": 249.61000000000013,
+          "height": 59
+        },
+        "time": 21.57,
+        "words": 3,
+        "seconds": 1.234,
+        "floorSeconds": 2,
+        "measured": [
+          {
+            "time": 21.305,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 21.43,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 21.554,
+            "opacity": 0.28,
+            "heightPx": 59
+          },
+          {
+            "time": 21.679,
+            "opacity": 0.89,
+            "heightPx": 59
+          },
+          {
+            "time": 21.803,
+            "opacity": 1,
+            "heightPx": 59
+          },
+          {
+            "time": 21.928,
+            "opacity": 1,
+            "heightPx": 59
+          },
+          {
+            "time": 22.052,
+            "opacity": 1,
+            "heightPx": 59
+          },
+          {
+            "time": 22.302,
+            "opacity": 1,
+            "heightPx": 59
+          },
+          {
+            "time": 22.426,
+            "opacity": 1,
+            "heightPx": 59
+          },
+          {
+            "time": 22.551,
+            "opacity": 1,
+            "heightPx": 59
+          },
+          {
+            "time": 22.675,
+            "opacity": 1,
+            "heightPx": 59
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 3 text elements stay under it for 0.5 s or more, the smallest \"Synced live from the mobile app and S...\" at 13 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Synced live from the mobile app and Supabase.",
+        "selector": "#mk-meta > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/mark.html",
+        "bbox": {
+          "x": 781.22,
+          "y": 638.93,
+          "width": 293.19,
+          "height": 16
+        },
+        "time": 22.052,
+        "times": [
+          21.803,
+          22.052,
+          22.052
+        ],
+        "fontPx": 13,
+        "floorPx": 28,
+        "seconds": 0.748,
+        "elements": [
+          {
+            "selector": "#mk-meta > span:nth-of-type(1)",
+            "text": "Synced live from the mobile app and Supabase.",
+            "fontPx": 13,
+            "time": 22.052,
+            "seconds": 0.748
+          },
+          {
+            "selector": "#mk-meta > span:nth-of-type(3)",
+            "text": "v1.1.12",
+            "fontPx": 13,
+            "time": 22.052,
+            "seconds": 0.748
+          },
+          {
+            "selector": "#mk-tagline",
+            "text": "Personal finance & peer-to-peer loan tracker",
+            "fontPx": 19,
+            "time": 21.803,
+            "seconds": 0.997
+          }
+        ]
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 183
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

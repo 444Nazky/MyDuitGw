@@ -1,0 +1,695 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      background: #0a0a0a;
+      overflow: hidden;
+    }
+
+    #tap-copy {
+      position: absolute;
+      left: 168px;
+      top: 330px;
+      width: 660px;
+    }
+    #tap-line1,
+    #tap-line2 {
+      font-size: 84px;
+      line-height: 1.03;
+      font-weight: 700;
+      letter-spacing: -0.042em;
+      color: #ffffff;
+    }
+    #tap-sub {
+      margin-top: 26px;
+      font-size: 22px;
+      line-height: 1.5;
+      color: #8e8e96;
+      width: 470px;
+    }
+    #tap-note {
+      margin-top: 30px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      color: #a5a5ad;
+    }
+    #tap-note-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #7c5cff;
+    }
+
+    #tp-glow {
+      position: absolute;
+      left: 1000px;
+      top: 60px;
+      width: 760px;
+      height: 960px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 45%, rgba(124, 92, 255, 0.4), rgba(124, 92, 255, 0) 62%);
+      filter: blur(28px);
+      opacity: 0.24;
+    }
+
+    #tp-phone {
+      position: absolute;
+      left: 1126px;
+      top: 92px;
+      width: 416px;
+      height: 900px;
+      border-radius: 58px;
+      background: #060606;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 40px 120px rgba(0, 0, 0, 0.7);
+      padding: 8px;
+    }
+    #tp-screen {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50px;
+      background: #000;
+      overflow: hidden;
+      padding: 16px 18px 0;
+    }
+
+    #tp-status {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11.5px;
+      color: #d5d5dc;
+      margin-bottom: 14px;
+    }
+    #tp-header {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 14px;
+    }
+    #tp-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #6d28d9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    #tp-search {
+      flex: 1;
+      height: 34px;
+      border-radius: 999px;
+      background: #141414;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      font-size: 11.5px;
+      color: #8e8e96;
+    }
+    #tp-bell {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #141414;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #d5d5dc;
+    }
+
+    #tp-balance {
+      position: relative;
+      height: 165px;
+      border-radius: 24px;
+      background: #141414;
+      padding: 16px 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    #tp-balance-wash {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(120% 90% at 88% 8%, rgba(124, 92, 255, 0.5), rgba(20, 20, 20, 0) 62%),
+        radial-gradient(90% 70% at 4% 100%, rgba(139, 92, 246, 0.16), rgba(20, 20, 20, 0) 60%);
+    }
+    #tp-balance-label {
+      position: relative;
+      font-size: 12px;
+      font-weight: 600;
+      color: #f3f4f6;
+    }
+    #tp-balance-owner {
+      position: relative;
+      margin-top: 3px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #8e8e96;
+    }
+    #tp-balance-amount {
+      position: relative;
+      font-size: 31px;
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      color: #fff;
+      font-variant-numeric: tabular-nums;
+    }
+
+    #tp-tap-ring {
+      position: absolute;
+      left: 50%;
+      top: 78px;
+      width: 120px;
+      height: 120px;
+      margin-left: -60px;
+      border-radius: 50%;
+      border: 2px solid rgba(167, 139, 250, 0.9);
+      opacity: 0;
+    }
+
+    #tp-pair {
+      display: flex;
+      gap: 11px;
+      margin-bottom: 12px;
+    }
+    .tp-mini {
+      flex: 1;
+      border-radius: 20px;
+      background: #141414;
+      padding: 14px;
+      min-height: 108px;
+      display: flex;
+      flex-direction: column;
+    }
+    .tp-mini-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .tp-mini-label {
+      margin-top: 3px;
+      font-size: 10px;
+      color: #8e8e96;
+    }
+    .tp-mini-amount {
+      margin-top: auto;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      font-variant-numeric: tabular-nums;
+      color: #fff;
+    }
+
+    #tp-cashflow {
+      border-radius: 20px;
+      background: #141414;
+      padding: 14px;
+    }
+    #tp-cf-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #tp-cf-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+    }
+    #tp-cf-net {
+      font-size: 9.5px;
+      color: #8e8e96;
+    }
+    #tp-cf-amount {
+      margin-top: 5px;
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #fff;
+      font-variant-numeric: tabular-nums;
+    }
+    #tp-strip {
+      margin-top: 10px;
+    }
+    .hm-strip-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6px;
+    }
+    .hm-strip-row {
+      display: flex;
+      gap: 1.6px;
+    }
+    .hm-strip-col i {
+      display: block;
+      width: 4.1px;
+      height: 4.1px;
+      border-radius: 1px;
+    }
+
+
+    #tp-recent {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .tp-recent-row {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 4px;
+    }
+    .tp-recent-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .tp-recent-title {
+      font-size: 11px;
+      font-weight: 500;
+      color: #fafafa;
+    }
+    .tp-recent-meta {
+      margin-top: 1px;
+      font-size: 9px;
+      color: #8e8e96;
+    }
+    .tp-recent-amount {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    #tp-toast {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 74px;
+      border-radius: 16px;
+      background: rgba(23, 23, 23, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 11px 13px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      opacity: 0;
+    }
+    #tp-toast-left {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+    #tp-toast-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 9px;
+      background: rgba(255, 95, 95, 0.16);
+      color: #ff5f5f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    #tp-toast-title {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #fff;
+    }
+    #tp-toast-meta {
+      font-size: 9.5px;
+      color: #777;
+      margin-top: 1px;
+    }
+    #tp-toast-amount {
+      font-size: 12px;
+      font-weight: 700;
+      color: #ff5f5f;
+    }
+
+    /* sheet */
+    #tp-nav {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 14px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      background: rgba(20, 20, 20, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 999px;
+      padding: 10px 22px;
+      font-size: 9.5px;
+      color: #6f6f78;
+      letter-spacing: 0.01em;
+    }
+
+    #tp-scrim {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.62);
+      opacity: 0;
+    }
+    #tp-sheet {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 26px 26px 0 0;
+      background: #171717;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 12px 18px 20px;
+      opacity: 0;
+    }
+    #tp-grabber {
+      width: 38px;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      margin: 0 auto 14px;
+    }
+    #tp-sheet-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    #tp-sheet-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+    #tp-sheet-close {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #b9b9c1;
+    }
+    #tp-seg {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .tp-seg-item {
+      flex: 1;
+      height: 38px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12.5px;
+      font-weight: 600;
+      background: #1f1f1f;
+      color: #9a9aa2;
+    }
+    #tp-seg-expense {
+      background: #ffffff;
+      color: #000000;
+    }
+    .tp-label {
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #6f6f78;
+      margin-bottom: 6px;
+    }
+    #tp-amount-field {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+    }
+    #tp-amount-currency {
+      font-size: 15px;
+      font-weight: 600;
+      color: #7a7a83;
+    }
+    #tp-amount-value {
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #fff;
+      font-variant-numeric: tabular-nums;
+    }
+    #tp-amount-value span {
+      opacity: 0;
+    }
+    #tp-cats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 18px;
+    }
+    .tp-cat {
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #1c1c1c;
+      padding: 7px 12px;
+      font-size: 11px;
+      color: #a5a5ad;
+    }
+    #tp-cat-food {
+      border-color: #7c3aed;
+      background: #211537;
+      color: #c4b5fd;
+      font-weight: 600;
+    }
+    #tp-save {
+      height: 48px;
+      border-radius: 15px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: #000000;
+      letter-spacing: -0.01em;
+    }
+  </style>
+
+  <div id="root" data-composition-id="tap" data-width="1920" data-height="1080">
+    <div id="tap-copy">
+      <div id="tap-line1">Tap the card.</div>
+      <div id="tap-line2">That&rsquo;s the form.</div>
+      <div id="tap-sub">Expense, category, save. The balance, Spending and the heatmap all move on their own.</div>
+      <div id="tap-note"><span id="tap-note-dot"></span><span>No separate page to log it.</span></div>
+    </div>
+
+    <div id="tp-glow"></div>
+
+    <div id="tp-phone" data-layout-ignore>
+      <div id="tp-screen">
+        <div id="tp-status">
+          <span>9:41</span>
+          <span>◦◦◦</span>
+        </div>
+
+        <div id="tp-header">
+          <div id="tp-avatar">N</div>
+          <div id="tp-search">Search</div>
+          <div id="tp-bell">◦</div>
+        </div>
+
+        <div id="tp-balance">
+          <div id="tp-balance-wash"></div>
+          <div id="tp-tap-ring"></div>
+          <div style="position: relative">
+            <div id="tp-balance-label">Total Balance</div>
+            <div id="tp-balance-owner">Nazky</div>
+          </div>
+          <div id="tp-balance-amount">Rp 1.245.000</div>
+        </div>
+
+        <div id="tp-pair">
+          <div class="tp-mini">
+            <div class="tp-mini-title">Spending</div>
+            <div class="tp-mini-label">Spent this month</div>
+            <div class="tp-mini-amount" id="tp-spend">-Rp. 445.000</div>
+          </div>
+          <div class="tp-mini">
+            <div class="tp-mini-title">Income</div>
+            <div class="tp-mini-label">This month</div>
+            <div class="tp-mini-amount" style="color: #4ade80">Rp 690.000</div>
+          </div>
+        </div>
+
+        <div id="tp-cashflow">
+          <div id="tp-cf-head">
+            <div id="tp-cf-title">Monthly Cashflow</div>
+            <div id="tp-cf-net">Net this month</div>
+          </div>
+          <div id="tp-cf-amount" id="tp-net">+Rp 245.000</div>
+          <div id="tp-strip"><div class="hm-strip-row"><div class="hm-strip-col"><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:#8B5CF6"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#8B5CF6"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#8B5CF6"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#8B5CF6"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#8B5CF6"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i></div><div class="hm-strip-col"><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#8B5CF6"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:#8B5CF6"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#8B5CF6"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#8B5CF6"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#8B5CF6"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#8B5CF6"></i></div><div class="hm-strip-col"><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i></div><div class="hm-strip-col"><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i></div><div class="hm-strip-col"><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i></div><div class="hm-strip-col"><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:#8B5CF6"></i><i style="background:#52525B"></i></div><div class="hm-strip-col"><i style="background:#8B5CF6"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#8B5CF6"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i></div><div class="hm-strip-col"><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i></div><div class="hm-strip-col"><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i></div><div class="hm-strip-col"><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#8B5CF6"></i></div><div class="hm-strip-col"><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i></div><div class="hm-strip-col"><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:#52525B"></i></div><div class="hm-strip-col"><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#8B5CF6"></i><i style="background:#52525B"></i></div><div class="hm-strip-col"><i style="background:#8B5CF6"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#8B5CF6"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i></div><div class="hm-strip-col"><i style="background:#8B5CF6"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#8B5CF6"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#8B5CF6"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:#8B5CF6"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#8B5CF6"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:#52525B"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:#52525B"></i></div><div class="hm-strip-col"><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#8B5CF6"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i></div><div class="hm-strip-col"><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i></div><div class="hm-strip-col"><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i></div><div class="hm-strip-col"><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:#52525B"></i></div><div class="hm-strip-col"><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i></div><div class="hm-strip-col"><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i></div><div class="hm-strip-col"><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:rgba(139,92,246,0.22)"></i><i style="background:#52525B"></i><i style="background:rgba(255,255,255,0.05)"></i><i style="background:rgba(255,255,255,0.05)"></i><i style="background:rgba(255,255,255,0.05)"></i></div></div></div>
+        </div>
+
+
+        <div id="tp-recent">
+          <div class="tp-recent-row">
+            <div class="tp-recent-icon" style="background: rgba(255,95,95,0.14); color: #ff5f5f">&#8595;</div>
+            <div>
+              <div class="tp-recent-title">Food</div>
+              <div class="tp-recent-meta">Today · 12:40</div>
+            </div>
+            <div class="tp-recent-amount" style="color: #ff5f5f">-Rp. 10.000</div>
+          </div>
+          <div class="tp-recent-row">
+            <div class="tp-recent-icon" style="background: rgba(74,222,128,0.13); color: #4ade80">&#8593;</div>
+            <div>
+              <div class="tp-recent-title">Salary</div>
+              <div class="tp-recent-meta">24 Nov · monthly</div>
+            </div>
+            <div class="tp-recent-amount" style="color: #4ade80">+Rp 690.000</div>
+          </div>
+        </div>
+
+        <div id="tp-nav">
+          <span style="color: #fff; font-weight: 600">Home</span>
+          <span>History</span>
+          <span>Debt</span>
+          <span>Setting</span>
+        </div>
+
+        <div id="tp-scrim"></div>
+
+        <div id="tp-sheet">
+          <div id="tp-grabber"></div>
+          <div id="tp-sheet-head">
+            <div id="tp-sheet-title">New Transaction</div>
+            <div id="tp-sheet-close">×</div>
+          </div>
+
+          <div id="tp-seg">
+            <div class="tp-seg-item" id="tp-seg-income">Income</div>
+            <div class="tp-seg-item" id="tp-seg-expense">Expense</div>
+          </div>
+
+          <div class="tp-label">Amount</div>
+          <div id="tp-amount-field">
+            <div id="tp-amount-currency">Rp</div>
+            <div id="tp-amount-value">
+              <span>1</span><span>0</span><span>.</span><span>0</span><span>0</span><span>0</span>
+            </div>
+          </div>
+
+          <div class="tp-label">Category</div>
+          <div id="tp-cats">
+            <div class="tp-cat">Kuota</div>
+            <div class="tp-cat">Shopping</div>
+            <div class="tp-cat" id="tp-cat-food">Food</div>
+            <div class="tp-cat">Salary</div>
+            <div class="tp-cat">Bills</div>
+            <div class="tp-cat">Game</div>
+            <div class="tp-cat">Etc</div>
+          </div>
+
+          <div id="tp-save">Save Transaction</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const money = (v) => 'Rp ' + Math.round(v).toLocaleString('id-ID');
+
+    // the tap
+    tl.fromTo('#tp-tap-ring', { opacity: 0, scale: 0.55 }, { opacity: 0.95, scale: 1, duration: 0.3, ease: 'power2.out' }, 0.34);
+    tl.to('#tp-tap-ring', { opacity: 0, scale: 1.35, duration: 0.3, ease: 'power1.out' }, 0.66);
+    tl.to('#tp-balance', { scale: 0.985, duration: 0.1, ease: 'power1.out' }, 0.42).to('#tp-balance', { scale: 1, duration: 0.16, ease: 'power1.out' }, 0.54);
+
+    // sheet
+    tl.fromTo('#tp-scrim', { opacity: 0 }, { opacity: 1, duration: 0.35, ease: 'power1.out' }, 0.7);
+    tl.fromTo('#tp-sheet', { y: 430, opacity: 0 }, { y: 0, opacity: 1, duration: 0.62, ease: 'power3.out' }, 0.72);
+
+    // typed amount: one character at a time
+    tl.to('#tp-amount-value span', { opacity: 1, duration: 0.01, stagger: 0.15, ease: 'none' }, 1.82);
+
+    // category
+    tl.fromTo('#tp-cat-food', { backgroundColor: '#1c1c1c', color: '#a5a5ad', borderColor: 'rgba(255,255,255,0.08)' }, { backgroundColor: '#211537', color: '#c4b5fd', borderColor: '#7c3aed', duration: 0.22, ease: 'power2.out' }, 2.48);
+
+    // save press, sheet clears
+    tl.to('#tp-save', { scale: 0.965, duration: 0.09, ease: 'power1.out' }, 3.06).to('#tp-save', { scale: 1, duration: 0.14, ease: 'power1.out' }, 3.16);
+    tl.to('#tp-sheet', { y: 430, opacity: 0, duration: 0.45, ease: 'power2.in' }, 3.24);
+    tl.to('#tp-scrim', { opacity: 0, duration: 0.4, ease: 'power1.in' }, 3.24);
+
+    // the numbers move
+    // The ids resolve once the scene is mounted; guard so build-time ticks are safe.
+    const rms = (window.__HF_RMS && window.__HF_RMS.values) || [];
+    const fps = (window.__HF_RMS && window.__HF_RMS.fps) || 30;
+
+    const setText = (id, text) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    };
+
+    const bal = { v: 1245000 };
+    tl.to(bal, {
+      v: 1235000,
+      duration: 0.5,
+      ease: 'power2.out',
+      onUpdate: () => setText('tp-balance-amount', money(bal.v)),
+    }, 3.7);
+
+    const spend = { v: 445000 };
+    tl.to(spend, {
+      v: 455000,
+      duration: 0.5,
+      ease: 'power2.out',
+      onUpdate: () => setText('tp-spend', '-Rp. ' + Math.round(spend.v).toLocaleString('id-ID')),
+    }, 3.78);
+
+    const net = { v: 245000 };
+    tl.to(net, {
+      v: 235000,
+      duration: 0.5,
+      ease: 'power2.out',
+      onUpdate: () => setText('tp-net', '+Rp ' + Math.round(net.v).toLocaleString('id-ID')),
+    }, 3.84);
+
+    // saved row lands
+    tl.fromTo('#tp-recent .tp-recent-row:first-child', { opacity: 0, y: -10, scale: 0.98 }, { opacity: 1, y: 0, scale: 1, duration: 0.34, ease: 'power3.out' }, 3.58);
+
+    // caption
+    tl.fromTo('#tap-line1', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }, 0.5);
+    tl.fromTo('#tap-line2', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }, 0.68);
+    tl.fromTo('#tap-sub', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.36, ease: 'power2.out' }, 1.0);
+    tl.fromTo('#tap-note', { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'power2.out' }, 1.2);
+
+    // audio-reactive glow keeps the scene alive between steps
+    for (let t = 0.2; t < 5.6; t += 0.1) {
+      const v = rms[Math.round((6.1 + t) * fps)] || 0.35;
+      tl.to('#tp-glow', { opacity: 0.18 + v * 0.26, duration: 0.1, ease: 'none' }, t);
+    }
+
+    tl.set('#tp-recent .tp-recent-row:first-child', { opacity: 0 }, 0);
+
+    window.__timelines['tap'] = tl;
+  </script>
+</template>

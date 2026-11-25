@@ -1,0 +1,99 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      background: #0a0a0a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    #mk-glow {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 1100px;
+      height: 620px;
+      margin-left: -550px;
+      margin-top: -310px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 50%, rgba(124, 92, 255, 0.22), rgba(124, 92, 255, 0) 62%);
+      filter: blur(30px);
+      opacity: 0;
+    }
+    #mk-wrap {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: -14px;
+    }
+    #mk-badge {
+      width: 78px;
+      height: 78px;
+      border-radius: 22px;
+      background: #ffffff;
+      color: #0a0a0a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+    }
+    #mk-name {
+      margin-top: 24px;
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: #ffffff;
+    }
+    #mk-tagline {
+      margin-top: 12px;
+      font-size: 19px;
+      color: #8e8e96;
+      letter-spacing: -0.01em;
+    }
+    #mk-meta {
+      margin-top: 30px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+      color: #8e8e96;
+    }
+    #mk-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #3a3a40;
+    }
+  </style>
+
+  <div id="root" data-composition-id="mark" data-width="1920" data-height="1080">
+    <div id="mk-glow"></div>
+    <div id="mk-wrap">
+      <div id="mk-badge">M</div>
+      <div id="mk-name" data-var-text="wordmark">My Duit Gw</div>
+      <div id="mk-tagline" data-var-text="tagline">Personal finance &amp; peer-to-peer loan tracker</div>
+      <div id="mk-meta">
+        <span>Synced live from the mobile app and Supabase.</span>
+        <span id="mk-dot"></span>
+        <span>v1.1.12</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo('#mk-badge', { opacity: 0, scale: 0.88, y: 10 }, { opacity: 1, scale: 1, y: 0, duration: 0.34, ease: 'power3.out' }, 0.12);
+    tl.fromTo('#mk-glow', { opacity: 0 }, { opacity: 1, duration: 0.4, ease: 'power2.out' }, 0.14);
+    tl.fromTo('#mk-name', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.32, ease: 'power2.out' }, 0.3);
+    tl.fromTo('#mk-tagline', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' }, 0.5);
+    tl.fromTo('#mk-meta', { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' }, 0.68);
+
+    window.__timelines['mark'] = tl;
+  </script>
+</template>

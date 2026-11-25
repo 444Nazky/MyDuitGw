@@ -1,0 +1,313 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      background: #0a0a0a;
+      overflow: hidden;
+    }
+    #db-copy {
+      position: absolute;
+      left: 168px;
+      top: 330px;
+      width: 700px;
+    }
+    #db-line1,
+    #db-line2 {
+      font-size: 84px;
+      line-height: 1.03;
+      font-weight: 700;
+      letter-spacing: -0.042em;
+      color: #fff;
+    }
+    #db-sub {
+      margin-top: 26px;
+      font-size: 30px;
+      color: #a5a5ad;
+      width: 470px;
+      line-height: 1.5;
+    }
+
+    #db-phone {
+      position: absolute;
+      left: 1126px;
+      top: 92px;
+      width: 416px;
+      height: 900px;
+      border-radius: 58px;
+      background: #060606;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 40px 120px rgba(0, 0, 0, 0.7);
+      padding: 8px;
+    }
+    #db-screen {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50px;
+      background: #000;
+      overflow: hidden;
+      padding: 18px;
+    }
+    #db-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #8e8e96;
+      margin-bottom: 22px;
+    }
+    #db-top-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #d5d5dc;
+    }
+
+    #db-amount-wrap {
+      position: relative;
+    }
+    #db-label {
+      font-size: 10.5px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: #9a9aa2;
+    }
+    #db-amount {
+      margin-top: 7px;
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: #fff;
+      font-variant-numeric: tabular-nums;
+    }
+    #db-paid-badge {
+      position: absolute;
+      right: 0;
+      top: 18px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.09);
+      color: #e6e6ea;
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      padding: 5px 11px;
+      opacity: 0;
+    }
+
+    #db-borrower {
+      margin-top: 22px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      border-radius: 18px;
+      background: #141414;
+      padding: 13px;
+    }
+    #db-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(140deg, #fcd34d, #b45309);
+      color: #1a1200;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #db-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+    }
+    #db-reason {
+      margin-top: 3px;
+      font-size: 11px;
+      color: #8e8e96;
+    }
+    #db-date {
+      margin-left: auto;
+      font-size: 10px;
+      color: #8e8e96;
+    }
+
+    #db-receipt {
+      margin-top: 16px;
+      border-radius: 18px;
+      background: #141414;
+      padding: 13px;
+    }
+    #db-receipt-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10.5px;
+      color: #9a9aa2;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    #db-thumb {
+      border-radius: 12px;
+      background: #f4f5f7;
+      padding: 13px;
+      color: #12131a;
+    }
+    #db-thumb-bank {
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #4b5563;
+    }
+    #db-thumb-amount {
+      margin-top: 7px;
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    #db-thumb-ok {
+      display: inline-block;
+      margin-top: 8px;
+      border-radius: 999px;
+      background: #dcfce7;
+      color: #15803d;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 3px 8px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    #db-thumb-lines {
+      margin-top: 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .db-thumb-line {
+      height: 5px;
+      border-radius: 3px;
+      background: #dfe3ea;
+    }
+
+    #db-actions {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 20px;
+    }
+    #db-secondary {
+      height: 42px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #b9b9c1;
+      margin-bottom: 9px;
+    }
+    #db-primary {
+      height: 48px;
+      border-radius: 15px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #000;
+      letter-spacing: -0.01em;
+    }
+    #db-primary-label {
+      display: block;
+    }
+    #db-primary-paid {
+      display: none;
+      align-items: center;
+      gap: 7px;
+    }
+  </style>
+
+  <div id="root" data-composition-id="debt" data-width="1920" data-height="1080">
+    <div id="db-copy">
+      <div id="db-line1">Loans keep</div>
+      <div id="db-line2">their receipts.</div>
+      <div id="db-sub">Receipt attached, then Mark as Paid.</div>
+    </div>
+
+    <div id="db-phone" data-layout-ignore>
+      <div id="db-screen">
+        <div id="db-top">
+          <span>‹ Debt</span>
+          <span id="db-top-title">Debt detail</span>
+          <span>•••</span>
+        </div>
+
+        <div id="db-amount-wrap">
+          <div id="db-label">Outstanding</div>
+          <div id="db-amount">Rp 150.000</div>
+          <div id="db-paid-badge">Paid</div>
+        </div>
+
+        <div id="db-borrower">
+          <div id="db-avatar">R</div>
+          <div>
+            <div id="db-name">Lent to Raka</div>
+            <div id="db-reason">bensin + makan</div>
+          </div>
+          <div id="db-date">12 Nov</div>
+        </div>
+
+        <div id="db-receipt">
+          <div id="db-receipt-head">
+            <span>Transfer receipt</span>
+            <span>JPG</span>
+          </div>
+          <div id="db-thumb">
+            <div id="db-thumb-bank">Transfer berhasil</div>
+            <div id="db-thumb-amount">Rp 150.000</div>
+            <div id="db-thumb-ok">Berhasil</div>
+            <div id="db-thumb-lines">
+              <div class="db-thumb-line" style="width: 82%"></div>
+              <div class="db-thumb-line" style="width: 64%"></div>
+              <div class="db-thumb-line" style="width: 71%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="db-actions">
+          <div id="db-secondary">Change receipt photo</div>
+          <div id="db-primary">
+            <span id="db-primary-label">Mark as Paid</span>
+            <span id="db-primary-paid">✓ Paid</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo('#db-phone', { y: 120, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out' }, 0.05);
+
+    tl.fromTo('#db-line1', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }, 0.35);
+    tl.fromTo('#db-line2', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }, 0.53);
+    tl.fromTo('#db-sub', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.36, ease: 'power2.out' }, 0.9);
+
+    tl.fromTo('#db-borrower', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' }, 0.5);
+    tl.fromTo('#db-receipt', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.62);
+    tl.fromTo('#db-thumb', { scale: 0.94 }, { scale: 1, duration: 0.35, ease: 'power2.out' }, 0.78);
+
+    // paid: press lands on the strong cue at 17.45s (local 1.35)
+    tl.to('#db-primary', { scale: 0.97, duration: 0.08, ease: 'power1.out' }, 1.26);
+    tl.to('#db-primary', { scale: 1, duration: 0.12, ease: 'power1.out' }, 1.36);
+    tl.to('#db-primary', { backgroundColor: 'rgba(255,255,255,0.09)', color: '#e6e6ea', duration: 0.2, ease: 'power2.out' }, 1.36);
+    tl.to('#db-primary-label', { display: 'none', duration: 0.01 }, 1.4);
+    tl.to('#db-primary-paid', { display: 'flex', duration: 0.01 }, 1.4);
+    tl.fromTo('#db-paid-badge', { opacity: 0, y: -6 }, { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' }, 1.42);
+    tl.to('#db-amount', { color: '#9a9aa2', duration: 0.25, ease: 'power2.out' }, 1.45);
+
+    window.__timelines['debt'] = tl;
+  </script>
+</template>

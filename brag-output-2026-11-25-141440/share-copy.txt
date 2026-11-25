@@ -1,0 +1,3 @@
+Introducing MyDuit Gw: personal finance & peer-to-peer loan tracker.
+Tap the balance card and the whole form opens — expense, category, Save Transaction, done.
+Every loan keeps its transfer receipt, and the dashboard reads the same records live.

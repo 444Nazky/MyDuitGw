@@ -1,0 +1,182 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"wordmark","type":"string","label":"Wordmark","default":"My Duit Gw"},{"id":"tagline","type":"string","label":"Tagline","default":"Personal finance &amp; peer-to-peer loan tracker"}]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script src="assets/audio-rms.js"></script>
+    <style>
+      :root {
+        --ground: #0a0a0a;
+        --card: #141414;
+        --ink: #ffffff;
+        --muted: #8e8e96;
+        --faint: #63636b;
+        --accent: #7c5cff;
+        --violet: #8b5cf6;
+        --violet-soft: rgba(139, 92, 246, 0.22);
+        --income: #4ade80;
+        --coral: #ff5f5f;
+        --amber: #ffb020;
+        --font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--ground);
+        font-family: var(--font);
+        -webkit-font-smoothing: antialiased;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background: var(--ground);
+        color: var(--ink);
+        overflow: hidden;
+      }
+      audio {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="23.7"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div
+        id="intro"
+        data-composition-id="intro"
+        data-composition-src="compositions/intro.html"
+        data-start="0"
+        data-duration="2.9"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+      <div
+        id="home"
+        data-composition-id="home"
+        data-composition-src="compositions/home.html"
+        data-start="2.9"
+        data-duration="3.2"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+      <div
+        id="tap"
+        data-composition-id="tap"
+        data-composition-src="compositions/tap.html"
+        data-start="6.1"
+        data-duration="5.8"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+      <div
+        id="year"
+        data-composition-id="year"
+        data-composition-src="compositions/year.html"
+        data-start="11.9"
+        data-duration="4.2"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+      <div
+        id="debt"
+        data-composition-id="debt"
+        data-composition-src="compositions/debt.html"
+        data-start="16.1"
+        data-duration="3.2"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+      <div
+        id="dash"
+        data-composition-id="dash"
+        data-composition-src="compositions/dash.html"
+        data-start="19.3"
+        data-duration="2"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+      <div
+        id="mark"
+        data-composition-id="mark"
+        data-composition-src="compositions/mark.html"
+        data-start="21.3"
+        data-duration="2.4"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+    </div>
+
+    <audio
+      id="music"
+      class="clip"
+      data-start="0"
+      data-duration="23.7"
+      data-track-index="6"
+      data-volume="0.34"
+      data-fade-out="1"
+      src="assets/music/happy-beats-business-moves-vol-12-by-ende-dot-app.mp3"
+    ></audio>
+
+    <!-- SFX: one lane, motion-matched -->
+    <audio id="sfx-hook" class="clip" data-start="0.35" data-duration="0.19" data-track-index="5" data-volume="0.5" src="assets/sfx/impactSoft_medium_001.ogg"></audio>
+    <audio id="sfx-phone" class="clip" data-start="3.05" data-duration="0.06" data-track-index="5" data-volume="0.38" src="assets/sfx/click2.ogg"></audio>
+    <audio id="sfx-card1" class="clip" data-start="3.45" data-duration="0.06" data-track-index="5" data-volume="0.3" src="assets/sfx/rollover2.ogg"></audio>
+    <audio id="sfx-card2" class="clip" data-start="3.7" data-duration="0.06" data-track-index="5" data-volume="0.3" src="assets/sfx/rollover2.ogg"></audio>
+    <audio id="sfx-card3" class="clip" data-start="3.95" data-duration="0.13" data-track-index="5" data-volume="0.28" src="assets/sfx/bong_001.ogg"></audio>
+    <audio id="sfx-tap" class="clip" data-start="6.7" data-duration="0.01" data-track-index="5" data-volume="0.45" src="assets/sfx/click_002.ogg"></audio>
+    <audio id="sfx-sheet" class="clip" data-start="7.1" data-duration="0.19" data-track-index="5" data-volume="0.34" src="assets/sfx/drop_002.ogg"></audio>
+    <audio id="sfx-key1" class="clip" data-start="7.95" data-duration="0.14" data-track-index="5" data-volume="0.28" src="assets/sfx/keypress-001.wav"></audio>
+    <audio id="sfx-key2" class="clip" data-start="8.12" data-duration="0.14" data-track-index="5" data-volume="0.26" src="assets/sfx/keypress-002.wav"></audio>
+    <audio id="sfx-key3" class="clip" data-start="8.29" data-duration="0.14" data-track-index="5" data-volume="0.28" src="assets/sfx/keypress-003.wav"></audio>
+    <audio id="sfx-key4" class="clip" data-start="8.46" data-duration="0.14" data-track-index="5" data-volume="0.26" src="assets/sfx/keypress-004.wav"></audio>
+    <audio id="sfx-chip" class="clip" data-start="8.6" data-duration="0.01" data-track-index="5" data-volume="0.36" src="assets/sfx/click_003.ogg"></audio>
+    <audio id="sfx-save" class="clip" data-start="9.25" data-duration="0.06" data-track-index="5" data-volume="0.46" src="assets/sfx/click2.ogg"></audio>
+    <audio id="sfx-row" class="clip" data-start="9.68" data-duration="0.13" data-track-index="5" data-volume="0.3" src="assets/sfx/bong_001.ogg"></audio>
+    <audio id="sfx-expand" class="clip" data-start="12.05" data-duration="0.06" data-track-index="5" data-volume="0.34" src="assets/sfx/rollover2.ogg"></audio>
+    <audio id="sfx-sweep1" class="clip" data-start="12.4" data-duration="0.2" data-track-index="5" data-volume="0.22" src="assets/sfx/switch_004.ogg"></audio>
+    <audio id="sfx-sweep2" class="clip" data-start="12.9" data-duration="0.2" data-track-index="5" data-volume="0.22" src="assets/sfx/switch_004.ogg"></audio>
+    <audio id="sfx-grid" class="clip" data-start="13.11" data-duration="0.15" data-track-index="5" data-volume="0.5" src="assets/sfx/impactSoft_medium_004.ogg"></audio>
+    <audio id="sfx-receipt" class="clip" data-start="16.7" data-duration="0.2" data-track-index="5" data-volume="0.24" src="assets/sfx/switch_004.ogg"></audio>
+    <audio id="sfx-paid" class="clip" data-start="17.45" data-duration="0.01" data-track-index="5" data-volume="0.42" src="assets/sfx/click_003.ogg"></audio>
+    <audio id="sfx-paid-settle" class="clip" data-start="17.62" data-duration="0.14" data-track-index="5" data-volume="0.34" src="assets/sfx/impactSoft_medium_002.ogg"></audio>
+    <audio id="sfx-dash" class="clip" data-start="19.4" data-duration="0.5" data-track-index="5" data-volume="0.46" src="assets/sfx/impactSoft_heavy_004.ogg"></audio>
+    <audio id="sfx-mark" class="clip" data-start="21.55" data-duration="0.14" data-track-index="5" data-volume="0.48" src="assets/sfx/impactSoft_medium_003.ogg"></audio>
+    <audio id="sfx-mark-tone" class="clip" data-start="21.72" data-duration="0.13" data-track-index="5" data-volume="0.3" src="assets/sfx/bong_001.ogg"></audio>
+
+    <script>
+      window.__timelines['main'] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>
