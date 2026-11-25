@@ -3,12 +3,12 @@ import { View } from 'react-native';
 import { isCurrentMonth } from '@/lib/format';
 import type { Transaction } from '@/types/finance';
 
-// GitHub-style contribution grid: 7 columns x 4 rows, one square per day.
-const COLUMNS = 7;
-const ROWS = 4;
-const CELLS = COLUMNS * ROWS;
-const CELL_SIZE = 10;
-const GAP = 3.5;
+// GitHub-style contribution grid for the Monthly Cashflow card. The grid spans
+// the card width, so squares flex instead of using a fixed size.
+const ROWS = 3;
+const COLUMNS = 10;
+const CELLS = ROWS * COLUMNS;
+const GAP = 4;
 const RADIUS = 3;
 
 type Tone = 'idle' | 'expense' | 'income' | 'future' | 'outside';
@@ -38,8 +38,8 @@ export function CashflowHeatmap({ transactions }: CashflowHeatmapProps) {
     for (const transaction of transactions) {
       const date = new Date(transaction.date);
       if (!isCurrentMonth(date)) continue;
-      // The grid holds 28 days, so the tail of a longer month folds into the
-      // last square and the panel keeps reflecting month-to-date activity.
+      // The grid holds 30 days, so the 31st folds into the final square and the
+      // card keeps reflecting month-to-date activity.
       const index = Math.min(date.getDate(), CELLS) - 1;
       if (transaction.type === 'income') {
         tones[index] = 'income';
@@ -57,15 +57,15 @@ export function CashflowHeatmap({ transactions }: CashflowHeatmapProps) {
   }, [transactions]);
 
   return (
-    <View accessibilityLabel="Monthly cashflow heatmap" style={{ gap: GAP }}>
+    <View accessibilityLabel="Monthly cashflow heatmap" style={{ gap: GAP, width: '100%' }}>
       {Array.from({ length: ROWS }, (_, row) => (
         <View key={`week-${row}`} style={{ flexDirection: 'row', gap: GAP }}>
           {days.slice(row * COLUMNS, row * COLUMNS + COLUMNS).map((tone, column) => (
             <View
               key={`day-${row * COLUMNS + column + 1}`}
               style={{
-                width: CELL_SIZE,
-                height: CELL_SIZE,
+                flex: 1,
+                aspectRatio: 1,
                 borderRadius: RADIUS,
                 backgroundColor: COLORS[tone],
               }}

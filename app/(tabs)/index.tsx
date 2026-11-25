@@ -33,9 +33,8 @@ import {
   isCurrentMonth,
 } from '@/lib/format';
 
-// Four-step grey pill bar, lightest segment first.
-const SEGMENT_COLORS = ['#8E8E93', '#636366', '#3A3A3C', '#2C2C2E'];
-const SEGMENT_FLEX = [3.5, 1.5, 0.9, 1.1];
+// Spending card bars: one row per top category, filled against a dark track.
+const SPEND_BAR_COLORS = ['#7C5CFF', '#FF5F5F', '#FFB020'];
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -53,21 +52,8 @@ export default function HomeScreen() {
   const [aiOpen, setAiOpen] = useState(false);
   const [query, setQuery] = useState('');
 
-  const bars = categoryBreakdown.slice(0, 4);
-
-  // Always four pills, like the reference bar: categories size the first
-  // segments, the grey placeholders keep the rest of the track filled.
-  const segments = useMemo(
-    () =>
-      SEGMENT_FLEX.map((fallbackFlex, index) => {
-        const bar = bars[index];
-        return {
-          flex: bar ? Math.max(bar.share * 10, 0.8) : fallbackFlex,
-          color: SEGMENT_COLORS[index],
-        };
-      }),
-    [bars],
-  );
+  const bars = categoryBreakdown.slice(0, SPEND_BAR_COLORS.length);
+  const topShare = bars[0]?.share ?? 0;
 
   const incomeCategories = useMemo(() => {
     const totals = new Map<string, number>();
@@ -78,7 +64,7 @@ export default function HomeScreen() {
     }
     return Array.from(totals.entries())
       .sort((a, b) => b[1] - a[1])
-      .slice(0, 2)
+      .slice(0, 3)
       .map(([category]) => category);
   }, [transactions]);
 
@@ -241,64 +227,86 @@ export default function HomeScreen() {
                 <Pressable
                   onPress={() => router.push('/history')}
                   className="flex-1 justify-between rounded-bento bg-[#141414] p-4"
-                  style={({ pressed }) => ({ minHeight: 132, opacity: pressed ? 0.9 : 1 })}
+                  style={({ pressed }) => ({ minHeight: 168, opacity: pressed ? 0.9 : 1 })}
                 >
                   <View>
-                    <Text className="text-[15px] font-semibold text-white">Spending</Text>
-                    <Text className="mt-0.5 text-[11.5px] text-[#777777]">Spent this month</Text>
+                    <Text className="text-[17px] font-bold text-white">Spending</Text>
+                    <Text className="mt-1 text-[12px] text-[#8A8A8A]">Spent this month</Text>
+                    <Text
+                      numberOfLines={1}
+                      adjustsFontSizeToFit
+                      className="mt-3 text-[24px] font-bold tracking-tight text-white"
+                    >
+                      {spendLabel}
+                    </Text>
                   </View>
 
-                  <Text
-                    numberOfLines={1}
-                    adjustsFontSizeToFit
-                    className="my-3 text-[17px] font-bold tracking-tight text-[#9CA3AF]"
-                  >
-                    {spendLabel}
-                  </Text>
+                  <View className="mt-4" style={{ gap: 9 }}>
+                    {SPEND_BAR_COLORS.map((color, index) => {
+                      const bar = bars[index];
+                      // The top category fills the track; the rest are relative to it.
+                      const width = bar && topShare > 0 ? Math.max(bar.share / topShare, 0.12) : 0;
 
-                  <View className="h-[11px] flex-row items-center" style={{ gap: 6 }}>
-                    {segments.map((segment, index) => (
-                      <View
-                        key={`segment-${index}`}
-                        style={{
-                          flex: segment.flex,
-                          height: '100%',
-                          borderRadius: 999,
-                          backgroundColor: segment.color,
-                        }}
-                      />
-                    ))}
+                      return (
+                        <View
+                          key={`spend-bar-${color}`}
+                          className="h-[13px] overflow-hidden rounded-full bg-[#242424]"
+                        >
+                          <View
+                            className="h-full rounded-full"
+                            style={{ width: `${width * 100}%`, backgroundColor: color }}
+                          />
+                        </View>
+                      );
+                    })}
                   </View>
                 </Pressable>
 
                 <Pressable
                   onPress={() => router.push('/history')}
                   className="flex-1 justify-between rounded-bento bg-[#141414] p-4"
-                  style={({ pressed }) => ({ minHeight: 132, opacity: pressed ? 0.9 : 1 })}
+                  style={({ pressed }) => ({ minHeight: 168, opacity: pressed ? 0.9 : 1 })}
                 >
                   <View>
-                    <Text className="text-[15px] font-semibold text-white">Income</Text>
-                    <Text className="mt-0.5 text-[11.5px] text-[#777777]">This month</Text>
+                    <Text className="text-[17px] font-bold text-white">Income</Text>
+                    <Text className="mt-1 text-[12px] text-[#8A8A8A]">This month</Text>
+                    <Text
+                      numberOfLines={1}
+                      adjustsFontSizeToFit
+                      className="mt-3 text-[24px] font-bold tracking-tight text-white"
+                    >
+                      {formatMoney(monthlyIncome, currency)}
+                    </Text>
                   </View>
 
-                  <Text
-                    numberOfLines={1}
-                    adjustsFontSizeToFit
-                    className="my-3 text-[17px] font-bold tracking-tight text-white"
-                  >
-                    {formatMoney(monthlyIncome, currency)}
-                  </Text>
-
-                  <View className="flex-row items-center" style={{ gap: 6 }}>
+                  <View className="mt-4 flex-row flex-wrap" style={{ gap: 8 }}>
                     {incomeCategories.length > 0 ? (
-                      incomeCategories.map((category) => (
-                        <View key={category} className="rounded-full bg-[#222222] px-2.5 py-1">
-                          <Text className="text-[11px] font-medium text-[#D1D5DB]">{category}</Text>
-                        </View>
-                      ))
+                      incomeCategories.map((category, index) => {
+                        // The two strongest sources get the violet treatment.
+                        const highlighted = index < 2;
+
+                        return (
+                          <View
+                            key={category}
+                            className={`rounded-full border px-3 py-1.5 ${
+                              highlighted
+                                ? 'border-[#7C3AED] bg-[#201536]'
+                                : 'border-white/[0.07] bg-[#1C1C1C]'
+                            }`}
+                          >
+                            <Text
+                              className={`text-[12px] font-medium ${
+                                highlighted ? 'text-[#C4B5FD]' : 'text-[#9CA3AF]'
+                              }`}
+                            >
+                              {category}
+                            </Text>
+                          </View>
+                        );
+                      })
                     ) : (
-                      <View className="rounded-full bg-[#222222] px-2.5 py-1">
-                        <Text className="text-[11px] font-medium text-[#D1D5DB]">No income yet</Text>
+                      <View className="rounded-full border border-white/[0.07] bg-[#1C1C1C] px-3 py-1.5">
+                        <Text className="text-[12px] font-medium text-[#9CA3AF]">No income yet</Text>
                       </View>
                     )}
                   </View>
@@ -351,25 +359,24 @@ export default function HomeScreen() {
 
               {/* Monthly cashflow */}
               <View
-                className="flex-row items-end justify-between rounded-bento bg-[#141414]"
-                style={{ gap: 12, paddingVertical: 16, paddingHorizontal: 18 }}
+                className="rounded-bento bg-[#141414]"
+                style={{ gap: 10, paddingVertical: 16, paddingHorizontal: 18 }}
               >
-                <View className="flex-1" style={{ gap: 4 }}>
+                <View className="flex-row items-center justify-between">
                   <Text className="text-[15px] font-semibold text-white">Monthly Cashflow</Text>
-                  <Text
-                    numberOfLines={1}
-                    adjustsFontSizeToFit
-                    className="my-1 text-[21px] font-bold tracking-tight text-white"
-                  >
-                    {monthlyNet >= 0 ? '+' : '-'}
-                    {formatMoney(monthlyNet, currency)}
-                  </Text>
-                  <Text className="text-[11.5px] text-[#777777]">Net this month</Text>
+                  <Text className="text-[12px] text-[#777777]">Net this month</Text>
                 </View>
 
-                <View className="shrink-0">
-                  <CashflowHeatmap transactions={transactions} />
-                </View>
+                <Text
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  className="text-[23px] font-bold tracking-tight text-white"
+                >
+                  {monthlyNet >= 0 ? '+' : '-'}
+                  {formatMoney(monthlyNet, currency)}
+                </Text>
+
+                <CashflowHeatmap transactions={transactions} />
               </View>
             </>
           )}
