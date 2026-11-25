@@ -1,6 +1,6 @@
 {
   "name": "my-duit-gw",
-  "version": "1.1.11",
+  "version": "1.1.12",
   "main": "expo-router/entry",
   "private": true,
   "scripts": {

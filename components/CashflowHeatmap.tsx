@@ -1,78 +1,126 @@
-import { useMemo } from 'react';
-import { View } from 'react-native';
-import { isCurrentMonth } from '@/lib/format';
+import { useMemo, useRef, type ComponentRef } from 'react';
+import { ScrollView, Text, View } from 'react-native';
 import type { Transaction } from '@/types/finance';
 
-// GitHub-style contribution grid for the Monthly Cashflow card. The grid spans
-// the card width, so squares flex instead of using a fixed size.
-const ROWS = 3;
-const COLUMNS = 10;
-const CELLS = ROWS * COLUMNS;
-const GAP = 4;
-const RADIUS = 3;
+// GitHub-style year graph: 7 rows for Sun–Sat, 53 columns for the last year of
+// weeks. Squares are micro-sized and the strip scrolls sideways so the card
+// itself never grows wider than the screen.
+const WEEKS = 53;
+const DAYS = 7;
+const CELL = 8;
+const GAP = 3;
+const RADIUS = 2;
+const LABEL_HEIGHT = 11;
+const DAY_MS = 24 * 60 * 60 * 1000;
 
-type Tone = 'idle' | 'expense' | 'income' | 'future' | 'outside';
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+type Tone = 'idle' | 'expense' | 'income' | 'future';
 
 const COLORS: Record<Tone, string> = {
-  // No money left the account: the violet stays faint.
+  // Nothing left the account that day: the violet stays faint.
   idle: 'rgba(139, 92, 246, 0.22)',
   // Money out marks the day grey.
   expense: '#52525B',
   // Money in is the strongest violet.
   income: '#8B5CF6',
   future: 'rgba(255, 255, 255, 0.05)',
-  outside: 'transparent',
 };
+
+const dateKey = (date: Date) =>
+  `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+
+const startOfDay = (date: Date) =>
+  new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
 interface CashflowHeatmapProps {
   transactions: Transaction[];
 }
 
 export function CashflowHeatmap({ transactions }: CashflowHeatmapProps) {
-  const days = useMemo(() => {
-    const now = new Date();
-    const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-    const today = now.getDate();
-    const tones: Tone[] = new Array<Tone>(CELLS).fill('idle');
+  const scrollRef = useRef<ComponentRef<typeof ScrollView>>(null);
+  const grid = useMemo(() => {
+    const today = startOfDay(new Date());
+    // Sunday of the current week, then walk back 52 weeks: the final column is
+    // the week the user is living in right now.
+    const lastSunday = new Date(today.getTime() - today.getDay() * DAY_MS);
+    const firstSunday = new Date(lastSunday.getTime() - (WEEKS - 1) * 7 * DAY_MS);
 
+    const tones = new Map<string, Tone>();
     for (const transaction of transactions) {
-      const date = new Date(transaction.date);
-      if (!isCurrentMonth(date)) continue;
-      // The grid holds 30 days, so the 31st folds into the final square and the
-      // card keeps reflecting month-to-date activity.
-      const index = Math.min(date.getDate(), CELLS) - 1;
+      const date = startOfDay(new Date(transaction.date));
+      const key = dateKey(date);
       if (transaction.type === 'income') {
-        tones[index] = 'income';
-      } else if (tones[index] !== 'income') {
-        tones[index] = 'expense';
+        tones.set(key, 'income');
+      } else if (tones.get(key) !== 'income') {
+        tones.set(key, 'expense');
       }
     }
 
-    return tones.map((tone, index) => {
-      const day = index + 1;
-      if (day > daysInMonth) return 'outside' as Tone;
-      if (day > today) return 'future' as Tone;
-      return tone;
+    const columns = Array.from({ length: WEEKS }, (_, week) => {
+      const weekStart = new Date(firstSunday.getTime() + week * 7 * DAY_MS);
+
+      const days = Array.from({ length: DAYS }, (_, day) => {
+        const date = new Date(weekStart.getTime() + day * DAY_MS);
+        if (date.getTime() > today.getTime()) return 'future' as Tone;
+        return tones.get(dateKey(date)) ?? 'idle';
+      });
+
+      let label: string | null = null;
+      for (let day = 0; day < DAYS; day += 1) {
+        const date = new Date(weekStart.getTime() + day * DAY_MS);
+        if (date.getDate() === 1) {
+          label = MONTHS[date.getMonth()];
+          break;
+        }
+      }
+
+      return { key: weekStart.toISOString(), label, days };
     });
+
+    return columns;
   }, [transactions]);
 
   return (
-    <View accessibilityLabel="Monthly cashflow heatmap" style={{ gap: GAP, width: '100%' }}>
-      {Array.from({ length: ROWS }, (_, row) => (
-        <View key={`week-${row}`} style={{ flexDirection: 'row', gap: GAP }}>
-          {days.slice(row * COLUMNS, row * COLUMNS + COLUMNS).map((tone, column) => (
-            <View
-              key={`day-${row * COLUMNS + column + 1}`}
-              style={{
-                flex: 1,
-                aspectRatio: 1,
-                borderRadius: RADIUS,
-                backgroundColor: COLORS[tone],
-              }}
-            />
+    <ScrollView
+      ref={scrollRef}
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      // The newest week is the one that matters, so open scrolled to the end.
+      onContentSizeChange={() => scrollRef.current?.scrollToEnd({ animated: false })}
+      accessibilityLabel="Yearly cashflow heatmap"
+    >
+      <View style={{ gap: GAP }}>
+        <View style={{ flexDirection: 'row', gap: GAP, height: LABEL_HEIGHT }}>
+          {grid.map((column) => (
+            <View key={`label-${column.key}`} style={{ width: CELL }}>
+              {column.label ? (
+                <Text numberOfLines={1} style={{ width: 26, fontSize: 9, color: '#666666' }}>
+                  {column.label}
+                </Text>
+              ) : null}
+            </View>
           ))}
         </View>
-      ))}
-    </View>
+
+        <View style={{ flexDirection: 'row', gap: GAP }}>
+          {grid.map((column) => (
+            <View key={column.key} style={{ width: CELL, gap: GAP }}>
+              {column.days.map((tone, day) => (
+                <View
+                  key={`${column.key}-${day}`}
+                  style={{
+                    width: CELL,
+                    height: CELL,
+                    borderRadius: RADIUS,
+                    backgroundColor: COLORS[tone],
+                  }}
+                />
+              ))}
+            </View>
+          ))}
+        </View>
+      </View>
+    </ScrollView>
   );
 }

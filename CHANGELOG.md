@@ -3,6 +3,20 @@
 All notable changes to My Duit Gw. Versions match `versionName` in
 `android/app/build.gradle` and the APK published to the release channel.
 
+## [1.1.12] - 2026-11-25
+
+### Changed
+
+- The Spending and Income cards are plain again: title, month label and the
+  amount, with no bars or category pills. Spending keeps its minus prefix
+  (`-Rp. 445.000`).
+- "Save Transaction" (and "Save Changes" when editing) is now a white button
+  with black text.
+- The Monthly Cashflow heatmap became a GitHub-style year graph: 7 rows for
+  Sun–Sat across 53 weeks, 8px squares with 2px radius and a 3px gap, tiny
+  month labels along the top. The strip scrolls horizontally and opens scrolled
+  to the newest week so the card keeps its size.
+
 ## [1.1.11] - 2026-11-25
 
 ### Changed

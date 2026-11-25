@@ -30,11 +30,8 @@ import {
   formatMoney,
   formatShortDate,
   initialsOf,
-  isCurrentMonth,
 } from '@/lib/format';
 
-// Spending card bars: one row per top category, filled against a dark track.
-const SPEND_BAR_COLORS = ['#7C5CFF', '#FF5F5F', '#FFB020'];
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -52,21 +49,6 @@ export default function HomeScreen() {
   const [aiOpen, setAiOpen] = useState(false);
   const [query, setQuery] = useState('');
 
-  const bars = categoryBreakdown.slice(0, SPEND_BAR_COLORS.length);
-  const topShare = bars[0]?.share ?? 0;
-
-  const incomeCategories = useMemo(() => {
-    const totals = new Map<string, number>();
-    for (const transaction of transactions) {
-      if (transaction.type !== 'income') continue;
-      if (!isCurrentMonth(new Date(transaction.date))) continue;
-      totals.set(transaction.category, (totals.get(transaction.category) ?? 0) + transaction.amount);
-    }
-    return Array.from(totals.entries())
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 3)
-      .map(([category]) => category);
-  }, [transactions]);
 
   const results = useMemo(() => {
     const needle = query.trim().toLowerCase();
@@ -226,90 +208,34 @@ export default function HomeScreen() {
               <View className="flex-row" style={{ gap: 12 }}>
                 <Pressable
                   onPress={() => router.push('/history')}
-                  className="flex-1 justify-between rounded-bento bg-[#141414] p-4"
-                  style={({ pressed }) => ({ minHeight: 168, opacity: pressed ? 0.9 : 1 })}
+                  className="flex-1 rounded-bento bg-[#141414] p-4"
+                  style={({ pressed }) => ({ minHeight: 120, opacity: pressed ? 0.9 : 1 })}
                 >
-                  <View>
-                    <Text className="text-[17px] font-bold text-white">Spending</Text>
-                    <Text className="mt-1 text-[12px] text-[#8A8A8A]">Spent this month</Text>
-                    <Text
-                      numberOfLines={1}
-                      adjustsFontSizeToFit
-                      className="mt-3 text-[24px] font-bold tracking-tight text-white"
-                    >
-                      {spendLabel}
-                    </Text>
-                  </View>
-
-                  <View className="mt-4" style={{ gap: 9 }}>
-                    {SPEND_BAR_COLORS.map((color, index) => {
-                      const bar = bars[index];
-                      // The top category fills the track; the rest are relative to it.
-                      const width = bar && topShare > 0 ? Math.max(bar.share / topShare, 0.12) : 0;
-
-                      return (
-                        <View
-                          key={`spend-bar-${color}`}
-                          className="h-[13px] overflow-hidden rounded-full bg-[#242424]"
-                        >
-                          <View
-                            className="h-full rounded-full"
-                            style={{ width: `${width * 100}%`, backgroundColor: color }}
-                          />
-                        </View>
-                      );
-                    })}
-                  </View>
+                  <Text className="text-[15px] font-semibold text-white">Spending</Text>
+                  <Text className="mt-0.5 text-[11.5px] text-[#777777]">Spent this month</Text>
+                  <Text
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                    className="mt-3 text-[20px] font-bold tracking-tight text-white"
+                  >
+                    {spendLabel}
+                  </Text>
                 </Pressable>
 
                 <Pressable
                   onPress={() => router.push('/history')}
-                  className="flex-1 justify-between rounded-bento bg-[#141414] p-4"
-                  style={({ pressed }) => ({ minHeight: 168, opacity: pressed ? 0.9 : 1 })}
+                  className="flex-1 rounded-bento bg-[#141414] p-4"
+                  style={({ pressed }) => ({ minHeight: 120, opacity: pressed ? 0.9 : 1 })}
                 >
-                  <View>
-                    <Text className="text-[17px] font-bold text-white">Income</Text>
-                    <Text className="mt-1 text-[12px] text-[#8A8A8A]">This month</Text>
-                    <Text
-                      numberOfLines={1}
-                      adjustsFontSizeToFit
-                      className="mt-3 text-[24px] font-bold tracking-tight text-white"
-                    >
-                      {formatMoney(monthlyIncome, currency)}
-                    </Text>
-                  </View>
-
-                  <View className="mt-4 flex-row flex-wrap" style={{ gap: 8 }}>
-                    {incomeCategories.length > 0 ? (
-                      incomeCategories.map((category, index) => {
-                        // The two strongest sources get the violet treatment.
-                        const highlighted = index < 2;
-
-                        return (
-                          <View
-                            key={category}
-                            className={`rounded-full border px-3 py-1.5 ${
-                              highlighted
-                                ? 'border-[#7C3AED] bg-[#201536]'
-                                : 'border-white/[0.07] bg-[#1C1C1C]'
-                            }`}
-                          >
-                            <Text
-                              className={`text-[12px] font-medium ${
-                                highlighted ? 'text-[#C4B5FD]' : 'text-[#9CA3AF]'
-                              }`}
-                            >
-                              {category}
-                            </Text>
-                          </View>
-                        );
-                      })
-                    ) : (
-                      <View className="rounded-full border border-white/[0.07] bg-[#1C1C1C] px-3 py-1.5">
-                        <Text className="text-[12px] font-medium text-[#9CA3AF]">No income yet</Text>
-                      </View>
-                    )}
-                  </View>
+                  <Text className="text-[15px] font-semibold text-white">Income</Text>
+                  <Text className="mt-0.5 text-[11.5px] text-[#777777]">This month</Text>
+                  <Text
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                    className="mt-3 text-[20px] font-bold tracking-tight text-white"
+                  >
+                    {formatMoney(monthlyIncome, currency)}
+                  </Text>
                 </Pressable>
               </View>
 

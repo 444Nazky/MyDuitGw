@@ -130,13 +130,13 @@ export function TransactionModal({
             onPress={handleSave}
             disabled={!canSave}
             className={`h-14 items-center justify-center rounded-2xl ${
-              canSave ? 'bg-accent-strong' : 'bg-white/15'
+              canSave ? 'bg-white' : 'bg-white/15'
             }`}
             style={({ pressed }) => (pressed && canSave ? { opacity: 0.88 } : null)}
           >
             <Text
               className={`text-[16px] font-semibold ${
-                canSave ? 'text-white' : 'text-white/40'
+                canSave ? 'text-black' : 'text-white/40'
               }`}
             >
               {editing ? 'Save Changes' : 'Save Transaction'}
