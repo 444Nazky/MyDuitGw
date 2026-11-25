@@ -6,11 +6,8 @@ module.exports = {
     extend: {
       colors: {
         obsidian: '#0A0A0A',
-        // Translucent surfaces: the ambient backdrop shows through and the
-        // card reads as frosted glass. Keep the alpha low enough that text
-        // contrast stays above 4.5:1.
-        card: 'rgba(26, 26, 31, 0.55)',
-        'card-raised': 'rgba(42, 42, 50, 0.68)',
+        card: '#1A1A1D',
+        'card-raised': '#232326',
         hairline: '#252529',
         ink: '#FAFAFA',
         muted: '#8E8E96',

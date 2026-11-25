@@ -15,7 +15,6 @@ import {
   Inter_800ExtraBold,
   useFonts,
 } from '@expo-google-fonts/inter';
-import { AmbientBackdrop } from '@/components/AmbientBackdrop';
 import { AuthScreen } from '@/components/AuthScreen';
 import { FinanceProvider, useFinance } from '@/context/FinanceContext';
 
@@ -42,7 +41,6 @@ export default function RootLayout() {
         <FinanceProvider>
           <StatusBar style="light" />
           <View className="flex-1 bg-obsidian">
-            <AmbientBackdrop />
             <RootContent />
           </View>
         </FinanceProvider>

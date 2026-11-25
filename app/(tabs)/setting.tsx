@@ -9,6 +9,7 @@ import {
 } from 'lucide-react-native';
 import { EditProfileModal } from '@/components/EditProfileModal';
 import { Screen } from '@/components/Screen';
+import { MetalFill } from '@/components/ui/MetalFill';
 import { UpdateModal } from '@/components/UpdateModal';
 import { useFinance } from '@/context/FinanceContext';
 import { initialsOf } from '@/lib/format';
@@ -82,7 +83,7 @@ export default function SettingScreen() {
   const openAbout = () => {
     Alert.alert(
       'About My Duit Gw',
-      'Version 1.0.9\n\nA personal finance and peer-to-peer loan tracker. Your data is synced to your My Duit Gw account.',
+      'Version 1.1.1\n\nA personal finance and peer-to-peer loan tracker. Your data is synced to your My Duit Gw account.',
     );
   };
 
@@ -93,9 +94,10 @@ export default function SettingScreen() {
 
         <Pressable
           onPress={() => setEditOpen(true)}
-          className="mt-6 flex-row items-center rounded-bento border border-white/[0.06] bg-card p-4"
+          className="relative mt-6 flex-row items-center overflow-hidden rounded-bento border border-white/[0.1] p-4"
           style={({ pressed }) => (pressed ? { opacity: 0.9 } : null)}
         >
+          <MetalFill />
           <View className="h-[54px] w-[54px] items-center justify-center overflow-hidden rounded-full bg-[#232326]">
             {profile.avatarUri ? (
               <Image source={{ uri: profile.avatarUri }} style={{ width: 54, height: 54 }} />
@@ -120,8 +122,9 @@ export default function SettingScreen() {
           <View className="flex-row gap-3">
             <Pressable
               onPress={() => setEditOpen(true)}
-              className="min-h-[150px] flex-1 rounded-bento border border-white/[0.06] bg-card p-4"
+              className="relative min-h-[150px] flex-1 overflow-hidden rounded-bento border border-white/[0.1] p-4"
             >
+              <MetalFill />
               <User size={26} color="#9B87FF" strokeWidth={1.6} />
               <View className="mt-auto">
                 <Text className="text-[16px] font-semibold text-ink">Profile Settings</Text>
@@ -131,8 +134,9 @@ export default function SettingScreen() {
 
             <Pressable
               onPress={exportData}
-              className="min-h-[150px] flex-1 rounded-bento border border-white/[0.06] bg-card p-4"
+              className="relative min-h-[150px] flex-1 overflow-hidden rounded-bento border border-white/[0.1] p-4"
             >
+              <MetalFill />
               <Download size={26} color="#9B87FF" strokeWidth={1.6} />
               <View className="mt-auto">
                 <Text className="text-[16px] font-semibold text-ink">Export Data</Text>
@@ -144,8 +148,9 @@ export default function SettingScreen() {
           <View className="flex-row gap-3">
             <Pressable
               onPress={() => setUpdateOpen(true)}
-              className="min-h-[150px] flex-1 rounded-bento border border-white/[0.06] bg-card p-4"
+              className="relative min-h-[150px] flex-1 overflow-hidden rounded-bento border border-white/[0.1] p-4"
             >
+              <MetalFill />
               <RefreshCw size={26} color="#9B87FF" strokeWidth={1.6} />
               <View className="mt-auto">
                 <Text className="text-[16px] font-semibold text-ink">App update</Text>
@@ -155,18 +160,20 @@ export default function SettingScreen() {
 
             <Pressable
               onPress={openAbout}
-              className="min-h-[150px] flex-1 rounded-bento border border-white/[0.06] bg-card p-4"
+              className="relative min-h-[150px] flex-1 overflow-hidden rounded-bento border border-white/[0.1] p-4"
             >
+              <MetalFill />
               <Info size={26} color="#9B87FF" strokeWidth={1.6} />
               <View className="mt-auto">
                 <Text className="text-[16px] font-semibold text-ink">About App</Text>
-                <Text className="mt-1 text-[12.5px] text-muted">Version 1.0.9</Text>
+                <Text className="mt-1 text-[12.5px] text-muted">Version 1.1.1</Text>
               </View>
             </Pressable>
           </View>
         </View>
 
-        <View className="mt-4 rounded-bento border border-white/[0.06] bg-card px-5 py-4">
+        <View className="relative mt-4 overflow-hidden rounded-bento border border-white/[0.1] px-5 py-4">
+          <MetalFill />
           <Text className="text-[11.5px] font-medium uppercase tracking-[1.5px] text-faint">
             Preferences
           </Text>
@@ -214,13 +221,14 @@ export default function SettingScreen() {
 
         <Pressable
           onPress={confirmSignOut}
-          className="mt-3 h-[58px] items-center justify-center rounded-bento border border-white/[0.08] bg-card-raised"
+          className="relative mt-3 h-[58px] items-center justify-center overflow-hidden rounded-bento border border-white/[0.1]"
           style={({ pressed }) => (pressed ? { opacity: 0.9 } : null)}
         >
+          <MetalFill />
           <Text className="text-[15.5px] font-semibold text-ink">Sign out</Text>
         </Pressable>
 
-        <Text className="mt-6 text-center text-[12px] text-faint">My Duit Gw · v1.0.9</Text>
+        <Text className="mt-6 text-center text-[12px] text-faint">My Duit Gw · v1.1.1</Text>
       </Screen>
 
       <EditProfileModal visible={editOpen} onClose={() => setEditOpen(false)} />

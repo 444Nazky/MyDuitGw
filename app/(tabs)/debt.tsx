@@ -4,6 +4,7 @@ import { Bookmark, Plus } from 'lucide-react-native';
 import { AddDebtModal } from '@/components/AddDebtModal';
 import { DebtDetailModal } from '@/components/DebtDetailModal';
 import { Screen } from '@/components/Screen';
+import { MetalFill } from '@/components/ui/MetalFill';
 import { useFinance } from '@/context/FinanceContext';
 import { formatMoney, formatShortDate, initialsOf } from '@/lib/format';
 
@@ -38,7 +39,8 @@ export default function DebtScreen() {
           </Pressable>
         </View>
 
-        <View className="mt-6 flex-row items-center rounded-bento border border-white/[0.06] bg-card p-5">
+        <View className="relative mt-6 flex-row items-center overflow-hidden rounded-bento border border-white/[0.1] p-5">
+          <MetalFill />
           <View className="flex-1">
             <Text className="text-[14.5px] text-muted">Total Lent Out</Text>
             <Text
@@ -57,7 +59,8 @@ export default function DebtScreen() {
         </View>
 
         {sortedDebts.length === 0 ? (
-          <View className="mt-6 items-center rounded-bento border border-white/[0.06] bg-card px-6 py-12">
+          <View className="relative mt-6 items-center overflow-hidden rounded-bento border border-white/[0.1] px-6 py-12">
+            <MetalFill />
             <Text className="text-[15.5px] font-medium text-ink">No loans recorded</Text>
             <Text className="mt-1.5 text-center text-[13.5px] text-muted">
               Tap Add Debt to log money you have lent out.
@@ -71,9 +74,10 @@ export default function DebtScreen() {
                 <Pressable
                   key={debt.id}
                   onPress={() => setSelectedId(debt.id)}
-                  className="flex-row items-center rounded-bento border border-white/[0.05] bg-card px-4 py-4"
+                  className="relative flex-row items-center overflow-hidden rounded-bento border border-white/[0.08] px-4 py-4"
                   style={({ pressed }) => (pressed ? { opacity: 0.86 } : null)}
                 >
+                  <MetalFill />
                   <View className="h-[44px] w-[44px] items-center justify-center rounded-full bg-[#232326]">
                     <Text className="text-[13px] font-semibold text-[#C9C9D1]">
                       {initialsOf(debt.borrowerName)}

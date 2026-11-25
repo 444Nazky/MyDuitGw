@@ -3,6 +3,7 @@ import { Pressable, ScrollView, Text, View } from 'react-native';
 import { ArrowUpDown } from 'lucide-react-native';
 import { DebtDetailModal } from '@/components/DebtDetailModal';
 import { Screen } from '@/components/Screen';
+import { MetalFill } from '@/components/ui/MetalFill';
 import { TransactionModal } from '@/components/TransactionModal';
 import { TransactionRow } from '@/components/TransactionRow';
 import { useFinance } from '@/context/FinanceContext';
@@ -125,7 +126,7 @@ export default function HistoryScreen() {
             accessibilityLabel="Toggle sort order"
             hitSlop={8}
             onPress={() => setNewestFirst((value) => !value)}
-            className="h-10 w-10 items-center justify-center rounded-full border border-white/[0.08] bg-card"
+            className="h-10 w-10 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.05]"
           >
             <ArrowUpDown size={18} color={newestFirst ? '#FAFAFA' : '#8E8E96'} />
           </Pressable>
@@ -146,7 +147,7 @@ export default function HistoryScreen() {
                 className={`h-[46px] justify-center rounded-full border px-5 ${
                   active
                     ? 'border-white bg-white'
-                    : 'border-white/[0.08] bg-card'
+                    : 'border-white/[0.08] bg-white/[0.05]'
                 }`}
               >
                 <Text
@@ -162,7 +163,8 @@ export default function HistoryScreen() {
         </ScrollView>
 
         {groups.length === 0 ? (
-          <View className="mt-10 items-center rounded-bento border border-white/[0.06] bg-card px-6 py-12">
+          <View className="relative mt-10 items-center overflow-hidden rounded-bento border border-white/[0.1] px-6 py-12">
+            <MetalFill />
             <Text className="text-[15.5px] font-medium text-ink">Nothing here yet</Text>
             <Text className="mt-1.5 text-center text-[13.5px] text-muted">
               Add a transaction from Home to start building your history.

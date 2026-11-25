@@ -503,13 +503,17 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
 
     const unpaidDebts = debts.filter((debt) => debt.status === 'unpaid');
 
+    // Money that is currently lent out has left the balance. Marking a loan as
+    // paid (or deleting it) drops it from this sum, so the money comes back.
+    const totalLentOut = unpaidDebts.reduce((sum, debt) => sum + debt.amount, 0);
+
     return {
-      totalBalance: totalIncome - totalExpense,
+      totalBalance: totalIncome - totalExpense - totalLentOut,
       monthlyIncome,
       monthlyExpense,
       monthlyNet: monthlyIncome - monthlyExpense,
       categoryBreakdown,
-      totalLentOut: unpaidDebts.reduce((sum, debt) => sum + debt.amount, 0),
+      totalLentOut,
       activeDebtCount: unpaidDebts.length,
       settledDebtCount: debts.length - unpaidDebts.length,
     };
