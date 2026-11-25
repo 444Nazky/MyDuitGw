@@ -30,7 +30,7 @@ module.exports = {
         amber: '#BEBEBE',
       },
       borderRadius: {
-        bento: '22px',
+        bento: '24px',
         pill: '999px',
       },
       fontFamily: {

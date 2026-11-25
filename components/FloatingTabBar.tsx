@@ -17,6 +17,10 @@ const LABELS: Record<string, string> = {
   setting: 'Setting',
 };
 
+/**
+ * Flat, edge-to-edge tab bar pinned to the bottom of the screen: a 1px
+ * hairline on #0A0A0A, 68px tall above the safe-area inset.
+ */
 export function FloatingTabBar({ state, navigateToTab }: BottomTabBarProps) {
   const insets = useSafeAreaInsets();
 
@@ -25,17 +29,16 @@ export function FloatingTabBar({ state, navigateToTab }: BottomTabBarProps) {
       pointerEvents="box-none"
       style={{ position: 'absolute', left: 0, right: 0, bottom: 0 }}
     >
-      <View className="mx-6" style={{ paddingBottom: Math.max(insets.bottom, 16), paddingTop: 8 }}>
-        <View
-          className="flex-row items-center rounded-[26px] bg-[#141414] px-2 py-2.5"
-          style={{
-            shadowColor: '#000000',
-            shadowOpacity: 0.6,
-            shadowRadius: 18,
-            shadowOffset: { width: 0, height: 10 },
-            elevation: 14,
-          }}
-        >
+      <View
+        style={{
+          backgroundColor: '#0A0A0A',
+          borderTopWidth: 1,
+          borderTopColor: '#161616',
+          paddingTop: 8,
+          paddingBottom: Math.max(insets.bottom, 8),
+        }}
+      >
+        <View className="flex-row items-center" style={{ height: 52 }}>
           {state.routes.map((route, index) => {
             const focused = state.index === index;
             const Icon = ICONS[route.name as keyof typeof ICONS] ?? House;
@@ -50,16 +53,17 @@ export function FloatingTabBar({ state, navigateToTab }: BottomTabBarProps) {
                 onPress={() => {
                   if (!focused) navigateToTab(route.key);
                 }}
-                className="flex-1 items-center justify-center gap-1.5 py-1"
+                className="flex-1 items-center justify-center"
+                style={{ gap: 4 }}
               >
                 <Icon
-                  size={22}
+                  size={20}
                   color={focused ? '#FFFFFF' : '#666666'}
-                  strokeWidth={focused ? 2.1 : 1.7}
+                  strokeWidth={focused ? 2 : 1.9}
                 />
                 <Text
-                  className={`text-[11.5px] ${
-                    focused ? 'font-semibold text-white' : 'font-medium text-[#666666]'
+                  className={`text-[11px] ${
+                    focused ? 'font-medium text-white' : 'font-medium text-[#666666]'
                   }`}
                 >
                   {label}

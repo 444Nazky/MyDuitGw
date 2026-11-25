@@ -57,7 +57,7 @@ export function Sparkline({ values }: SparklineProps) {
       <Path
         d={line}
         stroke={COLOR}
-        strokeWidth={2.5}
+        strokeWidth={2.2}
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"

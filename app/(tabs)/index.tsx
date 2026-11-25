@@ -157,8 +157,8 @@ export default function HomeScreen() {
 
   return (
     <View className="flex-1">
-      <Screen horizontalPadding={18}>
-        <View style={{ gap: 14 }}>
+      <Screen horizontalPadding={16}>
+        <View style={{ gap: 12 }}>
           {/* Header: avatar, search pill, AI sparkle, bell */}
           <View className="flex-row items-center" style={{ gap: 10 }}>
             <Pressable
@@ -188,6 +188,7 @@ export default function HomeScreen() {
                 placeholder="Search"
                 placeholderTextColor="#6B7280"
                 className="flex-1 text-[13px] text-ink"
+                style={{ paddingVertical: 0 }}
                 returnKeyType="search"
                 selectionColor="#8B5CF6"
               />
@@ -256,7 +257,7 @@ export default function HomeScreen() {
                 <Pressable
                   onPress={() => router.push('/history')}
                   className="flex-1 justify-between rounded-bento bg-[#141414] p-4"
-                  style={({ pressed }) => ({ minHeight: 140, opacity: pressed ? 0.9 : 1 })}
+                  style={({ pressed }) => ({ minHeight: 132, opacity: pressed ? 0.9 : 1 })}
                 >
                   <View>
                     <Text className="text-[15px] font-semibold text-white">Spending</Text>
@@ -289,7 +290,7 @@ export default function HomeScreen() {
                 <Pressable
                   onPress={() => router.push('/history')}
                   className="flex-1 justify-between rounded-bento bg-[#141414] p-4"
-                  style={({ pressed }) => ({ minHeight: 140, opacity: pressed ? 0.9 : 1 })}
+                  style={({ pressed }) => ({ minHeight: 132, opacity: pressed ? 0.9 : 1 })}
                 >
                   <View>
                     <Text className="text-[15px] font-semibold text-white">Income</Text>
@@ -321,12 +322,12 @@ export default function HomeScreen() {
               </View>
 
               {/* Quick actions */}
-              <View className="flex-row" style={{ gap: 10, height: 98 }}>
-                <View className="justify-between" style={{ width: 44 }}>
+              <View className="flex-row" style={{ gap: 12, height: 92 }}>
+                <View className="justify-between" style={{ width: 42 }}>
                   <Pressable
                     accessibilityLabel="Ask myduitgw AI"
                     onPress={() => setAiOpen(true)}
-                    className="h-11 w-11 items-center justify-center rounded-[14px] bg-[#141414]"
+                    className="h-[42px] w-[42px] items-center justify-center rounded-[14px] bg-[#141414]"
                     style={({ pressed }) => (pressed ? { opacity: 0.75 } : null)}
                   >
                     <Sparkles size={17} color="#8B5CF6" strokeWidth={2} />
@@ -334,7 +335,7 @@ export default function HomeScreen() {
                   <Pressable
                     accessibilityLabel="Add transaction"
                     onPress={() => setQuickInputOpen(true)}
-                    className="h-11 w-11 items-center justify-center rounded-[14px] bg-[#141414]"
+                    className="h-[42px] w-[42px] items-center justify-center rounded-[14px] bg-[#141414]"
                     style={({ pressed }) => (pressed ? { opacity: 0.75 } : null)}
                   >
                     <Plus size={18} color="#FFFFFF" strokeWidth={2} />
@@ -366,8 +367,8 @@ export default function HomeScreen() {
 
               {/* Monthly cashflow */}
               <View
-                className="flex-row items-end justify-between rounded-bento bg-[#141414] p-[18px]"
-                style={{ gap: 12 }}
+                className="flex-row items-end justify-between rounded-bento bg-[#141414]"
+                style={{ gap: 12, paddingVertical: 16, paddingHorizontal: 18 }}
               >
                 <View className="flex-1" style={{ gap: 4 }}>
                   <Text className="text-[15px] font-semibold text-white">Monthly Cashflow</Text>
